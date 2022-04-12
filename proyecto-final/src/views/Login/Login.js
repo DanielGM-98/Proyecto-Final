@@ -41,9 +41,9 @@ export default function Login() {
         >
           {errorMessage}
         </p>
-        <h1>Sign In</h1>
+        <h1>Inicia Sesión</h1>
         <form onSubmit={handleSubmit}>
-          <label htmlFor="email">Username:</label>
+          <label htmlFor="email">Correo electrónico:</label>
           <input
             type="text"
             id="email"
@@ -54,7 +54,7 @@ export default function Login() {
             value={user.email}
             required
           />
-          <label htmlFor="password">Password:</label>
+          <label htmlFor="password">Contraseña:</label>
           <input
             type="password"
             id="password"
@@ -63,7 +63,7 @@ export default function Login() {
             value={user.password}
             required
           />
-          <button className="btn btn-primary mt-3">Sign In</button>
+          <button className="btn btn-primary mt-3">Iniciar Sesión</button>
         </form>
         <p>
           ¿Aún no estás registrado? Registrate{" "}

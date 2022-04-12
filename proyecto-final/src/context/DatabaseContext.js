@@ -3,6 +3,7 @@ import { createContext, useContext, useState } from "react";
 const DatabaseContext = createContext({
   users: [],
   setUsers: () => {},
+  register: () => {},
 });
 
 export const useDatabaseContext = () => {
@@ -18,6 +19,19 @@ export default function DatabaseContextProvider({ children }) {
     }
   };
 
+  function register(data) {
+    let url = "http://localhost:8080/insertuser";
+
+    let xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function () {
+      if (this.readyState == 4 && this.status == 200) {
+        console.log(this.responseText);
+      }
+    };
+    xhttp.open("POST", url, true);
+    xhttp.setRequestHeader("Content-Type", "application/json");
+    xhttp.send(JSON.stringify(data));
+  }
   xhttp.open("GET", "http://localhost:8080/users", true);
   xhttp.send();
   const [users, setUsers] = useState(null);
@@ -25,6 +39,7 @@ export default function DatabaseContextProvider({ children }) {
   const value = {
     users,
     setUsers,
+    register,
   };
 
   return (
