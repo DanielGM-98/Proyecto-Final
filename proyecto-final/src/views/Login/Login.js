@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { useAuthContext } from "../../context/AuthContext";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate, useLocation, Link } from "react-router-dom";
 import "./Login.css";
 
 export default function Login() {
@@ -65,6 +65,12 @@ export default function Login() {
           />
           <button className="btn btn-primary mt-3">Sign In</button>
         </form>
+        <p>
+          ¿Aún no estás registrado? Registrate{" "}
+          <Link className="link-page" to="/registro">
+            aquí
+          </Link>
+        </p>
       </section>
     </div>
   );

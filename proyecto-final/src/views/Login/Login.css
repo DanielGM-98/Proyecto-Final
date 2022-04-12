@@ -42,6 +42,10 @@ a,
 a:visited {
   color: #fff;
 }
+
+.link-page{
+  color:rgb(70, 54, 161)!important
+}
 input[type="text"],
 input[type="password"],
 button,
@@ -102,9 +106,7 @@ button {
   align-items: flex-end;
 }
 
-a, a:visited{
-  color:blue
-}
+
 
 .signin{
     display: flex;

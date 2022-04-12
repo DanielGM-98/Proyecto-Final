@@ -6,14 +6,17 @@ import App from "./App";
 import AuthContextProvider from "./context/AuthContext";
 import reportWebVitals from "./reportWebVitals";
 import "bootstrap/dist/css/bootstrap.min.css";
+import DatabaseContextProvider from "./context/DatabaseContext";
 
 ReactDOM.render(
   <BrowserRouter>
-    <AuthContextProvider>
-      <Routes>
-        <Route path="/*" element={<App />} />
-      </Routes>
-    </AuthContextProvider>
+    <DatabaseContextProvider>
+      <AuthContextProvider>
+        <Routes>
+          <Route path="/*" element={<App />} />
+        </Routes>
+      </AuthContextProvider>
+    </DatabaseContextProvider>
   </BrowserRouter>,
   document.getElementById("root"),
 );

@@ -8,7 +8,8 @@ export default function Navbar() {
     document.getElementById("dismiss").classList.add("active");
     document.getElementsByClassName("overlay")[0].classList.remove("active");
   }
-  const { auth, setAuth, logout } = useAuthContext();
+  const { auth, logout } = useAuthContext();
+
   return (
     <div className="wrapper">
       <nav id="sidebar" className="active">
@@ -21,7 +22,7 @@ export default function Navbar() {
         </div>
 
         <ul className="list-unstyled components">
-          <p>Menú</p>
+          <p>{auth ? <>Bienvenido de nuevo, {auth.nombre}</> : <>Menú</>}</p>
           <li className="active">
             <Link
               data-toggle="collapse"

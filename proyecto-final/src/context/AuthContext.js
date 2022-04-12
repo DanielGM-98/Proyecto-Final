@@ -1,5 +1,5 @@
 import { createContext, useContext, useState } from "react";
-
+import { useDatabaseContext } from "./DatabaseContext";
 const AuthContext = createContext({
   auth: {},
   login: () => {},
@@ -12,6 +12,7 @@ export const useAuthContext = () => {
 };
 
 export default function AuthContextProvider({ children }) {
+  const { users } = useDatabaseContext();
   const [auth, setAuth] = useState(null);
   const [errorMessage, setErrorMessage] = useState("");
 
@@ -19,8 +20,15 @@ export default function AuthContextProvider({ children }) {
     setAuth(null);
   }
   function login(user) {
-    if (user.email === "pepe@email.com" && user.password === "1234") {
-      setAuth(user);
+    let x = 0;
+    for (let us of users) {
+      if (user.email === us.email && user.password === us.password) {
+        setAuth(us);
+        x++;
+      }
+    }
+
+    if (x > 0) {
       setErrorMessage("");
     } else {
       setErrorMessage("Email o contraseña incorrecto");
