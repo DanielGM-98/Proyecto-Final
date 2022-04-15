@@ -1,4 +1,5 @@
 import { createContext, useContext, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { useDatabaseContext } from "./DatabaseContext";
 const AuthContext = createContext({
   auth: {},
@@ -20,19 +21,23 @@ export default function AuthContextProvider({ children }) {
     setAuth(null);
   }
   function login(user) {
-    let x = 0;
+    let x = false;
     for (let us of users) {
       if (user.email === us.email && user.password === us.password) {
         setAuth(us);
-        x++;
+        x = true;
       }
     }
 
-    if (x > 0) {
+    if (x) {
       setErrorMessage("");
+      console.log(errorMessage);
     } else {
       setErrorMessage("Email o contraseña incorrecto");
+      console.log(errorMessage);
     }
+
+    return x;
   }
 
   const value = {

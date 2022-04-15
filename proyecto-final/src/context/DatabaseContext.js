@@ -12,7 +12,7 @@ export const useDatabaseContext = () => {
 };
 
 export default function DatabaseContextProvider({ children }) {
-  const { auth } = useAuthContext();
+  const { auth, login } = useAuthContext();
   const [users, setUsers] = useState(null);
 
   useEffect(
@@ -57,7 +57,7 @@ export default function DatabaseContextProvider({ children }) {
         console.log(this.responseText);
       }
     };
-    xhttp.open("PUT", url, true);
+    xhttp.open("POST", url, true);
     xhttp.setRequestHeader("Content-Type", "application/json");
     xhttp.send(JSON.stringify(data));
   }

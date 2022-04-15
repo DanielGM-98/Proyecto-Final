@@ -25,13 +25,16 @@ export default function Login() {
 
   function handleSubmit(e) {
     e.preventDefault();
-    login(user);
+    let x = login(user);
     setUser({
       email: "",
       password: "",
     });
-
-    navigate(from, { replace: true });
+    if (x) {
+      navigate("/inicio");
+    } else {
+      navigate("/login");
+    }
   }
   return (
     <div className="signin">
