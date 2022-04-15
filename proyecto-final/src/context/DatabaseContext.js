@@ -1,9 +1,10 @@
-import { createContext, useContext, useState } from "react";
-
+import { createContext, useContext, useState, useEffect } from "react";
+import { useAuthContext } from "./AuthContext";
 const DatabaseContext = createContext({
   users: [],
   setUsers: () => {},
   register: () => {},
+  updateUser: () => {},
 });
 
 export const useDatabaseContext = () => {
@@ -11,20 +12,34 @@ export const useDatabaseContext = () => {
 };
 
 export default function DatabaseContextProvider({ children }) {
-  let xhttp = new XMLHttpRequest();
+  const { auth } = useAuthContext();
+  const [users, setUsers] = useState(null);
 
-  xhttp.onreadystatechange = function () {
-    if (this.readyState === 4 && this.status === 200) {
-      setUsers(JSON.parse(this.responseText));
-    }
-  };
+  useEffect(
+    function () {
+      function callUsers() {
+        let xhttp = new XMLHttpRequest();
 
-  function register(data) {
-    let url = "http://localhost:8080/insertuser";
+        xhttp.onreadystatechange = function () {
+          if (this.readyState === 4 && this.status === 200) {
+            setUsers(JSON.parse(this.responseText));
+          }
+        };
+
+        xhttp.open("GET", "http://localhost:8080/users", true);
+        xhttp.send();
+      }
+      callUsers();
+    },
+    [auth],
+  );
+
+  function updateUser(data) {
+    let url = "http://localhost:8080/updateuser";
 
     let xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function () {
-      if (this.readyState == 4 && this.status == 200) {
+      if (this.readyState === 4 && this.status === 200) {
         console.log(this.responseText);
       }
     };
@@ -32,14 +47,26 @@ export default function DatabaseContextProvider({ children }) {
     xhttp.setRequestHeader("Content-Type", "application/json");
     xhttp.send(JSON.stringify(data));
   }
-  xhttp.open("GET", "http://localhost:8080/users", true);
-  xhttp.send();
-  const [users, setUsers] = useState(null);
+
+  function register(data) {
+    let url = "http://localhost:8080/insertuser";
+
+    let xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function () {
+      if (this.readyState === 4 && this.status === 200) {
+        console.log(this.responseText);
+      }
+    };
+    xhttp.open("PUT", url, true);
+    xhttp.setRequestHeader("Content-Type", "application/json");
+    xhttp.send(JSON.stringify(data));
+  }
 
   const value = {
     users,
     setUsers,
     register,
+    updateUser,
   };
 
   return (

@@ -8,6 +8,8 @@ import Login from "./views/Login";
 import Register from "./views/Register";
 import Missing from "./views/Missing";
 import Settings from "./views/Settings";
+import UserData from "./views/UserData";
+import UserUpdate from "./views/UserUpdate";
 
 function App() {
   return (
@@ -20,6 +22,8 @@ function App() {
           <Route index element={<Inicio />} />
           <Route path="facturas" element={<MyInvoices />} />
           <Route path="ajustes" element={<Settings />} />
+          <Route path="userdata" element={<UserData />} />
+          <Route path="editarusuario" element={<UserUpdate />} />
         </Route>
         <Route path="*" element={<Missing />} />
       </Route>

@@ -49,7 +49,6 @@ app.get("/users", function (req, res) {
       res.send(results);
     }
   });
-  desconectar(connection);
 });
 
 //Insertar usuarios
@@ -70,6 +69,30 @@ app.post("/insertuser", function (req, res) {
       }
     },
   );
+});
+
+//Actualizar usuarios
+app.post("/updateuser", function (req, res) {
+  let connection = conectar();
+
+  let id_usuario = req.body.id_usuario;
+  let nombre = req.body.nombre;
+  let apellidos = req.body.apellidos;
+  let password = req.body.password;
+
+  connection.query(
+    "update usuarios set nombre = ?,apellidos=?,password=? where id_usuario = ?",
+    [nombre, apellidos, password, id_usuario],
+    function (err) {
+      if (err) {
+        res.send("Error: " + err.message);
+      } else {
+        res.send("Usuario actualizado correctamente");
+      }
+    },
+  );
+  //Cerrar la conexión
+  desconectar(connection);
 });
 
 app.listen(8080);

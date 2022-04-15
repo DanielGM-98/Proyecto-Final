@@ -4,7 +4,7 @@ import { useNavigate, useLocation, Link } from "react-router-dom";
 import "./Login.css";
 
 export default function Login() {
-  const { login, errorMessage } = useAuthContext();
+  const { login, errorMessage, auth } = useAuthContext();
   const location = useLocation();
   const navigate = useNavigate();
   const userRef = useRef();
@@ -30,6 +30,7 @@ export default function Login() {
       email: "",
       password: "",
     });
+
     navigate(from, { replace: true });
   }
   return (
