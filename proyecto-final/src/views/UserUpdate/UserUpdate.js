@@ -4,8 +4,9 @@ import { useAuthContext } from "../../context/AuthContext";
 import { useDatabaseContext } from "../../context/DatabaseContext";
 export default function UserUpdate() {
   const { updateUser, success } = useDatabaseContext();
-  const { auth } = useAuthContext();
+  const { auth, setAuth } = useAuthContext();
   const [errorMsg, setErrorMsg] = useState("");
+  const [authCopy, setAuthCopy] = useState(auth);
 
   const userRef = useRef();
 
@@ -28,6 +29,14 @@ export default function UserUpdate() {
     e.preventDefault();
     console.table(user);
     updateUser(user);
+    setAuth({
+      id_usuario: authCopy.id_usuario,
+      nombre: user.nombre,
+      apellidos: user.apellidos,
+      password: user.password,
+      confirmado: authCopy.confirmado,
+      email: authCopy.email,
+    });
   }
   return (
     <div className="signin">

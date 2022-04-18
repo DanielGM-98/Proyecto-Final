@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 export default function Settings() {
   return (
     <div>
-      <h1>Ajustes</h1>
+      <h1>Panel de Control</h1>
       <div className="d-flex justify-content-around">
         <div>
           <h3>Ajustes de usuario</h3>

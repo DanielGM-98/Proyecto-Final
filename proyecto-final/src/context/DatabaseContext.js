@@ -14,6 +14,8 @@ export const useDatabaseContext = () => {
 export default function DatabaseContextProvider({ children }) {
   const { auth } = useAuthContext();
   const [users, setUsers] = useState(null);
+  const [act, setAct] = useState(0);
+  const [errorRegister, setErrorRegister] = useState("");
 
   useEffect(
     function () {
@@ -30,8 +32,9 @@ export default function DatabaseContextProvider({ children }) {
         xhttp.send();
       }
       callUsers();
+      console.log(users);
     },
-    [auth],
+    [act]
   );
 
   function updateUser(data) {
@@ -41,6 +44,8 @@ export default function DatabaseContextProvider({ children }) {
     xhttp.onreadystatechange = function () {
       if (this.readyState === 4 && this.status === 200) {
         console.log(this.responseText);
+
+        setAct(act + 1);
       }
     };
     xhttp.open("POST", url, true);
@@ -55,6 +60,12 @@ export default function DatabaseContextProvider({ children }) {
     xhttp.onreadystatechange = function () {
       if (this.readyState === 4 && this.status === 200) {
         console.log(this.responseText);
+        if (
+          this.responseText ===
+          `Error:ER_DUP_ENTRY: Duplicate entry '${data.email}' for key 'email_UNIQUE'`
+        )
+          setAct(act + 1);
+        console.log(act);
       }
     };
     xhttp.open("POST", url, true);

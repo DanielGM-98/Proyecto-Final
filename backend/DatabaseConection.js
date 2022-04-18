@@ -2,10 +2,12 @@ const express = require("express");
 const path = require("path");
 const app = express();
 let mysql = require("mysql");
+const cors = require("cors");
 
 app.use(express.static(path.join(__dirname, "public")));
 //Añadir si se va a usar el método POST
 app.use(express.json());
+app.use(cors());
 
 //----------------------------- Funciones -----------------------------
 function conectar() {
@@ -54,6 +56,7 @@ app.get("/users", function (req, res) {
 //Insertar usuarios
 app.post("/insertuser", function (req, res) {
   let connection = conectar();
+
   console.log(req.body);
   let nombre = req.body.nombre;
   let apellidos = req.body.apellidos;
@@ -67,7 +70,8 @@ app.post("/insertuser", function (req, res) {
       if (err) {
         res.send("Error:" + err.message);
       }
-    },
+      res.send("Usuario insertado!");
+    }
   );
 });
 
@@ -89,10 +93,9 @@ app.post("/updateuser", function (req, res) {
       } else {
         res.send("Usuario actualizado correctamente");
       }
-    },
+    }
   );
   //Cerrar la conexión
-  desconectar(connection);
 });
 
 app.listen(8080);

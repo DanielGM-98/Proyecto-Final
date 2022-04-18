@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useDatabaseContext } from "./DatabaseContext";
 const AuthContext = createContext({
   auth: {},
+  setAuth: () => {},
   login: () => {},
   errorMessage: "",
   logout: () => {},
@@ -42,6 +43,7 @@ export default function AuthContextProvider({ children }) {
 
   const value = {
     auth,
+    setAuth,
     login,
     errorMessage,
     logout,

@@ -13,12 +13,15 @@ export default function Navbar() {
   return (
     <div className="wrapper">
       <nav id="sidebar" className="active">
-        <div id="dismiss" className="btn btn-light" onClick={() => closeMenu()}>
-          <ArrowBackIcon />
-        </div>
-
         <div className="sidebar-header">
           <h3>Contabilidad</h3>
+          <div
+            id="dismiss"
+            className="btn btn-light"
+            onClick={() => closeMenu()}
+          >
+            <ArrowBackIcon />
+          </div>
         </div>
 
         <ul className="list-unstyled components">
