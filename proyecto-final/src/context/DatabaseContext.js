@@ -5,6 +5,7 @@ const DatabaseContext = createContext({
   setUsers: () => {},
   register: () => {},
   updateUser: () => {},
+  errorRegister: "",
 });
 
 export const useDatabaseContext = () => {
@@ -63,8 +64,12 @@ export default function DatabaseContextProvider({ children }) {
         if (
           this.responseText ===
           `Error:ER_DUP_ENTRY: Duplicate entry '${data.email}' for key 'email_UNIQUE'`
-        )
-          setAct(act + 1);
+        ) {
+          setErrorRegister("Error: Ya existe un usuario con ese email");
+        } else {
+          setErrorRegister("");
+        }
+        setAct(act + 1);
         console.log(act);
       }
     };
@@ -78,6 +83,7 @@ export default function DatabaseContextProvider({ children }) {
     setUsers,
     register,
     updateUser,
+    errorRegister,
   };
 
   return (

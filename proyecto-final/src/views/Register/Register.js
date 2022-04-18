@@ -3,7 +3,7 @@ import { useEffect, useRef, useState } from "react";
 import { useAuthContext } from "../../context/AuthContext";
 import { useDatabaseContext } from "../../context/DatabaseContext";
 export default function Register() {
-  const { register, success } = useDatabaseContext();
+  const { register, success, errorRegister } = useDatabaseContext();
   const { login, errorMessage } = useAuthContext();
   const location = useLocation();
   const navigate = useNavigate();
@@ -35,10 +35,10 @@ export default function Register() {
     <div className="signin">
       <section>
         <p
-          className={errorMessage ? "errmsg" : "offscreen"}
+          className={errorRegister ? "errmsg" : "offscreen"}
           aria-live="assertive"
         >
-          {errorMessage}
+          {errorRegister}
         </p>
         <h1>Regístrate</h1>
         <form onSubmit={handleSubmit}>
