@@ -12,7 +12,7 @@ export const useDatabaseContext = () => {
 };
 
 export default function DatabaseContextProvider({ children }) {
-  const { auth, login } = useAuthContext();
+  const { auth } = useAuthContext();
   const [users, setUsers] = useState(null);
 
   useEffect(
