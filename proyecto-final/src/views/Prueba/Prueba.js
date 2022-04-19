@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from "react";
 import { PDFViewer } from "@react-pdf/renderer";
 import Invoice from "../../components/PDF/Invoice";
-import invoice from "../../data/invoice-data";
+import { invoice } from "../../data/invoice-data";
 
 export default function Prueba() {
   return (
