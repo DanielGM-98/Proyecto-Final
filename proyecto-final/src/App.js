@@ -10,6 +10,7 @@ import Missing from "./views/Missing";
 import Settings from "./views/Settings";
 import UserData from "./views/UserData";
 import UserUpdate from "./views/UserUpdate";
+import Prueba from "./views/Prueba";
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
         <Route path="inicio" element={<Inicio />} />
         <Route path="login" element={<Login />} />
         <Route path="registro" element={<Register />} />
+        <Route path="prueba" element={<Prueba />} />
         <Route element={<RequireAuth />}>
           <Route index element={<Inicio />} />
           <Route path="facturas" element={<MyInvoices />} />
