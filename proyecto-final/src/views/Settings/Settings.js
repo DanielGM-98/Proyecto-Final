@@ -20,6 +20,9 @@ export default function Settings() {
         </div>
         <div>
           <h3>Ajustes de sociedades</h3>
+          <p>
+            <Link to="/creasociedad">Añadir nueva sociedad</Link>
+          </p>
           <p>Mis sociedades</p>
           <p>Editar datos de las sociedades</p>
         </div>

@@ -8,9 +8,9 @@ export default function SocietyCreate() {
   const navigate = useNavigate();
   const userRef = useRef();
   const [user, setUser] = useState({
-    nombre: "",
-    apellidos: "",
-    email: "",
+    nombre_sociedad: "",
+    direccion_sociedad: "",
+    email_sociedad: "",
     password: "",
   });
 
@@ -37,56 +37,50 @@ export default function SocietyCreate() {
         >
           {errorRegister}
         </p>
-        <h1>Regístrate</h1>
+        <h1>Añadir nueva Sociedad</h1>
         <form onSubmit={handleSubmit}>
-          <label htmlFor="nombre">Nombre:</label>
+          <label htmlFor="nombre">Nombre de la sociedad:</label>
           <input
             type="text"
             id="nombre"
-            name="nombre"
+            name="nombre_sociedad"
             ref={userRef}
             autoComplete="off"
             onChange={handleInputs}
-            value={user.nombre}
+            value={user.nombre_sociedad}
             required
           />
-          <label htmlFor="apellidos">Apellidos:</label>
+          <label htmlFor="direccion_sociedad">Dirección de la sociedad:</label>
           <input
             type="text"
-            id="apellidos"
-            name="apellidos"
+            id="direccion_sociedad"
+            name="direccion_sociedad"
             autoComplete="off"
             onChange={handleInputs}
-            value={user.apellidos}
+            value={user.direccion_sociedad}
             required
           />
-          <label htmlFor="email">Correo electrónico:</label>
+          <label htmlFor="email">Correo electrónico de la sociedad:</label>
           <input
             type="text"
-            id="email"
-            name="email"
+            id="email_sociedad"
+            name="email_sociedad"
             autoComplete="off"
             onChange={handleInputs}
-            value={user.email}
+            value={user.email_sociedad}
             required
           />
-          <label htmlFor="password">Contraseña:</label>
+          <label htmlFor="telefono_sociedad">Teléfono de la sociedad:</label>
           <input
-            type="password"
-            id="password"
-            name="password"
+            type="number"
+            id="telefono_sociedad"
+            name="telefono_sociedad"
             onChange={handleInputs}
-            value={user.password}
+            value={user.telefono_sociedad}
             required
           />
           <button className="btn btn-primary mt-3">Confirmar Datos</button>
         </form>
-        <p>
-          ¿Ya estás registrado? Inicia sesión{" "}
-          <Link className="link-page" to="/login">
-            aquí
-          </Link>
-        </p>
       </section>
     </div>
   );
