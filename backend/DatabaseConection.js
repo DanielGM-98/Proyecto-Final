@@ -69,8 +69,9 @@ app.post("/insertuser", function (req, res) {
     function (err, results) {
       if (err) {
         res.send("Error:" + err.message);
+      } else {
+        res.send("Usuario insertado!");
       }
-      res.send("Usuario insertado!");
     }
   );
 });

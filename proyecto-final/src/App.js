@@ -11,6 +11,7 @@ import Settings from "./views/Settings";
 import UserData from "./views/UserData";
 import UserUpdate from "./views/UserUpdate";
 import Prueba from "./views/Prueba";
+import SocietyCreate from "./views/SocietyCreate";
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
           <Route path="ajustes" element={<Settings />} />
           <Route path="userdata" element={<UserData />} />
           <Route path="editarusuario" element={<UserUpdate />} />
+          <Route path="creasociedad" element={<SocietyCreate />} />
         </Route>
         <Route path="*" element={<Missing />} />
       </Route>

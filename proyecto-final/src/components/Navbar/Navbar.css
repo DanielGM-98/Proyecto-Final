@@ -122,3 +122,7 @@ ul ul a {
 #sidebar.active {
     margin-left: -250px;
 }
+
+.btn-color{
+    background-color: #6d7fcc!important;
+}

@@ -1,4 +1,5 @@
 import MenuIcon from "@mui/icons-material/Menu";
+import "../Navbar/Navbar.css";
 export default function NavbarButton() {
   function showMenu() {
     document.getElementById("dismiss").classList.remove("active");
@@ -13,7 +14,7 @@ export default function NavbarButton() {
           <button
             type="button"
             id="sidebarCollapse"
-            className="btn btn-info"
+            className="btn btn-color"
             onClick={() => showMenu()}
           >
             <MenuIcon />

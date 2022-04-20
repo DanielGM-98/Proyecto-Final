@@ -36,10 +36,10 @@ const styles = StyleSheet.create({
 
 const InvoiceTableHeader = () => (
   <View style={styles.container}>
-    <Text style={styles.description}>Item Description</Text>
-    <Text style={styles.qty}>Qty</Text>
-    <Text style={styles.rate}>@</Text>
-    <Text style={styles.amount}>Amount</Text>
+    <Text style={styles.description}>Descripción</Text>
+    <Text style={styles.qty}>Cantidad</Text>
+    <Text style={styles.rate}>Precio</Text>
+    <Text style={styles.amount}>Total</Text>
   </View>
 );
 

@@ -11,11 +11,31 @@ const styles = StyleSheet.create({
     textAlign: "center",
     textTransform: "uppercase",
   },
+
+  container: {
+    marginTop: "15px",
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    height: 24,
+    fontStyle: "bold",
+    flexGrow: 1,
+  },
 });
 
 const InvoiceThankYouMsg = () => (
   <View style={styles.titleContainer}>
-    <Text style={styles.reportTitle}>Thank you for your business</Text>
+    <div style={styles.container}>
+      <div>
+        <Text style={styles.reportTitle}>Gracias!</Text>
+      </div>
+      <div>
+        <Text style={styles.reportTitle}>Forma de pago</Text>
+        <Text>Banco Santander</Text>
+        <Text>IBAN: 1234</Text>
+        <Text>SWIFT:111111111111</Text>
+      </div>
+    </div>
   </View>
 );
 
