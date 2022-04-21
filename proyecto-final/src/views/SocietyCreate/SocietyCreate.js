@@ -3,15 +3,16 @@ import { useEffect, useRef, useState } from "react";
 
 import { useDatabaseContext } from "../../context/DatabaseContext";
 export default function SocietyCreate() {
-  const { register, errorRegister } = useDatabaseContext();
+  const { errorRegister, registerSociety } = useDatabaseContext();
 
   const navigate = useNavigate();
   const userRef = useRef();
-  const [user, setUser] = useState({
+  const [sociedad, setSociedad] = useState({
     nombre_sociedad: "",
     direccion_sociedad: "",
     email_sociedad: "",
-    password: "",
+    telefono_sociedad: "",
+    icono_empresa: "",
   });
 
   useEffect(function () {
@@ -19,13 +20,13 @@ export default function SocietyCreate() {
   }, []);
 
   function handleInputs(e) {
-    setUser({ ...user, [e.target.name]: e.target.value });
+    setSociedad({ ...sociedad, [e.target.name]: e.target.value });
   }
 
   function handleSubmit(e) {
     e.preventDefault();
-    register(user);
-
+    //registerSociety(sociedad);
+    console.log(sociedad);
     navigate("/ajustes");
   }
   return (
@@ -47,7 +48,7 @@ export default function SocietyCreate() {
             ref={userRef}
             autoComplete="off"
             onChange={handleInputs}
-            value={user.nombre_sociedad}
+            value={sociedad.nombre_sociedad}
             required
           />
           <label htmlFor="direccion_sociedad">Dirección de la sociedad:</label>
@@ -57,7 +58,7 @@ export default function SocietyCreate() {
             name="direccion_sociedad"
             autoComplete="off"
             onChange={handleInputs}
-            value={user.direccion_sociedad}
+            value={sociedad.direccion_sociedad}
             required
           />
           <label htmlFor="email">Correo electrónico de la sociedad:</label>
@@ -67,7 +68,7 @@ export default function SocietyCreate() {
             name="email_sociedad"
             autoComplete="off"
             onChange={handleInputs}
-            value={user.email_sociedad}
+            value={sociedad.email_sociedad}
             required
           />
           <label htmlFor="telefono_sociedad">Teléfono de la sociedad:</label>
@@ -76,7 +77,16 @@ export default function SocietyCreate() {
             id="telefono_sociedad"
             name="telefono_sociedad"
             onChange={handleInputs}
-            value={user.telefono_sociedad}
+            value={sociedad.telefono_sociedad}
+            required
+          />
+          <label htmlFor="icono_sociedad">Imagen de la sociedad:</label>
+          <input
+            type="file"
+            id="icono_empresa"
+            name="icono_empresa"
+            accept="image/png, image/jpeg"
+            onChange={handleInputs}
             required
           />
           <button className="btn btn-primary mt-3">Confirmar Datos</button>

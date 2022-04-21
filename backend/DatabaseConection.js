@@ -76,6 +76,30 @@ app.post("/insertuser", function (req, res) {
   );
 });
 
+//Insertar sociedades
+app.post("/insertsociety", function (req, res) {
+  let connection = conectar();
+
+  console.log(req.body);
+  let nombre = req.body.nombre_sociedad;
+  let direccion = req.body.direccion_sociedad;
+  let email = req.body.email_sociedad;
+  let telefono = req.body.telefono_sociedad;
+  let icono = req.body.icono_sociedad;
+
+  connection.query(
+    "insert into sociedades(nombre_sociedad,telefono_sociedad,email_sociedad,direccion_sociedad,logo) values(?,?,?,?)",
+    [nombre, telefono, email, direccion, icono],
+    function (err, results) {
+      if (err) {
+        res.send("Error:" + err.message);
+      } else {
+        res.send("Usuario insertado!");
+      }
+    }
+  );
+});
+
 //Actualizar usuarios
 app.post("/updateuser", function (req, res) {
   let connection = conectar();
