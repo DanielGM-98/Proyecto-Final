@@ -21,7 +21,9 @@ export default function Settings() {
         <div>
           <h3>Ajustes de sociedades</h3>
           <p>
-            <Link to="/creasociedad">Añadir nueva sociedad</Link>
+            <Link to="/creasociedad" className="link-page">
+              Añadir nueva sociedad
+            </Link>
           </p>
           <p>Mis sociedades</p>
           <p>Editar datos de las sociedades</p>
