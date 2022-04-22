@@ -2,12 +2,15 @@ import { Link, useNavigate } from "react-router-dom";
 import { useEffect, useRef, useState } from "react";
 
 import { useDatabaseContext } from "../../context/DatabaseContext";
+import { useAuthContext } from "../../context/AuthContext";
 export default function SocietyCreate() {
   const { errorRegister, registerSociety } = useDatabaseContext();
+  const { auth } = useAuthContext();
 
   const navigate = useNavigate();
   const userRef = useRef();
   const [sociedad, setSociedad] = useState({
+    id_usuario: auth.id_usuario,
     nombre_sociedad: "",
     direccion_sociedad: "",
     email_sociedad: "",

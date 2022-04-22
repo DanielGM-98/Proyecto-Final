@@ -25,7 +25,11 @@ export default function Settings() {
               Añadir nueva sociedad
             </Link>
           </p>
-          <p>Mis sociedades</p>
+          <p>
+            <Link to="/missociedades" className="link-page">
+              Mis sociedades
+            </Link>
+          </p>
           <p>Editar datos de las sociedades</p>
         </div>
       </div>

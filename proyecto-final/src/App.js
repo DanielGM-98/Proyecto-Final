@@ -13,6 +13,7 @@ import UserUpdate from "./views/UserUpdate";
 
 import SocietyCreate from "./views/SocietyCreate";
 import Factura from "./views/Factura";
+import MySocieties from "./views/MySocieties";
 
 function App() {
   return (
@@ -29,6 +30,7 @@ function App() {
           <Route path="userdata" element={<UserData />} />
           <Route path="editarusuario" element={<UserUpdate />} />
           <Route path="creasociedad" element={<SocietyCreate />} />
+          <Route path="missociedades" element={<MySocieties />} />
         </Route>
         <Route path="*" element={<Missing />} />
       </Route>

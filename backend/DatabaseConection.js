@@ -40,6 +40,8 @@ function desconectar(connection) {
 
 //----------------------------- Consultas -----------------------------
 
+//----------------------------- Consultas de usuarios -----------------------------
+
 //Obtener todos los usuarios
 app.get("/users", function (req, res) {
   let connection = conectar();
@@ -72,31 +74,7 @@ app.post("/insertuser", function (req, res) {
       } else {
         res.send("Usuario insertado!");
       }
-    }
-  );
-});
-
-//Insertar sociedades
-app.post("/insertsociety", function (req, res) {
-  let connection = conectar();
-
-  console.log(req.body);
-  let nombre = req.body.nombre_sociedad;
-  let direccion = req.body.direccion_sociedad;
-  let email = req.body.email_sociedad;
-  let telefono = req.body.telefono_sociedad;
-  let icono = req.body.icono_sociedad;
-
-  connection.query(
-    "insert into sociedades(nombre_sociedad,telefono_sociedad,email_sociedad,direccion_sociedad,logo) values(?,?,?,?)",
-    [nombre, telefono, email, direccion, icono],
-    function (err, results) {
-      if (err) {
-        res.send("Error:" + err.message);
-      } else {
-        res.send("Usuario insertado!");
-      }
-    }
+    },
   );
 });
 
@@ -118,9 +96,55 @@ app.post("/updateuser", function (req, res) {
       } else {
         res.send("Usuario actualizado correctamente");
       }
-    }
+    },
   );
   //Cerrar la conexión
+});
+
+//----------------------------- Consultas de sociedades -----------------------------
+
+//Seleccionar todas las sociedades por id del usuario que ha iniciado sesión
+app.post("/selectsociety", function (req, res) {
+  let connection = conectar();
+  let id_usuario = req.body.id_usuario;
+
+  connection.query(
+    "select * from sociedades where id_usuario = ?",
+    [id_usuario],
+    function (err, results) {
+      if (err) {
+        res.send("Error: " + err.message);
+      } else {
+        res.send(results);
+      }
+    },
+  );
+  //Cerrar la conexión
+});
+
+//Insertar sociedades
+app.post("/insertsociety", function (req, res) {
+  let connection = conectar();
+
+  console.log(req.body);
+  let nombre = req.body.nombre_sociedad;
+  let direccion = req.body.direccion_sociedad;
+  let email = req.body.email_sociedad;
+  let telefono = req.body.telefono_sociedad;
+  let icono = req.body.icono_sociedad;
+  let id_usuario = req.body.id_usuario;
+
+  connection.query(
+    "insert into sociedades(nombre_sociedad,telefono_sociedad,email_sociedad,direccion_sociedad,logo,id_usuario) values(?,?,?,?,?,?)",
+    [nombre, telefono, email, direccion, icono, id_usuario],
+    function (err, results) {
+      if (err) {
+        res.send("Error:" + err.message);
+      } else {
+        res.send("Usuario insertado!");
+      }
+    },
+  );
 });
 
 app.listen(8080);
