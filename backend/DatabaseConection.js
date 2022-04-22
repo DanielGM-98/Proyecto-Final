@@ -74,7 +74,7 @@ app.post("/insertuser", function (req, res) {
       } else {
         res.send("Usuario insertado!");
       }
-    },
+    }
   );
 });
 
@@ -96,15 +96,15 @@ app.post("/updateuser", function (req, res) {
       } else {
         res.send("Usuario actualizado correctamente");
       }
-    },
+    }
   );
   //Cerrar la conexión
 });
 
 //----------------------------- Consultas de sociedades -----------------------------
 
-//Seleccionar todas las sociedades por id del usuario que ha iniciado sesión
-app.post("/selectsociety", function (req, res) {
+//Seleccionar todas las sociedades por id de la sociedad que ha iniciado sesión
+app.post("/selectsocieties", function (req, res) {
   let connection = conectar();
   let id_usuario = req.body.id_usuario;
 
@@ -117,7 +117,27 @@ app.post("/selectsociety", function (req, res) {
       } else {
         res.send(results);
       }
-    },
+    }
+  );
+  //Cerrar la conexión
+});
+
+//Seleccionar todas las sociedades por id del usuario que ha iniciado sesión
+app.post("/selectsociety", function (req, res) {
+  let connection = conectar();
+  let id_sociedad = req.body.id_sociedad;
+
+  connection.query(
+    "select * from sociedades where id_sociedad = ?",
+    [id_sociedad],
+    function (err, results) {
+      if (err) {
+        res.send("Error: " + err.message);
+      } else {
+        console.log(results);
+        res.send(results);
+      }
+    }
   );
   //Cerrar la conexión
 });
@@ -126,24 +146,26 @@ app.post("/selectsociety", function (req, res) {
 app.post("/insertsociety", function (req, res) {
   let connection = conectar();
 
-  console.log(req.body);
   let nombre = req.body.nombre_sociedad;
   let direccion = req.body.direccion_sociedad;
   let email = req.body.email_sociedad;
   let telefono = req.body.telefono_sociedad;
-  let icono = req.body.icono_sociedad;
+  let icono = req.body.icono_empresa;
+
+  icono = icono.split("\\");
+  let iconoFull = "http://localhost:8080/images/" + icono[2];
   let id_usuario = req.body.id_usuario;
 
   connection.query(
     "insert into sociedades(nombre_sociedad,telefono_sociedad,email_sociedad,direccion_sociedad,logo,id_usuario) values(?,?,?,?,?,?)",
-    [nombre, telefono, email, direccion, icono, id_usuario],
+    [nombre, telefono, email, direccion, iconoFull, id_usuario],
     function (err, results) {
       if (err) {
         res.send("Error:" + err.message);
       } else {
-        res.send("Usuario insertado!");
+        res.send("Sociedad insertada!");
       }
-    },
+    }
   );
 });
 

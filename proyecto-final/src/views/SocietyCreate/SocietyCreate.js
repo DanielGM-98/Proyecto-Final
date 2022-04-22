@@ -28,7 +28,7 @@ export default function SocietyCreate() {
 
   function handleSubmit(e) {
     e.preventDefault();
-    //registerSociety(sociedad);
+    registerSociety(sociedad);
     console.log(sociedad);
     navigate("/ajustes");
   }

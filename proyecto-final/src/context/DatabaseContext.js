@@ -7,6 +7,7 @@ const DatabaseContext = createContext({
   updateUser: () => {},
   errorRegister: "",
   registerSociety: () => {},
+  society: [],
 });
 
 export const useDatabaseContext = () => {
@@ -19,6 +20,7 @@ export default function DatabaseContextProvider({ children }) {
   const [act, setAct] = useState(0);
   const [errorRegister, setErrorRegister] = useState("");
   const [errorRegisterSociety, setErrorRegisterSociety] = useState("");
+  const [society, setSociety] = useState(null);
 
   useEffect(
     function () {
@@ -38,6 +40,48 @@ export default function DatabaseContextProvider({ children }) {
       console.log(users);
     },
     [act]
+  );
+
+  useEffect(
+    function () {
+      function callSociety() {
+        let xhttp = new XMLHttpRequest();
+        let data = { id_usuario: auth.id_usuario };
+        xhttp.onreadystatechange = function () {
+          if (this.readyState === 4 && this.status === 200) {
+            setSociety(JSON.parse(this.responseText));
+          }
+        };
+
+        xhttp.open("POST", "http://localhost:8080/selectsociety", true);
+        xhttp.setRequestHeader("Content-Type", "application/json");
+        xhttp.send(JSON.stringify(data));
+      }
+      callSociety();
+      console.log(society);
+    },
+    [auth]
+  );
+
+  useEffect(
+    function () {
+      function callSociety() {
+        let xhttp = new XMLHttpRequest();
+        let data = { id_usuario: auth.id_usuario };
+        xhttp.onreadystatechange = function () {
+          if (this.readyState === 4 && this.status === 200) {
+            setSociety(JSON.parse(this.responseText));
+          }
+        };
+
+        xhttp.open("POST", "http://localhost:8080/selectsociety", true);
+        xhttp.setRequestHeader("Content-Type", "application/json");
+        xhttp.send(JSON.stringify(data));
+      }
+      callSociety();
+      console.log(society);
+    },
+    [auth]
   );
 
   function updateUser(data) {
@@ -110,6 +154,7 @@ export default function DatabaseContextProvider({ children }) {
     updateUser,
     errorRegister,
     registerSociety,
+    society,
   };
 
   return (
