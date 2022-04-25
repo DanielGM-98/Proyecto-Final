@@ -25,6 +25,9 @@ export default function CreateInvoice() {
     company.datos.push(data);
     console.log(data);
     console.log(company);
+    document.getElementById("descripcion").value = "";
+    document.getElementById("cantidad").value = "";
+    document.getElementById("precio").value = "";
   }
 
   function handleData(e) {
@@ -253,7 +256,6 @@ export default function CreateInvoice() {
               name="cantidad"
               autoComplete="off"
               onChange={handleData}
-              value={data.cantidad}
               required
             />
             <label htmlFor="precio">Precio:</label>
@@ -263,7 +265,6 @@ export default function CreateInvoice() {
               name="precio"
               autoComplete="off"
               onChange={handleData}
-              value={data.precio}
               required
             />
             <button className="btn btn-primary mt-3">Añadir elemento</button>
