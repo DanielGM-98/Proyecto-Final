@@ -74,7 +74,7 @@ app.post("/insertuser", function (req, res) {
       } else {
         res.send("Usuario insertado!");
       }
-    }
+    },
   );
 });
 
@@ -96,7 +96,7 @@ app.post("/updateuser", function (req, res) {
       } else {
         res.send("Usuario actualizado correctamente");
       }
-    }
+    },
   );
   //Cerrar la conexión
 });
@@ -117,7 +117,7 @@ app.post("/selectsocieties", function (req, res) {
       } else {
         res.send(results);
       }
-    }
+    },
   );
   //Cerrar la conexión
 });
@@ -134,10 +134,9 @@ app.post("/selectsociety", function (req, res) {
       if (err) {
         res.send("Error: " + err.message);
       } else {
-        console.log(results);
         res.send(results);
       }
-    }
+    },
   );
   //Cerrar la conexión
 });
@@ -165,7 +164,7 @@ app.post("/insertsociety", function (req, res) {
       } else {
         res.send("Sociedad insertada!");
       }
-    }
+    },
   );
 });
 

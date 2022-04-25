@@ -31,7 +31,7 @@ export default function Login() {
       password: "",
     });
     if (x) {
-      navigate("/inicio");
+      navigate("/ajustes");
     } else {
       navigate("/login");
     }

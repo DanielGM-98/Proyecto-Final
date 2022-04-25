@@ -64,6 +64,16 @@ export default function Navbar() {
                 <Link
                   data-toggle="collapse"
                   aria-expanded="false"
+                  to="crearfactura"
+                  onClick={() => closeMenu()}
+                >
+                  Crear Factura
+                </Link>
+              </li>
+              <li>
+                <Link
+                  data-toggle="collapse"
+                  aria-expanded="false"
                   to="facturas"
                   onClick={() => closeMenu()}
                 >

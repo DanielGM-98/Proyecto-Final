@@ -1,5 +1,6 @@
 import { useEffect, useContext, useState } from "react";
 import { useAuthContext } from "../../context/AuthContext";
+import { Link } from "react-router-dom";
 export default function MySocieties() {
   const [society, setSociety] = useState();
 
@@ -30,7 +31,7 @@ export default function MySocieties() {
       }
       callSocieties();
     },
-    [auth, n]
+    [auth, n],
   );
 
   //Llama a una sociedad
@@ -51,10 +52,10 @@ export default function MySocieties() {
       }
       callSociety();
     },
-    [n]
+    [n],
   );
 
-  if (!society || society.length === 0)
+  if (!society)
     return (
       <div>
         <h1>Mis Sociedades</h1>
@@ -64,9 +65,30 @@ export default function MySocieties() {
       </div>
     );
 
+  if (society.length === 0) {
+    return (
+      <div>
+        <h1>Mis Sociedades</h1>
+        <div>
+          <p>Aún no has añadido ninguna sociedad</p>
+          <p>
+            Para poder utilizar la aplicación es necesario registrar al menos
+            una sociedad
+          </p>
+          <p>
+            Para añadir una sociedad pulsa{" "}
+            <Link className="link-page" to="/creasociedad">
+              aquí
+            </Link>
+          </p>
+        </div>
+      </div>
+    );
+  }
   return (
     <div>
       <h1>Mis Sociedades</h1>
+      <p>Seleccione una sociedad:</p>
       <select name="select" onChange={handleSelect}>
         {society.map((soc) => (
           <option value={soc.id_sociedad}>{soc.nombre_sociedad}</option>

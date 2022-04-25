@@ -1,10 +1,8 @@
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { useEffect, useRef, useState } from "react";
-import { useAuthContext } from "../../context/AuthContext";
 import { useDatabaseContext } from "../../context/DatabaseContext";
 export default function Register() {
-  const { register, success, errorRegister } = useDatabaseContext();
-  const { login, errorMessage } = useAuthContext();
+  const { register, errorRegister } = useDatabaseContext();
   const location = useLocation();
   const navigate = useNavigate();
   const userRef = useRef();
