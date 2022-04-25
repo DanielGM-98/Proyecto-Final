@@ -32,10 +32,8 @@ export default function AuthContextProvider({ children }) {
 
     if (x) {
       setErrorMessage("");
-      console.log(errorMessage);
     } else {
       setErrorMessage("Email o contraseña incorrecto");
-      console.log(errorMessage);
     }
 
     return x;

@@ -31,7 +31,7 @@ export default function MySocieties() {
       }
       callSocieties();
     },
-    [auth, n],
+    [auth, n]
   );
 
   //Llama a una sociedad
@@ -52,7 +52,7 @@ export default function MySocieties() {
       }
       callSociety();
     },
-    [n],
+    [n]
   );
 
   if (!society)
@@ -100,7 +100,7 @@ export default function MySocieties() {
             <strong>Nombre de la sociedad:</strong>{" "}
             {sociedad[0].nombre_sociedad}
           </p>
-          <img src={sociedad[0].logo} />
+          <img src={sociedad[0].logo} alt="..." />
         </div>
       ) : (
         <div className="mt-4">

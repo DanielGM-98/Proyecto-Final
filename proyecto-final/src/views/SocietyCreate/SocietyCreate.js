@@ -16,6 +16,7 @@ export default function SocietyCreate() {
     email_sociedad: "",
     telefono_sociedad: "",
     icono_empresa: "",
+    codigo_pais: "",
   });
 
   useEffect(function () {
@@ -74,6 +75,17 @@ export default function SocietyCreate() {
             value={sociedad.email_sociedad}
             required
           />
+          <label htmlFor="telefono_sociedad">Código del país:</label>
+          <input
+            type="number"
+            id="codigo_pais"
+            max="999"
+            min="1"
+            name="codigo_pais"
+            onChange={handleInputs}
+            value={sociedad.codigo_pais}
+            required
+          />
           <label htmlFor="telefono_sociedad">Teléfono de la sociedad:</label>
           <input
             type="number"
@@ -83,6 +95,7 @@ export default function SocietyCreate() {
             value={sociedad.telefono_sociedad}
             required
           />
+
           <label htmlFor="icono_sociedad">Imagen de la sociedad:</label>
           <input
             type="file"

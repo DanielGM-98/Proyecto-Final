@@ -4,12 +4,12 @@ import { useNavigate, useLocation, Link } from "react-router-dom";
 import "./Login.css";
 
 export default function Login() {
-  const { login, errorMessage, auth } = useAuthContext();
-  const location = useLocation();
+  const { login, errorMessage } = useAuthContext();
+  //const location = useLocation();
   const navigate = useNavigate();
   const userRef = useRef();
 
-  const from = location.state?.from?.pathname || "/";
+  //const from = location.state?.from?.pathname || "/";
   const [user, setUser] = useState({
     email: "",
     password: "",

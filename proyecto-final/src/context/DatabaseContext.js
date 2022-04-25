@@ -37,7 +37,6 @@ export default function DatabaseContextProvider({ children }) {
         xhttp.send();
       }
       callUsers();
-      console.log(users);
     },
     [act]
   );
@@ -58,7 +57,6 @@ export default function DatabaseContextProvider({ children }) {
         xhttp.send(JSON.stringify(data));
       }
       callSociety();
-      console.log(society);
     },
     [auth]
   );
@@ -79,7 +77,6 @@ export default function DatabaseContextProvider({ children }) {
         xhttp.send(JSON.stringify(data));
       }
       callSociety();
-      console.log(society);
     },
     [auth]
   );
@@ -90,8 +87,6 @@ export default function DatabaseContextProvider({ children }) {
     let xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function () {
       if (this.readyState === 4 && this.status === 200) {
-        console.log(this.responseText);
-
         setAct(act + 1);
       }
     };
@@ -106,7 +101,6 @@ export default function DatabaseContextProvider({ children }) {
     let xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function () {
       if (this.readyState === 4 && this.status === 200) {
-        console.log(this.responseText);
         if (
           this.responseText ===
           `Error:ER_DUP_ENTRY: Duplicate entry '${data.email}' for key 'email_UNIQUE'`
@@ -116,7 +110,6 @@ export default function DatabaseContextProvider({ children }) {
           setErrorRegister("");
         }
         setAct(act + 1);
-        console.log(act);
       }
     };
     xhttp.open("POST", url, true);
@@ -130,7 +123,6 @@ export default function DatabaseContextProvider({ children }) {
     let xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function () {
       if (this.readyState === 4 && this.status === 200) {
-        console.log(this.responseText);
         if (
           this.responseText ===
           `Error:ER_DUP_ENTRY: Duplicate entry '${data.email}' for key 'email_UNIQUE'`
@@ -140,7 +132,6 @@ export default function DatabaseContextProvider({ children }) {
           setErrorRegisterSociety("");
         }
         setAct(act + 1);
-        console.log(act);
       }
     };
     xhttp.open("POST", url, true);

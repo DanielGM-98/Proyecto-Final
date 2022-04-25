@@ -2,26 +2,34 @@ import { useEffect, useContext, useState, useRef } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { useAuthContext } from "../../context/AuthContext";
 import { useDatabaseContext } from "../../context/DatabaseContext";
+import { v4 as uuidv4 } from "uuid";
 export default function CreateInvoice() {
-  const [society, setSociety] = useState();
+  const [society, setSociety] = useState(null);
 
   const [sociedad, setSociedad] = useState(null);
   const { auth } = useAuthContext();
   const [idsociedad, setIdSociedad] = useState(1);
   const [n, setN] = useState(0);
 
-  const { register, errorRegister } = useDatabaseContext();
-  const location = useLocation();
   const navigate = useNavigate();
   const userRef = useRef();
 
-  const from = location.state?.from?.pathname || "/";
-  const [company, setCompany] = useState({
-    nombre_empresa: "",
-    direccion_empresa: "",
-    email: "",
-    state_empresa: "",
+  const [data, setData] = useState({
+    descripcion: "",
+    cantidad: "",
+    precio: "",
   });
+
+  function handleDatos(e) {
+    e.preventDefault();
+    company.datos.push(data);
+    console.log(data);
+    console.log(company);
+  }
+
+  function handleData(e) {
+    setData({ ...data, [e.target.name]: e.target.value });
+  }
 
   function handleInputs(e) {
     setCompany({ ...company, [e.target.name]: e.target.value });
@@ -29,12 +37,16 @@ export default function CreateInvoice() {
 
   function handleSubmit(e) {
     e.preventDefault();
+    company.logo = sociedad[0].logo;
+    company.nombre_sociedad = sociedad[0].nombre_sociedad;
+    console.log(company);
     //register(company);
 
-    navigate(from, { replace: true });
+    //navigate(from, { replace: true });
   }
   function handleSelect(e) {
     setIdSociedad(e.target.value);
+    console.log(sociedad);
     setN(n + 1);
   }
 
@@ -56,7 +68,7 @@ export default function CreateInvoice() {
       }
       callSocieties();
     },
-    [auth, n],
+    [auth, n]
   );
 
   //Llama a una sociedad
@@ -77,10 +89,33 @@ export default function CreateInvoice() {
       }
       callSociety();
     },
-    [n],
+    [n]
   );
 
+  const [company, setCompany] = useState({
+    id: uuidv4(),
+    nombre_empresa: "",
+    direccion_empresa: "",
+    email: "",
+    codigo_pais: "",
+    telefono_company: "",
+    date: "",
+    datos: [],
+    nombre_sociedad: "",
+    logo: "",
+  });
+
   if (!society)
+    return (
+      <div>
+        <h1>Mis Sociedades</h1>
+        <div>
+          <p>Cargando...</p>
+        </div>
+      </div>
+    );
+
+  if (!sociedad)
     return (
       <div>
         <h1>Mis Sociedades</h1>
@@ -118,10 +153,13 @@ export default function CreateInvoice() {
       <h3>Seleccione una sociedad:</h3>
       <select name="select" onChange={handleSelect}>
         {society.map((soc) => (
-          <option value={soc.id_sociedad}>{soc.nombre_sociedad}</option>
+          <option value={soc.id_sociedad} key={soc.id_sociedad}>
+            {soc.nombre_sociedad}
+          </option>
         ))}
       </select>
 
+      <h3 className="mt-3">Introduzca los datos de la empresa: </h3>
       <div className="signin">
         <section>
           {/* <p
@@ -130,8 +168,8 @@ export default function CreateInvoice() {
           >
             {errorRegister}
           </p> */}
-          <h3>Introduzca los datos de la empresa: </h3>
           <form onSubmit={handleSubmit}>
+            <p>Datos de la empresa</p>
             <label htmlFor="nombre">Nombre de la empresa:</label>
             <input
               type="text"
@@ -153,15 +191,7 @@ export default function CreateInvoice() {
               value={company.direccion_empresa}
               required
             />
-            <label htmlFor="state">Estado de la empresa:</label>
-            <input
-              type="text"
-              id="state"
-              name="state_empresa"
-              onChange={handleInputs}
-              value={company.state_empresa}
-              required
-            />
+
             <label htmlFor="email">Correo electrónico:</label>
             <input
               type="text"
@@ -172,8 +202,71 @@ export default function CreateInvoice() {
               value={company.email}
               required
             />
+            <label htmlFor="codigo_pais">Código del país:</label>
+            <input
+              type="number"
+              id="codigo_pais"
+              max="999"
+              min="1"
+              name="codigo_pais"
+              onChange={handleInputs}
+              value={company.codigo_pais}
+              required
+            />
+            <label htmlFor="telefono_company">Teléfono de la empresa:</label>
+            <input
+              type="number"
+              id="telefono_company"
+              name="telefono_company"
+              onChange={handleInputs}
+              value={company.telefono_company}
+              required
+            />
+            <p>Datos de la transacción</p>
 
             <button className="btn btn-primary mt-3">Confirmar Datos</button>
+          </form>
+          <form onSubmit={handleDatos}>
+            <label htmlFor="date">Fecha de la transacción:</label>
+            <input
+              type="date"
+              id="date"
+              name="date"
+              onChange={handleInputs}
+              value={company.date}
+              required
+            />
+            <label htmlFor="descripcion">Descripción del elemento:</label>
+            <input
+              type="text"
+              id="descripcion"
+              name="descripcion"
+              autoComplete="off"
+              onChange={handleData}
+              value={data.descripcion}
+              required
+            />
+            <label htmlFor="cantidad">Cantidad:</label>
+            <input
+              type="number"
+              id="cantidad"
+              name="cantidad"
+              autoComplete="off"
+              onChange={handleData}
+              value={data.cantidad}
+              required
+            />
+            <label htmlFor="precio">Precio:</label>
+            <input
+              type="number"
+              id="precio"
+              name="precio"
+              autoComplete="off"
+              onChange={handleData}
+              value={data.precio}
+              required
+            />
+            <button className="btn btn-primary mt-3">Añadir elemento</button>
           </form>
         </section>
       </div>
