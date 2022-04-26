@@ -138,7 +138,6 @@ app.post("/selectsociety", function (req, res) {
       }
     },
   );
-  //Cerrar la conexión
 });
 
 //Insertar sociedades
@@ -163,6 +162,66 @@ app.post("/insertsociety", function (req, res) {
         res.send("Error:" + err.message);
       } else {
         res.send("Sociedad insertada!");
+      }
+    },
+  );
+});
+
+//----------------------------- Consultas de facturas -----------------------------
+//Seleccionar todas las facturas
+app.post("/selectinvoices", function (req, res) {
+  let connection = conectar();
+  console.log(req.body);
+  let id_sociedad = req.body.id_sociedad;
+  connection.query(
+    "select * from facturas where id_sociedad=?",
+    [id_sociedad],
+    function (err, results) {
+      if (err) {
+        res.send(err);
+      } else {
+        res.send(results);
+      }
+    },
+  );
+});
+
+//Insertar factura
+app.post("/insertinvoice", function (req, res) {
+  let connection = conectar();
+
+  let codigo = req.body.id;
+  let nombre_empresa = req.body.nombre_empresa;
+  let direccion_empresa = req.body.direccion_empresa;
+  let email = req.body.email;
+  let codigo_pais = req.body.codigo_pais;
+  let telefono_empresa = req.body.telefono_company;
+  let logo = req.body.logo;
+  let date = req.body.date;
+  let nombre_sociedad = req.body.nombre_sociedad;
+  let id_sociedad = req.body.id_sociedad;
+  let datos = JSON.stringify(req.body.datos);
+
+  connection.query(
+    "insert into facturas(codigo,nombre_empresa,direccion_empresa,email,codigo_pais,telefono_empresa,date,nombre_sociedad,logo,id_sociedad,datos) values(?,?,?,?,?,?,?,?,?,?,?)",
+    [
+      codigo,
+      nombre_empresa,
+      direccion_empresa,
+      email,
+      codigo_pais,
+      telefono_empresa,
+      date,
+      nombre_sociedad,
+      logo,
+      id_sociedad,
+      datos,
+    ],
+    function (err, results) {
+      if (err) {
+        res.send("Error:" + err.message);
+      } else {
+        res.send("Factura insertada insertada!");
       }
     },
   );

@@ -8,6 +8,7 @@ const DatabaseContext = createContext({
   errorRegister: "",
   registerSociety: () => {},
   society: [],
+  registerInvoice: () => {},
 });
 
 export const useDatabaseContext = () => {
@@ -38,7 +39,7 @@ export default function DatabaseContextProvider({ children }) {
       }
       callUsers();
     },
-    [act]
+    [act],
   );
 
   useEffect(
@@ -58,27 +59,7 @@ export default function DatabaseContextProvider({ children }) {
       }
       callSociety();
     },
-    [auth]
-  );
-
-  useEffect(
-    function () {
-      function callSociety() {
-        let xhttp = new XMLHttpRequest();
-        let data = { id_usuario: auth.id_usuario };
-        xhttp.onreadystatechange = function () {
-          if (this.readyState === 4 && this.status === 200) {
-            setSociety(JSON.parse(this.responseText));
-          }
-        };
-
-        xhttp.open("POST", "http://localhost:8080/selectsociety", true);
-        xhttp.setRequestHeader("Content-Type", "application/json");
-        xhttp.send(JSON.stringify(data));
-      }
-      callSociety();
-    },
-    [auth]
+    [auth],
   );
 
   function updateUser(data) {
@@ -95,6 +76,7 @@ export default function DatabaseContextProvider({ children }) {
     xhttp.send(JSON.stringify(data));
   }
 
+  //Función para registrar un usuario
   function register(data) {
     let url = "http://localhost:8080/insertuser";
 
@@ -117,6 +99,7 @@ export default function DatabaseContextProvider({ children }) {
     xhttp.send(JSON.stringify(data));
   }
 
+  //Función para registrar una sociedad
   function registerSociety(data) {
     let url = "http://localhost:8080/insertsociety";
 
@@ -138,6 +121,28 @@ export default function DatabaseContextProvider({ children }) {
     xhttp.setRequestHeader("Content-Type", "application/json");
     xhttp.send(JSON.stringify(data));
   }
+
+  function registerInvoice(data) {
+    let url = "http://localhost:8080/insertinvoice";
+
+    let xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function () {
+      if (this.readyState === 4 && this.status === 200) {
+        if (
+          this.responseText ===
+          `Error:ER_DUP_ENTRY: Duplicate entry '${data.email}' for key 'email_UNIQUE'`
+        ) {
+          setErrorRegister("Error: Ya existe un usuario con ese email");
+        } else {
+          setErrorRegister("");
+        }
+        setAct(act + 1);
+      }
+    };
+    xhttp.open("POST", url, true);
+    xhttp.setRequestHeader("Content-Type", "application/json");
+    xhttp.send(JSON.stringify(data));
+  }
   const value = {
     users,
     setUsers,
@@ -146,6 +151,7 @@ export default function DatabaseContextProvider({ children }) {
     errorRegister,
     registerSociety,
     society,
+    registerInvoice,
   };
 
   return (

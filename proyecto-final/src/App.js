@@ -15,6 +15,7 @@ import SocietyCreate from "./views/SocietyCreate";
 import Factura from "./views/Factura";
 import MySocieties from "./views/MySocieties";
 import CreateInvoice from "./views/CreateInvoice";
+import Facturas from "./views/Facturas";
 
 function App() {
   return (
@@ -26,7 +27,7 @@ function App() {
         <Route path="factura" element={<Factura />} />
         <Route element={<RequireAuth />}>
           <Route index element={<Inicio />} />
-          <Route path="facturas" element={<MyInvoices />} />
+          <Route path="facturas" element={<Facturas />} />
           <Route path="ajustes" element={<Settings />} />
           <Route path="userdata" element={<UserData />} />
           <Route path="editarusuario" element={<UserUpdate />} />

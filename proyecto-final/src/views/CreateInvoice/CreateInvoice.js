@@ -5,11 +5,11 @@ import { useDatabaseContext } from "../../context/DatabaseContext";
 import { v4 as uuidv4 } from "uuid";
 export default function CreateInvoice() {
   const [society, setSociety] = useState(null);
-
-  const [sociedad, setSociedad] = useState(null);
-  const { auth } = useAuthContext();
-  const [idsociedad, setIdSociedad] = useState(1);
   const [n, setN] = useState(0);
+  const [sociedad, setSociedad] = useState(null);
+  const [idsociedad, setIdSociedad] = useState(1);
+  const { registerInvoice } = useDatabaseContext();
+  const { auth } = useAuthContext();
 
   const navigate = useNavigate();
   const userRef = useRef();
@@ -42,8 +42,10 @@ export default function CreateInvoice() {
     e.preventDefault();
     company.logo = sociedad[0].logo;
     company.nombre_sociedad = sociedad[0].nombre_sociedad;
+    company.id_sociedad = sociedad[0].id_sociedad;
+
     console.log(company);
-    //register(company);
+    registerInvoice(company);
 
     //navigate(from, { replace: true });
   }
@@ -71,7 +73,7 @@ export default function CreateInvoice() {
       }
       callSocieties();
     },
-    [auth, n]
+    [auth, n],
   );
 
   //Llama a una sociedad
@@ -92,7 +94,7 @@ export default function CreateInvoice() {
       }
       callSociety();
     },
-    [n]
+    [n],
   );
 
   const [company, setCompany] = useState({
@@ -106,6 +108,7 @@ export default function CreateInvoice() {
     datos: [],
     nombre_sociedad: "",
     logo: "",
+    id_sociedad: "",
   });
 
   if (!society)
@@ -230,7 +233,7 @@ export default function CreateInvoice() {
             <button className="btn btn-primary mt-3">Confirmar Datos</button>
           </form>
           <form onSubmit={handleDatos}>
-            <label htmlFor="date">Fecha de la transacción:</label>
+            <label htmlFor="date">Fecha de la operación:</label>
             <input
               type="date"
               id="date"
