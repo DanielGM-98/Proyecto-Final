@@ -12,7 +12,7 @@ export default function Facturas() {
 
   function handleSelect(e) {
     setIdSociedad(e.target.value);
-    console.log(sociedad);
+    console.log(facturas);
     setN(n + 1);
   }
   //Llamar a todas las sociedades
@@ -33,7 +33,7 @@ export default function Facturas() {
       }
       callSocieties();
     },
-    [auth, n],
+    [auth, n]
   );
 
   //Llamar a una sociedad
@@ -54,7 +54,7 @@ export default function Facturas() {
       }
       callSociety();
     },
-    [n],
+    [n]
   );
 
   //Llamar a todas las facturas del usuario
@@ -66,7 +66,25 @@ export default function Facturas() {
         let data = { id_sociedad: idsociedad };
         xhttp.onreadystatechange = function () {
           if (this.readyState === 4 && this.status === 200) {
-            setFacturas(JSON.parse(this.responseText));
+            let x = JSON.parse(this.responseText);
+            let j = [];
+
+            for (let y of x) {
+              let h = JSON.parse(y.datos);
+              j = [];
+              for (let z of h) {
+                console.log(h);
+                j.push(z);
+                y.datos = j;
+              }
+
+              //let j = JSON.parse(y);
+              /* console.log(j); */
+            }
+
+            //x.datos = j;
+            console.log(x);
+            setFacturas(x);
           }
         };
 
@@ -76,7 +94,7 @@ export default function Facturas() {
       }
       callFacturas();
     },
-    [auth, n],
+    [auth, n]
   );
 
   if (!society || !sociedad || !facturas) {
@@ -123,9 +141,20 @@ export default function Facturas() {
         ))}
       </select>
       <div>
-        {facturas.map((factura) => (
-          <p>{factura.nombre_empresa}</p>
-        ))}
+        {facturas.length === 0 ? (
+          <p>Añade una factura para poder mostrar algo</p>
+        ) : (
+          <div>
+            {facturas.map((factura) => (
+              <div key={factura.id_factura} className="my-5">
+                <p>{factura.nombre_empresa}</p>
+                {factura.datos.map((fac) => (
+                  <p>{fac.descripcion}</p>
+                ))}
+              </div>
+            ))}
+          </div>
+        )}
       </div>
     </div>
   );

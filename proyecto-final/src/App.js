@@ -28,6 +28,7 @@ function App() {
         <Route element={<RequireAuth />}>
           <Route index element={<Inicio />} />
           <Route path="facturas" element={<Facturas />} />
+          <Route path="prueba" element={<Factura />} />
           <Route path="ajustes" element={<Settings />} />
           <Route path="userdata" element={<UserData />} />
           <Route path="editarusuario" element={<UserUpdate />} />
