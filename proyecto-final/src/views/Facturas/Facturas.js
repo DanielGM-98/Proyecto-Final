@@ -12,7 +12,7 @@ export default function Facturas() {
 
   function handleSelect(e) {
     setIdSociedad(e.target.value);
-    console.log(facturas);
+    //console.log(facturas);
     setN(n + 1);
   }
   //Llamar a todas las sociedades
@@ -33,7 +33,7 @@ export default function Facturas() {
       }
       callSocieties();
     },
-    [auth, n],
+    [auth, n]
   );
 
   //Llamar a una sociedad
@@ -54,7 +54,7 @@ export default function Facturas() {
       }
       callSociety();
     },
-    [n],
+    [n]
   );
 
   //Llamar a todas las facturas del usuario
@@ -67,7 +67,7 @@ export default function Facturas() {
         xhttp.onreadystatechange = function () {
           if (this.readyState === 4 && this.status === 200) {
             let x = JSON.parse(this.responseText);
-            console.log(x);
+            //console.log(x);
             let j = [];
 
             for (let y of x) {
@@ -97,7 +97,7 @@ export default function Facturas() {
       }
       callFacturas();
     },
-    [auth, n],
+    [auth, n]
   );
 
   if (!society || !sociedad || !facturas) {
@@ -150,13 +150,16 @@ export default function Facturas() {
           <div className="container mt-5">
             <div className="row">
               {facturas.map((factura) => (
-                <div class="card flex-md-row mb-4 shadow-sm h-md-250 w-25 mx-3">
-                  <div class="card-body d-flex flex-column">
-                    <h6 class="mb-0">
-                      <p class="text-dark">{factura.nombre_empresa}</p>
+                <div
+                  className="card flex-md-row mb-4 shadow-sm h-md-250 w-25 mx-3"
+                  key={factura.id_factura}
+                >
+                  <div className="card-body d-flex flex-column">
+                    <h6 className="mb-0">
+                      <p className="text-dark">{factura.nombre_empresa}</p>
                     </h6>
-                    <div class="mb-1 text-muted small">{factura.date}</div>
-                    <p class="card-text mb-auto">
+                    <div className="mb-1 text-muted small">{factura.date}</div>
+                    <p className="card-text mb-auto">
                       This is a wider card with supporting text below as a
                       natural lead-in to additional content.
                     </p>
@@ -171,7 +174,7 @@ export default function Facturas() {
                       </div>
                       <div>
                         <a
-                          class="btn btn-danger btn-sm"
+                          className="btn btn-danger btn-sm"
                           role="button"
                           href="http://www.jquery2dotnet.com/"
                         >

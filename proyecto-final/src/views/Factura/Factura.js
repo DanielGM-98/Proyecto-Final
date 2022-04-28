@@ -3,10 +3,11 @@ import { PDFViewer } from "@react-pdf/renderer";
 import Invoice from "../../components/PDF/Invoice";
 import { useParams } from "react-router-dom";
 import logo from "../../components/PDF/images/logo.jpg";
+
 export default function Prueba() {
-  //Llamar a todas las facturas del usuario
   const { id } = useParams();
   const [factura, setFactura] = useState(null);
+  //Llamar a todas las facturas del usuario
   useEffect(
     function () {
       function callFactura() {
@@ -46,7 +47,7 @@ export default function Prueba() {
       }
       callFactura();
     },
-    [id],
+    [id]
   );
   let invoice = {
     id: "5df3180a09ea16dc4b95f910",
