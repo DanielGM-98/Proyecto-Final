@@ -24,7 +24,6 @@ function App() {
         <Route path="inicio" element={<Inicio />} />
         <Route path="login" element={<Login />} />
         <Route path="registro" element={<Register />} />
-        <Route path="factura" element={<Factura />} />
         <Route element={<RequireAuth />}>
           <Route index element={<Inicio />} />
           <Route path="facturas" element={<Facturas />} />
@@ -35,6 +34,7 @@ function App() {
           <Route path="creasociedad" element={<SocietyCreate />} />
           <Route path="missociedades" element={<MySocieties />} />
           <Route path="crearfactura" element={<CreateInvoice />} />
+          <Route path="factura/:id" element={<Factura />} />
         </Route>
         <Route path="*" element={<Missing />} />
       </Route>

@@ -30,7 +30,7 @@ export default function Navbar() {
             <Link
               data-toggle="collapse"
               aria-expanded="false"
-              to="prueba"
+              to="inicio"
               onClick={() => closeMenu()}
             >
               Inicio

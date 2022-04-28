@@ -33,7 +33,7 @@ export default function Facturas() {
       }
       callSocieties();
     },
-    [auth, n]
+    [auth, n],
   );
 
   //Llamar a una sociedad
@@ -54,7 +54,7 @@ export default function Facturas() {
       }
       callSociety();
     },
-    [n]
+    [n],
   );
 
   //Llamar a todas las facturas del usuario
@@ -67,13 +67,15 @@ export default function Facturas() {
         xhttp.onreadystatechange = function () {
           if (this.readyState === 4 && this.status === 200) {
             let x = JSON.parse(this.responseText);
+            console.log(x);
             let j = [];
 
             for (let y of x) {
+              //console.log(y);
               let h = JSON.parse(y.datos);
               j = [];
               for (let z of h) {
-                console.log(h);
+                //console.log(h);
                 j.push(z);
                 y.datos = j;
               }
@@ -83,8 +85,9 @@ export default function Facturas() {
             }
 
             //x.datos = j;
-            console.log(x);
+            //console.log(x);
             setFacturas(x);
+            //console.log(facturas);
           }
         };
 
@@ -94,7 +97,7 @@ export default function Facturas() {
       }
       callFacturas();
     },
-    [auth, n]
+    [auth, n],
   );
 
   if (!society || !sociedad || !facturas) {
@@ -144,18 +147,54 @@ export default function Facturas() {
         {facturas.length === 0 ? (
           <p>Añade una factura para poder mostrar algo</p>
         ) : (
-          <div>
-            {facturas.map((factura) => (
-              <div key={factura.id_factura} className="my-5">
-                <p>{factura.nombre_empresa}</p>
-                {factura.datos.map((fac) => (
-                  <p>{fac.descripcion}</p>
-                ))}
-              </div>
-            ))}
+          <div className="container mt-5">
+            <div className="row">
+              {facturas.map((factura) => (
+                <div class="card flex-md-row mb-4 shadow-sm h-md-250 w-25 mx-3">
+                  <div class="card-body d-flex flex-column">
+                    <h6 class="mb-0">
+                      <p class="text-dark">{factura.nombre_empresa}</p>
+                    </h6>
+                    <div class="mb-1 text-muted small">{factura.date}</div>
+                    <p class="card-text mb-auto">
+                      This is a wider card with supporting text below as a
+                      natural lead-in to additional content.
+                    </p>
+                    <div className="d-flex justify-content-around">
+                      <div>
+                        <Link
+                          className="btn btn-primary btn-sm"
+                          to={`/factura/${factura.id_factura}`}
+                        >
+                          Ver Factura
+                        </Link>
+                      </div>
+                      <div>
+                        <a
+                          class="btn btn-danger btn-sm"
+                          role="button"
+                          href="http://www.jquery2dotnet.com/"
+                        >
+                          Eliminar
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
         )}
       </div>
     </div>
   );
+}
+
+{
+  /* <div key={factura.id_factura} className="my-5">
+                <p>{factura.nombre_empresa}</p>
+                {factura.datos.map((fac) => (
+                  <p>{fac.descripcion}</p>
+                ))}
+              </div> */
 }

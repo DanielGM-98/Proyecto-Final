@@ -1,18 +1,64 @@
-import React, { Component, Fragment } from "react";
+import React, { Component, Fragment, useEffect, useState } from "react";
 import { PDFViewer } from "@react-pdf/renderer";
 import Invoice from "../../components/PDF/Invoice";
-
+import { useParams } from "react-router-dom";
+import logo from "../../components/PDF/images/logo.jpg";
 export default function Prueba() {
-  const invoice = {
+  //Llamar a todas las facturas del usuario
+  const { id } = useParams();
+  const [factura, setFactura] = useState(null);
+  useEffect(
+    function () {
+      function callFactura() {
+        let xhttp = new XMLHttpRequest();
+        let data = { id_factura: id };
+
+        xhttp.onreadystatechange = function () {
+          if (this.readyState === 4 && this.status === 200) {
+            let x = JSON.parse(this.responseText);
+            //console.log(x);
+            let j = [];
+
+            for (let y of x) {
+              //console.log(y);
+              let h = JSON.parse(y.datos);
+              j = [];
+              for (let z of h) {
+                //console.log(h);
+                j.push(z);
+                y.datos = j;
+              }
+
+              //let j = JSON.parse(y);
+              /* console.log(j); */
+            }
+
+            //x.datos = j;
+            //console.log(x);
+            setFactura(x[0]);
+            //console.log(factura);
+          }
+        };
+
+        xhttp.open("POST", "http://localhost:8080/selectinvoice", true);
+        xhttp.setRequestHeader("Content-Type", "application/json");
+        xhttp.send(JSON.stringify(data));
+      }
+      callFactura();
+    },
+    [id],
+  );
+  let invoice = {
     id: "5df3180a09ea16dc4b95f910",
     invoice_no: "201906-28",
     balance: "$2,283.74",
-    company: "MANTRIX",
+    company: "empresa",
     email: "susanafuentes@mantrix.com",
     phone: "+1 (872) 588-3809",
     address: "922 Campus Road, Drytown, Wisconsin, 1986",
     trans_date: "2019-09-12",
     due_date: "2019-10-12",
+    logo: logo,
     items: [
       {
         sno: 1,
@@ -46,6 +92,29 @@ export default function Prueba() {
       },
     ],
   };
+  if (factura) {
+    invoice = {
+      id: factura.codigo,
+      invoice_no: "201906-28",
+      balance: "$2,283.74",
+      company: factura.nombre_empresa,
+      email: factura.email,
+      phone: "+" + factura.codigo_pais + " " + factura.telefono_empresa,
+      address: factura.direccion_empresa,
+      trans_date: factura.date,
+      due_date: "2019-10-12",
+      items: factura.datos,
+      logo: factura.logo,
+    };
+  }
+
+  if (!factura) {
+    return (
+      <div>
+        <h1>Cargando...</h1>
+      </div>
+    );
+  }
   return (
     <Fragment>
       <PDFViewer width="1000" height="600" className="app">

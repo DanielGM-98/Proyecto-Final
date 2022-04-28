@@ -174,12 +174,33 @@ app.post("/selectinvoices", function (req, res) {
   console.log(req.body);
   let id_sociedad = req.body.id_sociedad;
   connection.query(
-    "select * from facturas where id_sociedad=?",
+    "select * from facturas where id_sociedad=? order by date",
     [id_sociedad],
     function (err, results) {
       if (err) {
         res.send(err);
       } else {
+        console.log(results);
+        res.send(results);
+      }
+    },
+  );
+});
+
+//Seleccionar una factura
+//Seleccionar todas las facturas
+app.post("/selectinvoice", function (req, res) {
+  let connection = conectar();
+  console.log(req.body);
+  let id_factura = req.body.id_factura;
+  connection.query(
+    "select * from facturas where id_factura=?",
+    [id_factura],
+    function (err, results) {
+      if (err) {
+        res.send(err);
+      } else {
+        console.log(results);
         res.send(results);
       }
     },
