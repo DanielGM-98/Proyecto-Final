@@ -20,6 +20,17 @@ export default function CreateInvoice() {
     precio: "",
   });
 
+  //Funciones para hacer desaparecer los elementos anteriores y hacer aparecer los nuevos
+  function next1() {
+    document.getElementById("element1").classList.add("d-none");
+    document.getElementById("element3").classList.remove("d-none");
+  }
+
+  function next2() {
+    document.getElementById("element3").classList.add("d-none");
+    document.getElementById("element2").classList.remove("d-none");
+  }
+
   function handleDatos(e) {
     e.preventDefault();
     company.datos.push(data);
@@ -156,24 +167,26 @@ export default function CreateInvoice() {
     <div>
       <h1>Crear Factura</h1>
       <br />
-      <h3>Seleccione una sociedad:</h3>
-      <select name="select" onChange={handleSelect}>
-        {society.map((soc) => (
-          <option value={soc.id_sociedad} key={soc.id_sociedad}>
-            {soc.nombre_sociedad}
-          </option>
-        ))}
-      </select>
+      <div id="element1">
+        <h3>
+          Seleccione una sociedad:{" "}
+          <select name="select" onChange={handleSelect}>
+            {society.map((soc) => (
+              <option value={soc.id_sociedad} key={soc.id_sociedad}>
+                {soc.nombre_sociedad}
+              </option>
+            ))}
+          </select>
+        </h3>
 
-      <h3 className="mt-3">Introduzca los datos de la empresa: </h3>
-      <div className="signin">
+        <button onClick={() => next1()} className="btn btn-primary mt-3">
+          Siguiente
+        </button>
+      </div>
+
+      <div className="signin d-none" id="element2">
         <section>
-          {/* <p
-            className={errorRegister ? "errmsg" : "offscreen"}
-            aria-live="assertive"
-          >
-            {errorRegister}
-          </p> */}
+          <h3 className="mt-3">Introduzca los datos de la empresa: </h3>
           <form onSubmit={handleSubmit}>
             <p>Datos de la empresa</p>
             <label htmlFor="nombre">Nombre de la empresa:</label>
@@ -228,11 +241,7 @@ export default function CreateInvoice() {
               value={company.telefono_company}
               required
             />
-            <p>Datos de la transacción</p>
 
-            <button className="btn btn-primary mt-3">Confirmar Datos</button>
-          </form>
-          <form onSubmit={handleDatos}>
             <label htmlFor="date">Fecha de la operación:</label>
             <input
               type="date"
@@ -242,6 +251,22 @@ export default function CreateInvoice() {
               value={company.date}
               required
             />
+
+            <button className="btn btn-primary mt-3">Confirmar Datos</button>
+          </form>
+        </section>
+      </div>
+
+      <div className="signin d-none" id="element3">
+        <section>
+          {/* <p
+            className={errorRegister ? "errmsg" : "offscreen"}
+            aria-live="assertive"
+          >
+            {errorRegister}
+          </p> */}
+          <h3 className="mt-3">Datos de la operación: </h3>
+          <form onSubmit={handleDatos}>
             <label htmlFor="descripcion">Descripción del elemento:</label>
             <input
               type="text"
@@ -270,6 +295,9 @@ export default function CreateInvoice() {
               onChange={handleData}
               required
             />
+            <button className="btn btn-primary mt-3" onClick={() => next2()}>
+              Siguiente
+            </button>
             <button className="btn btn-primary mt-3">Añadir elemento</button>
           </form>
         </section>

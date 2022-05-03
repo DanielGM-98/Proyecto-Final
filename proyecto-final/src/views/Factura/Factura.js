@@ -47,7 +47,7 @@ export default function Prueba() {
       }
       callFactura();
     },
-    [id]
+    [id],
   );
   let invoice = {
     id: "5df3180a09ea16dc4b95f910",

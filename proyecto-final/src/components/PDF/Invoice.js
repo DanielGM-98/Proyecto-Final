@@ -28,15 +28,7 @@ const styles = StyleSheet.create({
 const Invoice = ({ invoice }) => (
   <Document>
     <Page size="A4" style={styles.page}>
-      <Image
-        style={styles.logo}
-        src={{
-          uri: invoice.logo,
-          headers: {
-            "Access-Control-Allow-Credentials": "true",
-          },
-        }}
-      />
+      <Image style={styles.logo} src={invoice.logo} />
       <InvoiceTitle title="Invoice" />
       <InvoiceNo invoice={invoice} />
       <BillTo invoice={invoice} />
