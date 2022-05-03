@@ -4,6 +4,10 @@ import Invoice from "../../components/PDF/Invoice";
 import { useParams } from "react-router-dom";
 import logo from "../../components/PDF/images/logo.jpg";
 
+//app.use(express.static(path.join(__dirname, "public")));
+//Añadir si se va a usar el método POST
+//app.use(express.json());
+
 export default function Prueba() {
   const { id } = useParams();
   const [factura, setFactura] = useState(null);

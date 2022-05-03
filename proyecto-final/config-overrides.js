@@ -11,7 +11,10 @@ module.exports = function override(config, env) {
     buffer: require.resolve("buffer"),
     stream: require.resolve("stream-browserify"),
     zlib: require.resolve("browserify-zlib"),
+    path: require.resolve("path-browserify"),
+    querystring: require.resolve("querystring-es3"),
   };
+
   config.plugins.push(
     new webpack.ProvidePlugin({
       process: "process/browser",

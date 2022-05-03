@@ -24,6 +24,8 @@ export default function CreateInvoice() {
   function next1() {
     document.getElementById("element1").classList.add("d-none");
     document.getElementById("element3").classList.remove("d-none");
+    document.getElementById("element3").classList.add("d-flex");
+    document.getElementById("element3").classList.add("justify-content-around");
   }
 
   function next2() {
@@ -34,8 +36,7 @@ export default function CreateInvoice() {
   function handleDatos(e) {
     e.preventDefault();
     company.datos.push(data);
-    console.log(data);
-    console.log(company);
+    setN(n + 1);
     document.getElementById("descripcion").value = "";
     document.getElementById("cantidad").value = "";
     document.getElementById("precio").value = "";
@@ -84,7 +85,7 @@ export default function CreateInvoice() {
       }
       callSocieties();
     },
-    [auth, n],
+    [auth, n]
   );
 
   //Llama a una sociedad
@@ -105,7 +106,7 @@ export default function CreateInvoice() {
       }
       callSociety();
     },
-    [n],
+    [n]
   );
 
   const [company, setCompany] = useState({
@@ -258,13 +259,14 @@ export default function CreateInvoice() {
       </div>
 
       <div className="signin d-none" id="element3">
-        <section>
-          {/* <p
+        {/* <p
             className={errorRegister ? "errmsg" : "offscreen"}
             aria-live="assertive"
           >
             {errorRegister}
           </p> */}
+
+        <div>
           <h3 className="mt-3">Datos de la operación: </h3>
           <form onSubmit={handleDatos}>
             <label htmlFor="descripcion">Descripción del elemento:</label>
@@ -274,7 +276,6 @@ export default function CreateInvoice() {
               name="descripcion"
               autoComplete="off"
               onChange={handleData}
-              value={data.descripcion}
               required
             />
             <label htmlFor="cantidad">Cantidad:</label>
@@ -295,12 +296,39 @@ export default function CreateInvoice() {
               onChange={handleData}
               required
             />
-            <button className="btn btn-primary mt-3" onClick={() => next2()}>
-              Siguiente
-            </button>
+
             <button className="btn btn-primary mt-3">Añadir elemento</button>
           </form>
-        </section>
+        </div>
+        <div>
+          {company.datos.length > 0 ? (
+            <>
+              <table className="table ">
+                <thead className="thead-dark">
+                  <tr>
+                    <th scope="col">Producto</th>
+                    <th scope="col">Cantidad</th>
+                    <th scope="col">Precio(sin IVA)</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {company.datos.map((obj) => (
+                    <tr>
+                      <td>{obj.descripcion}</td>
+                      <td>{obj.cantidad}</td>
+                      <td>{obj.precio}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+              <button className="btn btn-primary mt-3" onClick={() => next2()}>
+                Siguiente
+              </button>
+            </>
+          ) : (
+            <div>Añade algo para continuar</div>
+          )}
+        </div>
       </div>
     </div>
   );

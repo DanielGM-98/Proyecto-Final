@@ -148,7 +148,7 @@ export default function Facturas() {
           <p>Añade una factura para poder mostrar algo</p>
         ) : (
           <div className="container mt-5">
-            <div className="row">
+            <div className="row d-flex justify-content-between">
               {facturas.map((factura) => (
                 <div
                   className="card flex-md-row mb-4 shadow-sm h-md-250 w-25 mx-3"
