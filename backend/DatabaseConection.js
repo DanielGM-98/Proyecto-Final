@@ -59,7 +59,6 @@ app.get("/users", function (req, res) {
 app.post("/insertuser", function (req, res) {
   let connection = conectar();
 
-  console.log(req.body);
   let nombre = req.body.nombre;
   let apellidos = req.body.apellidos;
   let email = req.body.email;
@@ -74,7 +73,7 @@ app.post("/insertuser", function (req, res) {
       } else {
         res.send("Usuario insertado!");
       }
-    },
+    }
   );
 });
 
@@ -96,7 +95,7 @@ app.post("/updateuser", function (req, res) {
       } else {
         res.send("Usuario actualizado correctamente");
       }
-    },
+    }
   );
   //Cerrar la conexión
 });
@@ -117,7 +116,7 @@ app.post("/selectsocieties", function (req, res) {
       } else {
         res.send(results);
       }
-    },
+    }
   );
   //Cerrar la conexión
 });
@@ -136,7 +135,7 @@ app.post("/selectsociety", function (req, res) {
       } else {
         res.send(results);
       }
-    },
+    }
   );
 });
 
@@ -163,7 +162,7 @@ app.post("/insertsociety", function (req, res) {
       } else {
         res.send("Sociedad insertada!");
       }
-    },
+    }
   );
 });
 
@@ -171,7 +170,7 @@ app.post("/insertsociety", function (req, res) {
 //Seleccionar todas las facturas
 app.post("/selectinvoices", function (req, res) {
   let connection = conectar();
-  console.log(req.body);
+
   let id_sociedad = req.body.id_sociedad;
   connection.query(
     "select * from facturas where id_sociedad=? order by date",
@@ -180,18 +179,17 @@ app.post("/selectinvoices", function (req, res) {
       if (err) {
         res.send(err);
       } else {
-        console.log(results);
         res.send(results);
       }
-    },
+    }
   );
 });
 
 //Seleccionar una factura
-//Seleccionar todas las facturas
+
 app.post("/selectinvoice", function (req, res) {
   let connection = conectar();
-  console.log(req.body);
+
   let id_factura = req.body.id_factura;
   connection.query(
     "select * from facturas where id_factura=?",
@@ -203,7 +201,7 @@ app.post("/selectinvoice", function (req, res) {
         console.log(results);
         res.send(results);
       }
-    },
+    }
   );
 });
 
@@ -244,7 +242,7 @@ app.post("/insertinvoice", function (req, res) {
       } else {
         res.send("Factura insertada insertada!");
       }
-    },
+    }
   );
 });
 

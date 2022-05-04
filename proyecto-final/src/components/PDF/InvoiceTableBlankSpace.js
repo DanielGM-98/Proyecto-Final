@@ -13,7 +13,7 @@ const styles = StyleSheet.create({
     color: "white",
   },
   description: {
-    width: "60%",
+    width: "45%",
     borderRightColor: borderColor,
     borderRightWidth: 1,
   },
@@ -29,6 +29,12 @@ const styles = StyleSheet.create({
   },
   amount: {
     width: "15%",
+    borderRightColor: borderColor,
+    borderRightWidth: 1,
+  },
+
+  amount2: {
+    width: "15%",
   },
 });
 
@@ -40,6 +46,7 @@ const InvoiceTableBlankSpace = ({ rowsCount }) => {
       <Text style={styles.qty}>-</Text>
       <Text style={styles.rate}>-</Text>
       <Text style={styles.amount}>-</Text>
+      <Text style={styles.amount2}>-</Text>
     </View>
   ));
   return <Fragment>{rows}</Fragment>;

@@ -12,7 +12,7 @@ const styles = StyleSheet.create({
     fontStyle: "bold",
   },
   description: {
-    width: "60%",
+    width: "45%",
     textAlign: "left",
     borderRightColor: borderColor,
     borderRightWidth: 1,
@@ -34,6 +34,13 @@ const styles = StyleSheet.create({
   },
   amount: {
     width: "15%",
+    borderRightColor: borderColor,
+    textAlign: "right",
+    paddingRight: 8,
+    borderRightWidth: 1,
+  },
+  amount2: {
+    width: "15%",
     textAlign: "right",
     paddingRight: 8,
   },
@@ -47,6 +54,9 @@ const InvoiceTableRow = ({ items }) => {
       <Text style={styles.rate}>{item.precio}€</Text>
       <Text style={styles.amount}>
         {(item.cantidad * item.precio).toFixed(2)}€
+      </Text>
+      <Text style={styles.amount2}>
+        {(item.cantidad * item.precio * item.iva).toFixed(2)}€
       </Text>
     </View>
   ));

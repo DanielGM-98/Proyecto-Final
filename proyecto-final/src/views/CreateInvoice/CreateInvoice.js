@@ -18,6 +18,7 @@ export default function CreateInvoice() {
     descripcion: "",
     cantidad: "",
     precio: "",
+    iva: "",
   });
 
   //Funciones para hacer desaparecer los elementos anteriores y hacer aparecer los nuevos
@@ -55,11 +56,9 @@ export default function CreateInvoice() {
     company.logo = sociedad[0].logo;
     company.nombre_sociedad = sociedad[0].nombre_sociedad;
     company.id_sociedad = sociedad[0].id_sociedad;
-
-    console.log(company);
     registerInvoice(company);
 
-    //navigate(from, { replace: true });
+    navigate("/facturas");
   }
   function handleSelect(e) {
     setIdSociedad(e.target.value);
@@ -269,7 +268,7 @@ export default function CreateInvoice() {
         <div>
           <h3 className="mt-3">Datos de la operación: </h3>
           <form onSubmit={handleDatos}>
-            <label htmlFor="descripcion">Descripción del elemento:</label>
+            <label htmlFor="descripcion">Concepto:</label>
             <input
               type="text"
               id="descripcion"
@@ -296,6 +295,12 @@ export default function CreateInvoice() {
               onChange={handleData}
               required
             />
+            <label htmlFor="precio">IVA:</label>
+            <select name="iva" id="iva" onChange={handleData}>
+              <option value="1.04">4%</option>
+              <option value="1.1">10%</option>
+              <option value="1.21">21%</option>
+            </select>
 
             <button className="btn btn-primary mt-3">Añadir elemento</button>
           </form>
@@ -309,6 +314,7 @@ export default function CreateInvoice() {
                     <th scope="col">Producto</th>
                     <th scope="col">Cantidad</th>
                     <th scope="col">Precio(sin IVA)</th>
+                    <th scope="col">Precio(con IVA)</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -317,6 +323,7 @@ export default function CreateInvoice() {
                       <td>{obj.descripcion}</td>
                       <td>{obj.cantidad}</td>
                       <td>{obj.precio}</td>
+                      <td>{obj.precio * Number(obj.iva)}</td>
                     </tr>
                   ))}
                 </tbody>

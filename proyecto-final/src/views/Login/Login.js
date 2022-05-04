@@ -4,7 +4,8 @@ import { useNavigate, useLocation, Link } from "react-router-dom";
 import "./Login.css";
 
 export default function Login() {
-  const { login, errorMessage } = useAuthContext();
+  const { login, errorMessage, auth } = useAuthContext();
+
   //const location = useLocation();
   const navigate = useNavigate();
   const userRef = useRef();
@@ -45,6 +46,31 @@ export default function Login() {
         >
           {errorMessage}
         </p>
+
+        <div id="myModal" className="modal fade d-none">
+          <div className="modal-dialog modal-confirm">
+            <div className="modal-content">
+              <div className="modal-header">
+                <div className="icon-box">
+                  <i className="material-icons">&#xE876;</i>
+                </div>
+                <h4 className="modal-title w-100">Awesome!</h4>
+              </div>
+              <div className="modal-body">
+                <p className="text-center">Inicio de sesión correcto</p>
+              </div>
+              <div className="modal-footer">
+                <button
+                  className="btn btn-success btn-block"
+                  data-dismiss="modal"
+                >
+                  OK
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
         <h1>Inicia Sesión</h1>
         <form onSubmit={handleSubmit}>
           <label htmlFor="email">Correo electrónico:</label>
