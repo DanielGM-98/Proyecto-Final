@@ -6,6 +6,7 @@ import App from "./App";
 import AuthContextProvider from "./context/AuthContext";
 import reportWebVitals from "./reportWebVitals";
 import "bootstrap/dist/css/bootstrap.min.css";
+import "bootstrap/dist/js/bootstrap.min.js";
 import DatabaseContextProvider from "./context/DatabaseContext";
 
 ReactDOM.render(
@@ -18,7 +19,7 @@ ReactDOM.render(
       </AuthContextProvider>
     </DatabaseContextProvider>
   </BrowserRouter>,
-  document.getElementById("root"),
+  document.getElementById("root")
 );
 
 // If you want to start measuring performance in your app, pass a function

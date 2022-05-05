@@ -141,6 +141,7 @@ app.post("/selectsociety", function (req, res) {
 
 //Insertar sociedades
 app.post("/insertsociety", function (req, res) {
+  res.set("Access-Control-Allow-Origin", "*");
   let connection = conectar();
 
   let nombre = req.body.nombre_sociedad;
@@ -188,6 +189,17 @@ app.post("/selectinvoices", function (req, res) {
 //Seleccionar una factura
 
 app.post("/selectinvoice", function (req, res) {
+  res.header("Access-Control-Allow-Origin", "http://localhost:3000");
+  res.header("Access-Control-Allow-Credentials", "true");
+  res.header(
+    "Access-Control-Allow-Headers",
+    "Origin, X-Requested-With, Content-Type, Accept"
+  );
+  res.header(
+    "Access-Control-Allow-Methods",
+    "GET,PUT,POST,DELETE,PATCH,OPTIONS"
+  );
+
   let connection = conectar();
 
   let id_factura = req.body.id_factura;

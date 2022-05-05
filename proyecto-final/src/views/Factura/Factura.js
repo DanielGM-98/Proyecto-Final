@@ -3,6 +3,7 @@ import { PDFViewer, PDFDownloadLink } from "@react-pdf/renderer";
 import Invoice from "../../components/PDF/Invoice";
 import { useParams } from "react-router-dom";
 import logo from "../../components/PDF/images/logo.jpg";
+import imageToBase64 from "image-to-base64/browser";
 
 //app.use(express.static(path.join(__dirname, "public")));
 //Añadir si se va a usar el método POST
@@ -51,7 +52,7 @@ export default function Prueba() {
       }
       callFactura();
     },
-    [id],
+    [id]
   );
   let invoice = {
     id: "5df3180a09ea16dc4b95f910",
@@ -128,6 +129,17 @@ export default function Prueba() {
           <Invoice invoice={invoice} />
         </PDFViewer>
       </Fragment>
+
+      <div>
+        <PDFDownloadLink
+          document={<Invoice invoice={invoice} />}
+          fileName="somename.pdf"
+        >
+          {({ blob, url, loading, error }) =>
+            loading ? "Loading document..." : "Download now!"
+          }
+        </PDFDownloadLink>
+      </div>
     </div>
   );
 }

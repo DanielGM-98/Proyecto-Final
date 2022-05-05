@@ -2,9 +2,11 @@ import { useState, useEffect, useRef } from "react";
 import { useAuthContext } from "../../context/AuthContext";
 import { useNavigate, useLocation, Link } from "react-router-dom";
 import DoneIcon from "@mui/icons-material/Done";
+
 import "./Login.css";
 
 export default function Login() {
+  const [inProp, setInProp] = useState(false);
   const { login, errorMessage, auth } = useAuthContext();
 
   //const location = useLocation();
@@ -33,8 +35,11 @@ export default function Login() {
       password: "",
     });
     if (x) {
-      document.getElementById("myModal").classList.remove("d-none");
+      setInProp(true);
+      document.getElementById("bg-login").classList.remove("d-none");
+      document.getElementById("myModal").classList.add("d-block");
       document.getElementById("myModal").classList.add("show");
+      document.getElementById("myModal").classList.remove("d-none");
       //navigate("/ajustes");
     } else {
       navigate("/login");
@@ -54,7 +59,7 @@ export default function Login() {
           {errorMessage}
         </p>
 
-        <div id="myModal" className="modal fade d-none">
+        <div id="myModal" className="modal fade">
           <div className="modal-dialog modal-confirm">
             <div className="modal-content">
               <div className="modal-header">
@@ -78,6 +83,7 @@ export default function Login() {
             </div>
           </div>
         </div>
+        <div className="modal-backdrop fade show d-none" id="bg-login"></div>
 
         <h1>Inicia Sesión</h1>
         <form onSubmit={handleSubmit}>
