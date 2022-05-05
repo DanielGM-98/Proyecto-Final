@@ -25,17 +25,17 @@ const styles = StyleSheet.create({
   },
 });
 
-const Invoice = ({ invoice }) => (
-  <Document>
-    <Page size="A4" style={styles.page}>
-      <Image style={styles.logo} src={invoice.logo} />
-      <InvoiceTitle title="Invoice" />
-      <InvoiceNo invoice={invoice} />
-      <BillTo invoice={invoice} />
-      <InvoiceItemsTable invoice={invoice} />
-      <InvoiceThankYouMsg />
-    </Page>
-  </Document>
-);
-
-export default Invoice;
+export default function Invoice({ invoice }) {
+  return (
+    <Document>
+      <Page size="A4" style={styles.page}>
+        <Image style={styles.logo} src={invoice.logo} id="logo-img" />
+        <InvoiceTitle title="Invoice" />
+        <InvoiceNo invoice={invoice} />
+        <BillTo invoice={invoice} />
+        <InvoiceItemsTable invoice={invoice} />
+        <InvoiceThankYouMsg />
+      </Page>
+    </Document>
+  );
+}

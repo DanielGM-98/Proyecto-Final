@@ -1,5 +1,5 @@
 import React, { Component, Fragment, useEffect, useState } from "react";
-import { PDFViewer } from "@react-pdf/renderer";
+import { PDFViewer, PDFDownloadLink } from "@react-pdf/renderer";
 import Invoice from "../../components/PDF/Invoice";
 import { useParams } from "react-router-dom";
 import logo from "../../components/PDF/images/logo.jpg";
@@ -99,6 +99,7 @@ export default function Prueba() {
   };
   if (factura) {
     invoice = {
+      id_factura: factura.id_factura,
       id: factura.codigo,
       invoice_no: "201906-28",
       balance: "$2,283.74",
@@ -121,10 +122,12 @@ export default function Prueba() {
     );
   }
   return (
-    <Fragment>
-      <PDFViewer width="1000" height="600" className="app">
-        <Invoice invoice={invoice} />
-      </PDFViewer>
-    </Fragment>
+    <div>
+      <Fragment>
+        <PDFViewer width="1000" height="600" className="app">
+          <Invoice invoice={invoice} />
+        </PDFViewer>
+      </Fragment>
+    </div>
   );
 }

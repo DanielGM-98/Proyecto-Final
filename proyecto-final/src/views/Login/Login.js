@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { useAuthContext } from "../../context/AuthContext";
 import { useNavigate, useLocation, Link } from "react-router-dom";
+import DoneIcon from "@mui/icons-material/Done";
 import "./Login.css";
 
 export default function Login() {
@@ -32,10 +33,16 @@ export default function Login() {
       password: "",
     });
     if (x) {
-      navigate("/ajustes");
+      document.getElementById("myModal").classList.remove("d-none");
+      document.getElementById("myModal").classList.add("show");
+      //navigate("/ajustes");
     } else {
       navigate("/login");
     }
+  }
+
+  function navigateTo() {
+    navigate("/ajustes");
   }
   return (
     <div className="signin">
@@ -52,7 +59,7 @@ export default function Login() {
             <div className="modal-content">
               <div className="modal-header">
                 <div className="icon-box">
-                  <i className="material-icons">&#xE876;</i>
+                  <DoneIcon className="w-100 h-auto" />
                 </div>
                 <h4 className="modal-title w-100">Awesome!</h4>
               </div>
@@ -61,8 +68,9 @@ export default function Login() {
               </div>
               <div className="modal-footer">
                 <button
-                  className="btn btn-success btn-block"
+                  className="btn btn-success btn-block w-100"
                   data-dismiss="modal"
+                  onClick={() => navigateTo()}
                 >
                   OK
                 </button>
@@ -93,6 +101,7 @@ export default function Login() {
             value={user.password}
             required
           />
+
           <button className="btn btn-primary mt-3">Iniciar Sesión</button>
         </form>
         <p>

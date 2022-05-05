@@ -113,6 +113,14 @@ button {
     justify-content: center;
 }
 
+.modal{
+  display: block!important;
+  background: rgba(0, 0, 0, 0.7);
+}
+
+.modal-dialog{
+  width: 350px!important;
+}
 .modal-confirm {
   color: #636363;
   width: 325px;
