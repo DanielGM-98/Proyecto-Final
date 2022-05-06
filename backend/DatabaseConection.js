@@ -98,6 +98,7 @@ app.post("/updateuser", function (req, res) {
     }
   );
   //Cerrar la conexión
+  desconectar(connection);
 });
 
 //----------------------------- Consultas de sociedades -----------------------------
@@ -119,6 +120,7 @@ app.post("/selectsocieties", function (req, res) {
     }
   );
   //Cerrar la conexión
+  desconectar(connection);
 });
 
 //Seleccionar todas las sociedades por id del usuario que ha iniciado sesión
@@ -137,6 +139,26 @@ app.post("/selectsociety", function (req, res) {
       }
     }
   );
+  desconectar(connection);
+});
+
+//Seleccionar sociedad en concreto
+app.post("/society", function (req, res) {
+  let connection = conectar();
+  let id_sociedad = req.body.id_sociedad;
+
+  connection.query(
+    "select * from sociedades where id_sociedad = ?",
+    [id_sociedad],
+    function (err, results) {
+      if (err) {
+        res.send("Error: " + err.message);
+      } else {
+        res.send(results);
+      }
+    }
+  );
+  desconectar(connection);
 });
 
 //Insertar sociedades
@@ -149,14 +171,15 @@ app.post("/insertsociety", function (req, res) {
   let email = req.body.email_sociedad;
   let telefono = req.body.telefono_sociedad;
   let icono = req.body.icono_empresa;
+  let codigo_pais = req.body.codigo_pais;
 
   icono = icono.split("\\");
   let iconoFull = "http://localhost:8080/images/" + icono[2];
   let id_usuario = req.body.id_usuario;
 
   connection.query(
-    "insert into sociedades(nombre_sociedad,telefono_sociedad,email_sociedad,direccion_sociedad,logo,id_usuario) values(?,?,?,?,?,?)",
-    [nombre, telefono, email, direccion, iconoFull, id_usuario],
+    "insert into sociedades(nombre_sociedad,telefono_sociedad,email_sociedad,direccion_sociedad,logo,id_usuario,codigo_pais) values(?,?,?,?,?,?)",
+    [nombre, telefono, email, direccion, iconoFull, id_usuario, codigo_pais],
     function (err, results) {
       if (err) {
         res.send("Error:" + err.message);
@@ -165,6 +188,26 @@ app.post("/insertsociety", function (req, res) {
       }
     }
   );
+  desconectar(connection);
+});
+
+//Eliminar una sociedad
+app.post("/deletesociety", function (req, res) {
+  let connection = conectar();
+  let id_sociedad = req.body.id_sociedad;
+
+  connection.query(
+    "delete from sociedades where id_sociedad = ?",
+    [id_sociedad],
+    function (err, results) {
+      if (err) {
+        res.send("Error: " + err.message);
+      } else {
+        res.send("Sociedad eliminada");
+      }
+    }
+  );
+  desconectar(connection);
 });
 
 //----------------------------- Consultas de facturas -----------------------------
@@ -174,7 +217,7 @@ app.post("/selectinvoices", function (req, res) {
 
   let id_sociedad = req.body.id_sociedad;
   connection.query(
-    "select * from facturas where id_sociedad=? order by date",
+    "select * from facturas where id_sociedad=? order by date desc",
     [id_sociedad],
     function (err, results) {
       if (err) {
@@ -184,6 +227,7 @@ app.post("/selectinvoices", function (req, res) {
       }
     }
   );
+  desconectar(connection);
 });
 
 //Seleccionar una factura
@@ -210,11 +254,11 @@ app.post("/selectinvoice", function (req, res) {
       if (err) {
         res.send(err);
       } else {
-        console.log(results);
         res.send(results);
       }
     }
   );
+  desconectar(connection);
 });
 
 //Insertar factura
@@ -232,9 +276,13 @@ app.post("/insertinvoice", function (req, res) {
   let nombre_sociedad = req.body.nombre_sociedad;
   let id_sociedad = req.body.id_sociedad;
   let datos = JSON.stringify(req.body.datos);
+  let forma_pago = req.body.forma_pago;
+  let fecha_vencimiento = req.body.fecha_vencimiento;
+  let cvv = req.body.cvv;
+  let numero_tarjeta = req.body.numero_tarjeta;
 
   connection.query(
-    "insert into facturas(codigo,nombre_empresa,direccion_empresa,email,codigo_pais,telefono_empresa,date,nombre_sociedad,logo,id_sociedad,datos) values(?,?,?,?,?,?,?,?,?,?,?)",
+    "insert into facturas(codigo,nombre_empresa,direccion_empresa,email,codigo_pais,telefono_empresa,date,nombre_sociedad,logo,id_sociedad,datos,forma_pago,fecha_vencimiento,cvv,numero_tarjeta) values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
     [
       codigo,
       nombre_empresa,
@@ -247,6 +295,10 @@ app.post("/insertinvoice", function (req, res) {
       logo,
       id_sociedad,
       datos,
+      forma_pago,
+      fecha_vencimiento,
+      cvv,
+      numero_tarjeta,
     ],
     function (err, results) {
       if (err) {
@@ -256,6 +308,26 @@ app.post("/insertinvoice", function (req, res) {
       }
     }
   );
+  desconectar(connection);
+});
+
+//Elimina una factura
+app.post("/deleteinvoice", function (req, res) {
+  let connection = conectar();
+  let id_factura = req.body.id_factura;
+
+  connection.query(
+    "delete from facturas where id_factura = ?",
+    [id_factura],
+    function (err, results) {
+      if (err) {
+        res.send("Error: " + err.message);
+      } else {
+        res.send("Factura eliminada");
+      }
+    }
+  );
+  desconectar(connection);
 });
 
 app.listen(8080);

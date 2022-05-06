@@ -3,7 +3,7 @@ import "./App.css";
 import Inicio from "./views/Inicio";
 import Layout from "./views/Layout";
 import RequireAuth from "./components/RequireAuth";
-import MyInvoices from "./views/MyInvoices";
+
 import Login from "./views/Login";
 import Register from "./views/Register";
 import Missing from "./views/Missing";
@@ -16,6 +16,7 @@ import Factura from "./views/Factura";
 import MySocieties from "./views/MySocieties";
 import CreateInvoice from "./views/CreateInvoice";
 import Facturas from "./views/Facturas";
+import Sociedad from "./views/Sociedad";
 
 function App() {
   return (
@@ -35,6 +36,7 @@ function App() {
           <Route path="missociedades" element={<MySocieties />} />
           <Route path="crearfactura" element={<CreateInvoice />} />
           <Route path="factura/:id" element={<Factura />} />
+          <Route path="sociedad/:id" element={<Sociedad />} />
         </Route>
         <Route path="*" element={<Missing />} />
       </Route>

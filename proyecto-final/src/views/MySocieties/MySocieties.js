@@ -1,16 +1,27 @@
-import { useEffect, useContext, useState } from "react";
+import { useEffect, useState } from "react";
 import { useAuthContext } from "../../context/AuthContext";
 import { Link } from "react-router-dom";
-export default function MySocieties() {
-  const [society, setSociety] = useState();
+import EditIcon from "@mui/icons-material/Edit";
+import DeleteIcon from "@mui/icons-material/Delete";
 
-  const [sociedad, setSociedad] = useState(null);
+export default function MySocieties() {
   const { auth } = useAuthContext();
-  const [idsociedad, setIdSociedad] = useState(1);
+  const [society, setSociety] = useState();
   const [n, setN] = useState(0);
-  function handleSelect(e) {
-    setIdSociedad(e.target.value);
-    setN(n + 1);
+
+  function deleteSociety(id) {
+    let xhttp = new XMLHttpRequest();
+    let data = { id_sociedad: id };
+    xhttp.onreadystatechange = function () {
+      if (this.readyState === 4 && this.status === 200) {
+        console.log(this.responseText);
+        setN(n + 1);
+      }
+    };
+
+    xhttp.open("POST", "http://localhost:8080/deletesociety", true);
+    xhttp.setRequestHeader("Content-Type", "application/json");
+    xhttp.send(JSON.stringify(data));
   }
 
   //Llamar a todas las sociedades
@@ -35,25 +46,6 @@ export default function MySocieties() {
   );
 
   //Llama a una sociedad
-  useEffect(
-    function () {
-      function callSociety() {
-        let xhttp = new XMLHttpRequest();
-        let data = { id_sociedad: idsociedad };
-        xhttp.onreadystatechange = function () {
-          if (this.readyState === 4 && this.status === 200) {
-            setSociedad(JSON.parse(this.responseText));
-          }
-        };
-
-        xhttp.open("POST", "http://localhost:8080/selectsociety", true);
-        xhttp.setRequestHeader("Content-Type", "application/json");
-        xhttp.send(JSON.stringify(data));
-      }
-      callSociety();
-    },
-    [n]
-  );
 
   if (!society)
     return (
@@ -88,25 +80,39 @@ export default function MySocieties() {
   return (
     <div>
       <h1>Mis Sociedades</h1>
-      <p>Seleccione una sociedad:</p>
-      <select name="select" onChange={handleSelect}>
-        {society.map((soc) => (
-          <option value={soc.id_sociedad}>{soc.nombre_sociedad}</option>
-        ))}
-      </select>
-      {sociedad ? (
-        <div className="mt-4">
-          <p>
-            <strong>Nombre de la sociedad:</strong>{" "}
-            {sociedad[0].nombre_sociedad}
-          </p>
-          <img src={sociedad[0].logo} alt="..." />
-        </div>
-      ) : (
-        <div className="mt-4">
-          <p>Selecciona una opción</p>
-        </div>
-      )}
+      <div className="container mt-5">
+        <table className="table ">
+          <thead className="thead-dark">
+            <tr>
+              <th scope="col">Nombre Sociedad</th>
+              <th scope="col">Email Sociedad</th>
+              <th scope="col">Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            {society.map((obj) => (
+              <tr key={obj.id_sociedad}>
+                <td>{obj.nombre_sociedad}</td>
+                <td>{obj.email_sociedad}</td>
+                <td>
+                  <Link
+                    className="btn btn-primary btn-sm mx-2"
+                    to={`/sociedad/${obj.id_sociedad}`}
+                  >
+                    <EditIcon />
+                  </Link>
+                  <button
+                    className="btn btn-danger btn-sm"
+                    onClick={() => deleteSociety(obj.id_sociedad)}
+                  >
+                    <DeleteIcon />
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 }

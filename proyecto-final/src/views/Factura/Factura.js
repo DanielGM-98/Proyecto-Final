@@ -1,9 +1,8 @@
-import React, { Component, Fragment, useEffect, useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import { PDFViewer, PDFDownloadLink } from "@react-pdf/renderer";
 import Invoice from "../../components/PDF/Invoice";
 import { useParams } from "react-router-dom";
 import logo from "../../components/PDF/images/logo.jpg";
-import imageToBase64 from "image-to-base64/browser";
 
 //app.use(express.static(path.join(__dirname, "public")));
 //Añadir si se va a usar el método POST
@@ -47,7 +46,11 @@ export default function Prueba() {
         };
 
         xhttp.open("POST", "http://localhost:8080/selectinvoice", true);
-        xhttp.setRequestHeader("Content-Type", "application/json");
+        xhttp.setRequestHeader(
+          "Content-Type",
+          "application/json",
+          "Access-Control-Allow-Origin"
+        );
         xhttp.send(JSON.stringify(data));
       }
       callFactura();
@@ -99,6 +102,15 @@ export default function Prueba() {
     ],
   };
   if (factura) {
+    factura.numero_tarjeta =
+      factura.numero_tarjeta.slice(0, 4) +
+      "-" +
+      factura.numero_tarjeta.slice(4);
+    factura.numero_tarjeta =
+      factura.numero_tarjeta.slice(0, 9) +
+      "-" +
+      factura.numero_tarjeta.slice(9);
+
     invoice = {
       id_factura: factura.id_factura,
       id: factura.codigo,
@@ -112,6 +124,10 @@ export default function Prueba() {
       due_date: "2019-10-12",
       items: factura.datos,
       logo: factura.logo,
+      cvv: factura.cvv,
+      forma_pago: factura.forma_pago,
+      fecha_vencimiento: factura.fecha_vencimiento,
+      numero_tarjeta: factura.numero_tarjeta,
     };
   }
 
@@ -133,10 +149,11 @@ export default function Prueba() {
       <div>
         <PDFDownloadLink
           document={<Invoice invoice={invoice} />}
-          fileName="somename.pdf"
+          fileName={factura.codigo + ".pdf"}
+          className="btn btn-primary mt-3"
         >
           {({ blob, url, loading, error }) =>
-            loading ? "Loading document..." : "Download now!"
+            loading ? "Cargando documento..." : "Descargar PDF"
           }
         </PDFDownloadLink>
       </div>

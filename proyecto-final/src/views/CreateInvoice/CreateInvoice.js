@@ -1,5 +1,5 @@
-import { useEffect, useContext, useState, useRef } from "react";
-import { Link, useNavigate, useLocation } from "react-router-dom";
+import { useEffect, useState, useRef } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { useAuthContext } from "../../context/AuthContext";
 import { useDatabaseContext } from "../../context/DatabaseContext";
 import { v4 as uuidv4 } from "uuid";
@@ -14,11 +14,12 @@ export default function CreateInvoice() {
   const navigate = useNavigate();
   const userRef = useRef();
 
+  //Datos de los conceptos que se almacena hasta hacer click
   const [data, setData] = useState({
     descripcion: "",
     cantidad: "",
     precio: "",
-    iva: "",
+    iva: "1.04",
   });
 
   //Funciones para hacer desaparecer los elementos anteriores y hacer aparecer los nuevos
@@ -31,6 +32,11 @@ export default function CreateInvoice() {
 
   function next2() {
     document.getElementById("element3").classList.add("d-none");
+    document.getElementById("element4").classList.remove("d-none");
+  }
+
+  function next3() {
+    document.getElementById("element4").classList.add("d-none");
     document.getElementById("element2").classList.remove("d-none");
   }
 
@@ -49,6 +55,7 @@ export default function CreateInvoice() {
 
   function handleInputs(e) {
     setCompany({ ...company, [e.target.name]: e.target.value });
+    setN(n + 1);
   }
 
   function handleSubmit(e) {
@@ -57,12 +64,12 @@ export default function CreateInvoice() {
     company.nombre_sociedad = sociedad[0].nombre_sociedad;
     company.id_sociedad = sociedad[0].id_sociedad;
     registerInvoice(company);
-
+    console.log(company);
     navigate("/facturas");
   }
+
   function handleSelect(e) {
     setIdSociedad(e.target.value);
-    console.log(sociedad);
     setN(n + 1);
   }
 
@@ -105,7 +112,7 @@ export default function CreateInvoice() {
       }
       callSociety();
     },
-    [n]
+    [n, idsociedad]
   );
 
   const [company, setCompany] = useState({
@@ -120,6 +127,10 @@ export default function CreateInvoice() {
     nombre_sociedad: "",
     logo: "",
     id_sociedad: "",
+    numero_tarjeta: "",
+    forma_pago: "efectivo",
+    fecha_vencimiento: null,
+    cvv: null,
   });
 
   if (!society)
@@ -145,7 +156,7 @@ export default function CreateInvoice() {
   if (society.length === 0) {
     return (
       <div>
-        <h1>Mis Sociedades</h1>
+        <h1>Crear Factura</h1>
         <div>
           <p>Aún no has añadido ninguna sociedad</p>
           <p>
@@ -258,13 +269,6 @@ export default function CreateInvoice() {
       </div>
 
       <div className="signin d-none" id="element3">
-        {/* <p
-            className={errorRegister ? "errmsg" : "offscreen"}
-            aria-live="assertive"
-          >
-            {errorRegister}
-          </p> */}
-
         <div>
           <h3 className="mt-3">Datos de la operación: </h3>
           <form onSubmit={handleDatos}>
@@ -335,6 +339,53 @@ export default function CreateInvoice() {
           ) : (
             <div>Añade algo para continuar</div>
           )}
+        </div>
+      </div>
+
+      <div className="signin d-none" id="element4">
+        <div>
+          <h3 className="mt-3">Método de pago: </h3>
+          <form>
+            <label htmlFor="forma_pago">Forma de pago:</label>
+            <select name="forma_pago" onChange={handleInputs} required>
+              <option value="efectivo">Efectivo</option>
+              <option value="tarjeta">Tarjeta</option>
+            </select>
+            {company.forma_pago === "tarjeta" && (
+              <>
+                <label htmlFor="cantidad">Número de la tarjeta:</label>
+                <input
+                  type="number"
+                  id="numero_tarjeta"
+                  name="numero_tarjeta"
+                  autoComplete="off"
+                  onChange={handleInputs}
+                  required
+                />
+                <label htmlFor="fecha_vencimiento">Fecha Vencimiento:</label>
+                <input
+                  type="date"
+                  id="fecha_vencimiento"
+                  name="fecha_vencimiento"
+                  autoComplete="off"
+                  onChange={handleInputs}
+                  required
+                />
+                <label htmlFor="cvv">CVV:</label>
+                <input
+                  type="number"
+                  id="cvv"
+                  name="cvv"
+                  autoComplete="off"
+                  onChange={handleInputs}
+                  required
+                />
+              </>
+            )}
+          </form>
+          <button className="btn btn-primary mt-3" onClick={() => next3()}>
+            Siguiente
+          </button>
         </div>
       </div>
     </div>

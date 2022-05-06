@@ -23,17 +23,23 @@ const styles = StyleSheet.create({
   },
 });
 
-const InvoiceThankYouMsg = () => (
+const InvoiceThankYouMsg = ({ invoice }) => (
   <View style={styles.titleContainer}>
     <div style={styles.container}>
       <div>
-        <Text style={styles.reportTitle}>Gracias!</Text>
+        <Text style={styles.reportTitle}>Observaciones:</Text>
       </div>
       <div>
         <Text style={styles.reportTitle}>Forma de pago</Text>
-        <Text>Banco Santander</Text>
-        <Text>IBAN: 1234</Text>
-        <Text>SWIFT:111111111111</Text>
+        {invoice.forma_pago === "tarjeta" ? (
+          <>
+            <Text>Tarjeta</Text>
+            <Text>Nº de tarjeta: {invoice.numero_tarjeta}</Text>
+            <Text>Fecha de vencimiento: {invoice.fecha_vencimiento}</Text>
+          </>
+        ) : (
+          <Text>Efectivo</Text>
+        )}
       </div>
     </div>
   </View>

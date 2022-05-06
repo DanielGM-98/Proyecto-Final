@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
 import { useAuthContext } from "../../context/AuthContext";
 import { Link } from "react-router-dom";
+import EditIcon from "@mui/icons-material/Edit";
+import DeleteIcon from "@mui/icons-material/Delete";
 
 export default function Facturas() {
   const [society, setSociety] = useState(null);
@@ -9,6 +11,21 @@ export default function Facturas() {
   const [idsociedad, setIdSociedad] = useState(1);
   const [facturas, setFacturas] = useState([]);
   const { auth } = useAuthContext();
+
+  function deleteInvoice(id) {
+    let xhttp = new XMLHttpRequest();
+    let data = { id_factura: id };
+    xhttp.onreadystatechange = function () {
+      if (this.readyState === 4 && this.status === 200) {
+        console.log(this.responseText);
+        setN(n + 1);
+      }
+    };
+
+    xhttp.open("POST", "http://localhost:8080/deleteinvoice", true);
+    xhttp.setRequestHeader("Content-Type", "application/json");
+    xhttp.send(JSON.stringify(data));
+  }
 
   function handleSelect(e) {
     setIdSociedad(e.target.value);
@@ -54,7 +71,7 @@ export default function Facturas() {
       }
       callSociety();
     },
-    [n]
+    [n, idsociedad]
   );
 
   //Llamar a todas las facturas del usuario
@@ -97,7 +114,7 @@ export default function Facturas() {
       }
       callFacturas();
     },
-    [auth, n]
+    [auth, n, idsociedad]
   );
 
   if (!society || !sociedad || !facturas) {
@@ -114,7 +131,7 @@ export default function Facturas() {
   if (society.length === 0) {
     return (
       <div>
-        <h1>Mis Sociedades</h1>
+        <h1>Mis Facturas</h1>
         <div>
           <p>Aún no has añadido ninguna sociedad</p>
           <p>
@@ -148,56 +165,40 @@ export default function Facturas() {
           <p>Añade una factura para poder mostrar algo</p>
         ) : (
           <div className="container mt-5">
-            <div className="row d-flex justify-content-between">
-              {facturas.map((factura) => (
-                <div
-                  className="card flex-md-row mb-4 shadow-sm h-md-250 w-25 mx-3"
-                  key={factura.id_factura}
-                >
-                  <div className="card-body d-flex flex-column">
-                    <h6 className="mb-0">
-                      <p className="text-dark">{factura.nombre_empresa}</p>
-                    </h6>
-                    <div className="mb-1 text-muted small">{factura.date}</div>
-                    <p className="card-text mb-auto">
-                      This is a wider card with supporting text below as a
-                      natural lead-in to additional content.
-                    </p>
-                    <div className="d-flex justify-content-around">
-                      <div>
-                        <Link
-                          className="btn btn-primary btn-sm"
-                          to={`/factura/${factura.id_factura}`}
-                        >
-                          Ver Factura
-                        </Link>
-                      </div>
-                      <div>
-                        <a
-                          className="btn btn-danger btn-sm"
-                          role="button"
-                          href="http://www.jquery2dotnet.com/"
-                        >
-                          Eliminar
-                        </a>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
+            <table className="table ">
+              <thead className="thead-dark">
+                <tr>
+                  <th scope="col">Nombre empresa</th>
+                  <th scope="col">Fecha Creación</th>
+                  <th scope="col">Acciones</th>
+                </tr>
+              </thead>
+              <tbody>
+                {facturas.map((obj) => (
+                  <tr key={obj.id_factura}>
+                    <td>{obj.nombre_empresa}</td>
+                    <td>{obj.date}</td>
+                    <td>
+                      <Link
+                        className="btn btn-primary btn-sm mx-2"
+                        to={`/factura/${obj.id_factura}`}
+                      >
+                        <EditIcon />
+                      </Link>
+                      <button
+                        className="btn btn-danger btn-sm"
+                        onClick={() => deleteInvoice(obj.id_factura)}
+                      >
+                        <DeleteIcon />
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
           </div>
         )}
       </div>
     </div>
   );
-}
-
-{
-  /* <div key={factura.id_factura} className="my-5">
-                <p>{factura.nombre_empresa}</p>
-                {factura.datos.map((fac) => (
-                  <p>{fac.descripcion}</p>
-                ))}
-              </div> */
 }

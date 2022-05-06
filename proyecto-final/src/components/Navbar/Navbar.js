@@ -15,13 +15,13 @@ export default function Navbar() {
       <nav id="sidebar" className="active">
         <div className="sidebar-header">
           <h3>Contabilidad</h3>
-          <div
+          <button
             id="dismiss"
             className="btn btn-light"
             onClick={() => closeMenu()}
           >
             <ArrowBackIcon />
-          </div>
+          </button>
         </div>
 
         <ul className="list-unstyled components">
@@ -87,7 +87,7 @@ export default function Navbar() {
                   to="ajustes"
                   onClick={() => closeMenu()}
                 >
-                  Ajustes
+                  Panel de Control
                 </Link>
               </li>
               <li>

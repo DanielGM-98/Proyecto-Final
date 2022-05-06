@@ -6,7 +6,7 @@ import InvoiceNo from "./InvoiceNo";
 import InvoiceItemsTable from "./InvoiceItemsTable";
 import InvoiceThankYouMsg from "./InvoiceThankYouMsg";
 
-import logo from "./images/logo.jpg";
+//import logo from "./images/logo.jpg";
 
 const styles = StyleSheet.create({
   page: {
@@ -30,12 +30,17 @@ export default function Invoice({ invoice }) {
   return (
     <Document>
       <Page size="A4" style={styles.page}>
-        <Image style={styles.logo} src={invoice.logo} id="logo-img" />
+        <Image
+          style={styles.logo}
+          src={invoice.logo}
+          id="logo-img"
+          crossorigin="anonymous"
+        />
         <InvoiceTitle title="Invoice" />
         <InvoiceNo invoice={invoice} />
         <BillTo invoice={invoice} />
         <InvoiceItemsTable invoice={invoice} />
-        <InvoiceThankYouMsg />
+        <InvoiceThankYouMsg invoice={invoice} />
       </Page>
     </Document>
   );

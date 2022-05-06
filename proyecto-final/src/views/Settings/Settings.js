@@ -30,7 +30,6 @@ export default function Settings() {
               Mis sociedades
             </Link>
           </p>
-          <p>Editar datos de las sociedades</p>
         </div>
       </div>
     </div>
