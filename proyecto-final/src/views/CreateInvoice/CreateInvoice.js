@@ -3,6 +3,8 @@ import { Link, useNavigate } from "react-router-dom";
 import { useAuthContext } from "../../context/AuthContext";
 import { useDatabaseContext } from "../../context/DatabaseContext";
 import { v4 as uuidv4 } from "uuid";
+import DeleteIcon from "@mui/icons-material/Delete";
+
 export default function CreateInvoice() {
   const [society, setSociety] = useState(null);
   const [n, setN] = useState(0);
@@ -14,6 +16,9 @@ export default function CreateInvoice() {
   const navigate = useNavigate();
   const userRef = useRef();
 
+  function handleDelete(index) {
+    //setData(list.filter((contacto) => contacto.id !== id));
+  }
   //Datos de los conceptos que se almacena hasta hacer click
   const [data, setData] = useState({
     descripcion: "",
@@ -91,7 +96,7 @@ export default function CreateInvoice() {
       }
       callSocieties();
     },
-    [auth, n],
+    [auth, n]
   );
 
   //Llama a una sociedad
@@ -112,7 +117,7 @@ export default function CreateInvoice() {
       }
       callSociety();
     },
-    [n, idsociedad],
+    [n, idsociedad]
   );
 
   const [company, setCompany] = useState({
@@ -317,15 +322,24 @@ export default function CreateInvoice() {
                     <th scope="col">Cantidad</th>
                     <th scope="col">Precio(sin IVA)</th>
                     <th scope="col">Precio(con IVA)</th>
+                    <th scope="col">Eliminar</th>
                   </tr>
                 </thead>
                 <tbody>
-                  {company.datos.map((obj) => (
+                  {company.datos.map((obj, index) => (
                     <tr>
                       <td>{obj.descripcion}</td>
                       <td>{obj.cantidad}</td>
                       <td>{obj.precio}</td>
                       <td>{obj.precio * Number(obj.iva)}</td>
+                      <td>
+                        <button
+                          className="btn btn-danger btn-sm"
+                          onClick={() => handleDelete(index)}
+                        >
+                          <DeleteIcon />
+                        </button>
+                      </td>
                     </tr>
                   ))}
                 </tbody>

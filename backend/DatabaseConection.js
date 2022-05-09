@@ -73,7 +73,7 @@ app.post("/insertuser", function (req, res) {
       } else {
         res.send("Usuario insertado!");
       }
-    },
+    }
   );
 });
 
@@ -95,7 +95,7 @@ app.post("/updateuser", function (req, res) {
       } else {
         res.send("Usuario actualizado correctamente");
       }
-    },
+    }
   );
   //Cerrar la conexión
   desconectar(connection);
@@ -117,7 +117,7 @@ app.post("/selectsocieties", function (req, res) {
       } else {
         res.send(results);
       }
-    },
+    }
   );
   //Cerrar la conexión
   desconectar(connection);
@@ -137,7 +137,7 @@ app.post("/selectsociety", function (req, res) {
       } else {
         res.send(results);
       }
-    },
+    }
   );
   desconectar(connection);
 });
@@ -156,7 +156,7 @@ app.post("/society", function (req, res) {
       } else {
         res.send(results);
       }
-    },
+    }
   );
   desconectar(connection);
 });
@@ -186,7 +186,7 @@ app.post("/insertsociety", function (req, res) {
       } else {
         res.send("Sociedad insertada!");
       }
-    },
+    }
   );
   desconectar(connection);
 });
@@ -205,8 +205,39 @@ app.post("/deletesociety", function (req, res) {
       } else {
         res.send("Sociedad eliminada");
       }
-    },
+    }
   );
+  desconectar(connection);
+});
+
+//Actualizar sociedad
+app.post("/updatesociety", function (req, res) {
+  let connection = conectar();
+
+  let id_sociedad = req.body.id_sociedad;
+  let nombre_sociedad = req.body.nombre_sociedad;
+  let direccion_sociedad = req.body.direccion_sociedad;
+  let codigo_pais = req.body.codigo_pais;
+  let telefono_sociedad = req.body.telefono_sociedad;
+
+  connection.query(
+    "update sociedades set nombre_sociedad = ?,direccion_sociedad=?,codigo_pais=?,telefono_sociedad=? where id_sociedad = ?",
+    [
+      nombre_sociedad,
+      direccion_sociedad,
+      codigo_pais,
+      telefono_sociedad,
+      id_sociedad,
+    ],
+    function (err) {
+      if (err) {
+        res.send("Error: " + err.message);
+      } else {
+        res.send("Sociedad actualizada correctamente");
+      }
+    }
+  );
+  //Cerrar la conexión
   desconectar(connection);
 });
 
@@ -225,7 +256,7 @@ app.post("/selectinvoices", function (req, res) {
       } else {
         res.send(results);
       }
-    },
+    }
   );
   desconectar(connection);
 });
@@ -237,11 +268,11 @@ app.post("/selectinvoice", function (req, res) {
   res.header("Access-Control-Allow-Credentials", "true");
   res.header(
     "Access-Control-Allow-Headers",
-    "Origin, X-Requested-With, Content-Type, Accept",
+    "Origin, X-Requested-With, Content-Type, Accept"
   );
   res.header(
     "Access-Control-Allow-Methods",
-    "GET,PUT,POST,DELETE,PATCH,OPTIONS",
+    "GET,PUT,POST,DELETE,PATCH,OPTIONS"
   );
 
   let connection = conectar();
@@ -256,7 +287,7 @@ app.post("/selectinvoice", function (req, res) {
       } else {
         res.send(results);
       }
-    },
+    }
   );
   desconectar(connection);
 });
@@ -304,7 +335,7 @@ app.post("/insertinvoice", function (req, res) {
       } else {
         res.send("Factura insertada insertada!");
       }
-    },
+    }
   );
   desconectar(connection);
 });
@@ -323,7 +354,7 @@ app.post("/deleteinvoice", function (req, res) {
       } else {
         res.send("Factura eliminada");
       }
-    },
+    }
   );
   desconectar(connection);
 });

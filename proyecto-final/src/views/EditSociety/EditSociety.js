@@ -1,9 +1,41 @@
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link, Navigate, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 
 export default function EditSociety() {
+  const navigate = useNavigate();
   const { id } = useParams();
   const [sociedad, setSociedad] = useState(null);
+  const [n, setN] = useState(0);
+
+  const [soc, setSoc] = useState({
+    nombre_sociedad: "",
+    direccion_sociedad: "",
+    codigo_pais: "",
+    telefono_sociedad: "",
+    email_sociedad: "",
+  });
+
+  function updateSociety() {
+    let url = "http://localhost:8080/updatesociety";
+
+    let xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function () {
+      if (this.readyState === 4 && this.status === 200) {
+        setN(n + 1);
+      }
+    };
+    xhttp.open("POST", url, true);
+    xhttp.setRequestHeader("Content-Type", "application/json");
+    xhttp.send(JSON.stringify(sociedad));
+  }
+
+  //Actualiza los datos de la sociedad
+  function handleSubmit(e) {
+    e.preventDefault();
+    updateSociety();
+    navigate(`/sociedad/${id}`);
+  }
+
   //Llamar a una sociedad
   useEffect(
     function () {
@@ -12,7 +44,9 @@ export default function EditSociety() {
         let data = { id_sociedad: id };
         xhttp.onreadystatechange = function () {
           if (this.readyState === 4 && this.status === 200) {
-            setSociedad(JSON.parse(this.responseText));
+            let x = JSON.parse(this.responseText);
+            setSociedad(x[0]);
+            setN(n + 1);
           }
         };
 
@@ -22,8 +56,12 @@ export default function EditSociety() {
       }
       callSociety();
     },
-    [id],
+    [id]
   );
+
+  function handleInputs(e) {
+    setSociedad({ ...sociedad, [e.target.name]: e.target.value });
+  }
 
   if (!sociedad) {
     return (
@@ -37,62 +75,70 @@ export default function EditSociety() {
       <h1>Editar Sociedad</h1>
       <div className="signin">
         <section>
-          {sociedad[0].logo !== null && (
+          {sociedad.logo !== null && (
             <img
-              src={sociedad[0].logo}
+              src={sociedad.logo}
               className="m-auto w-25"
               alt="logo-empresa"
             />
           )}
-          <form>
-            <label htmlFor="nombre">Nombre de la sociedad:</label>
+          <form onSubmit={handleSubmit}>
+            <label htmlFor="nombre_sociedad">Nombre de la sociedad:</label>
             <input
               type="text"
-              id="nombre"
-              name="nombre"
-              value={sociedad[0].nombre_sociedad}
-              readOnly
+              id="nombre_sociedad"
+              name="nombre_sociedad"
+              value={sociedad.nombre_sociedad}
+              onChange={handleInputs}
               className="text-center"
             />
-            <label htmlFor="direccion">Dirección de la sociedad:</label>
+            <label htmlFor="direccion_sociedad">
+              Dirección de la sociedad:
+            </label>
             <input
               type="text"
-              id="direccion"
-              name="direccion"
-              value={sociedad[0].direccion_sociedad}
-              readOnly
+              id="direccion_sociedad"
+              name="direccion_sociedad"
+              value={sociedad.direccion_sociedad}
               className="text-center"
+              onChange={handleInputs}
             />
-            <label htmlFor="telefono">Teléfono de la sociedad:</label>
+
+            <label htmlFor="codigo_pais">Código del pais de la sociedad:</label>
             <input
               type="text"
-              id="telefono"
-              name="telefono"
-              value={
-                "+" +
-                sociedad[0].codigo_pais +
-                " " +
-                sociedad[0].telefono_sociedad
-              }
-              readOnly
+              id="codigo_pais"
+              name="codigo_pais"
+              value={sociedad.codigo_pais}
               className="text-center"
+              onChange={handleInputs}
+              max="999"
+              min="1"
             />
-            <label htmlFor="email">Correo electrónico:</label>
+            <label htmlFor="telefono_sociedad">Teléfono de la sociedad:</label>
             <input
               type="text"
-              id="email"
-              name="email"
-              value={sociedad[0].email_sociedad}
-              readOnly
+              id="telefono_sociedad"
+              name="telefono_sociedad"
+              value={sociedad.telefono_sociedad}
               className="text-center"
+              onChange={handleInputs}
+              max="999999999"
+              min="100000000"
             />
+            <label htmlFor="email_sociedad">Correo electrónico:</label>
+            <input
+              type="text"
+              id="email_sociedad"
+              name="email_sociedad"
+              value={sociedad.email_sociedad}
+              className="text-center"
+              onChange={handleInputs}
+            />
+            <button className="btn btn-outline-primary link-page-button my-5">
+              Actualizar Sociedad
+            </button>
           </form>
-          <Link
-            to="/editarusuario"
-            className="btn btn-outline-primary link-page-button"
-          >
-            Editar Sociedad
-          </Link>
         </section>
       </div>
     </div>
