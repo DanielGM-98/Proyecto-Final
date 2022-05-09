@@ -35,7 +35,6 @@ const InvoiceThankYouMsg = ({ invoice }) => (
           <>
             <Text>Tarjeta</Text>
             <Text>Nº de tarjeta: {invoice.numero_tarjeta}</Text>
-            <Text>Fecha de vencimiento: {invoice.fecha_vencimiento}</Text>
           </>
         ) : (
           <Text>Efectivo</Text>

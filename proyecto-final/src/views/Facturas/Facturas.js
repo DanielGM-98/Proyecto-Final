@@ -50,7 +50,7 @@ export default function Facturas() {
       }
       callSocieties();
     },
-    [auth, n]
+    [auth, n],
   );
 
   //Llamar a una sociedad
@@ -71,7 +71,7 @@ export default function Facturas() {
       }
       callSociety();
     },
-    [n, idsociedad]
+    [n, idsociedad],
   );
 
   //Llamar a todas las facturas del usuario
@@ -84,27 +84,17 @@ export default function Facturas() {
         xhttp.onreadystatechange = function () {
           if (this.readyState === 4 && this.status === 200) {
             let x = JSON.parse(this.responseText);
-            //console.log(x);
             let j = [];
 
             for (let y of x) {
-              //console.log(y);
               let h = JSON.parse(y.datos);
               j = [];
               for (let z of h) {
-                //console.log(h);
                 j.push(z);
                 y.datos = j;
               }
-
-              //let j = JSON.parse(y);
-              /* console.log(j); */
             }
-
-            //x.datos = j;
-            //console.log(x);
             setFacturas(x);
-            //console.log(facturas);
           }
         };
 
@@ -114,7 +104,7 @@ export default function Facturas() {
       }
       callFacturas();
     },
-    [auth, n, idsociedad]
+    [auth, n, idsociedad],
   );
 
   if (!society || !sociedad || !facturas) {

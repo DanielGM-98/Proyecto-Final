@@ -73,7 +73,7 @@ app.post("/insertuser", function (req, res) {
       } else {
         res.send("Usuario insertado!");
       }
-    }
+    },
   );
 });
 
@@ -95,7 +95,7 @@ app.post("/updateuser", function (req, res) {
       } else {
         res.send("Usuario actualizado correctamente");
       }
-    }
+    },
   );
   //Cerrar la conexión
   desconectar(connection);
@@ -117,7 +117,7 @@ app.post("/selectsocieties", function (req, res) {
       } else {
         res.send(results);
       }
-    }
+    },
   );
   //Cerrar la conexión
   desconectar(connection);
@@ -137,7 +137,7 @@ app.post("/selectsociety", function (req, res) {
       } else {
         res.send(results);
       }
-    }
+    },
   );
   desconectar(connection);
 });
@@ -156,7 +156,7 @@ app.post("/society", function (req, res) {
       } else {
         res.send(results);
       }
-    }
+    },
   );
   desconectar(connection);
 });
@@ -186,7 +186,7 @@ app.post("/insertsociety", function (req, res) {
       } else {
         res.send("Sociedad insertada!");
       }
-    }
+    },
   );
   desconectar(connection);
 });
@@ -205,7 +205,7 @@ app.post("/deletesociety", function (req, res) {
       } else {
         res.send("Sociedad eliminada");
       }
-    }
+    },
   );
   desconectar(connection);
 });
@@ -225,7 +225,7 @@ app.post("/selectinvoices", function (req, res) {
       } else {
         res.send(results);
       }
-    }
+    },
   );
   desconectar(connection);
 });
@@ -237,11 +237,11 @@ app.post("/selectinvoice", function (req, res) {
   res.header("Access-Control-Allow-Credentials", "true");
   res.header(
     "Access-Control-Allow-Headers",
-    "Origin, X-Requested-With, Content-Type, Accept"
+    "Origin, X-Requested-With, Content-Type, Accept",
   );
   res.header(
     "Access-Control-Allow-Methods",
-    "GET,PUT,POST,DELETE,PATCH,OPTIONS"
+    "GET,PUT,POST,DELETE,PATCH,OPTIONS",
   );
 
   let connection = conectar();
@@ -256,7 +256,7 @@ app.post("/selectinvoice", function (req, res) {
       } else {
         res.send(results);
       }
-    }
+    },
   );
   desconectar(connection);
 });
@@ -277,8 +277,6 @@ app.post("/insertinvoice", function (req, res) {
   let id_sociedad = req.body.id_sociedad;
   let datos = JSON.stringify(req.body.datos);
   let forma_pago = req.body.forma_pago;
-  let fecha_vencimiento = req.body.fecha_vencimiento;
-  let cvv = req.body.cvv;
   let numero_tarjeta = req.body.numero_tarjeta;
 
   connection.query(
@@ -306,7 +304,7 @@ app.post("/insertinvoice", function (req, res) {
       } else {
         res.send("Factura insertada insertada!");
       }
-    }
+    },
   );
   desconectar(connection);
 });
@@ -325,7 +323,7 @@ app.post("/deleteinvoice", function (req, res) {
       } else {
         res.send("Factura eliminada");
       }
-    }
+    },
   );
   desconectar(connection);
 });

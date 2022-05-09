@@ -1,10 +1,10 @@
-import { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
+import { useEffect, useState } from "react";
 
-export default function Sociedad() {
+export default function EditSociety() {
   const { id } = useParams();
   const [sociedad, setSociedad] = useState(null);
-
+  //Llamar a una sociedad
   useEffect(
     function () {
       function callSociety() {
@@ -16,7 +16,7 @@ export default function Sociedad() {
           }
         };
 
-        xhttp.open("POST", "http://localhost:8080/society", true);
+        xhttp.open("POST", "http://localhost:8080/selectsociety", true);
         xhttp.setRequestHeader("Content-Type", "application/json");
         xhttp.send(JSON.stringify(data));
       }
@@ -32,10 +32,9 @@ export default function Sociedad() {
       </div>
     );
   }
-
   return (
     <div>
-      <h1>Datos de la sociedad</h1>
+      <h1>Editar Sociedad</h1>
       <div className="signin">
         <section>
           {sociedad[0].logo !== null && (
@@ -89,7 +88,7 @@ export default function Sociedad() {
             />
           </form>
           <Link
-            to={`/editarsociedad/${sociedad[0].id_sociedad}`}
+            to="/editarusuario"
             className="btn btn-outline-primary link-page-button"
           >
             Editar Sociedad

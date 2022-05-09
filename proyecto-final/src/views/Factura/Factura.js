@@ -49,13 +49,13 @@ export default function Prueba() {
         xhttp.setRequestHeader(
           "Content-Type",
           "application/json",
-          "Access-Control-Allow-Origin"
+          "Access-Control-Allow-Origin",
         );
         xhttp.send(JSON.stringify(data));
       }
       callFactura();
     },
-    [id]
+    [id],
   );
   let invoice = {
     id: "5df3180a09ea16dc4b95f910",
@@ -124,9 +124,7 @@ export default function Prueba() {
       due_date: "2019-10-12",
       items: factura.datos,
       logo: factura.logo,
-      cvv: factura.cvv,
       forma_pago: factura.forma_pago,
-      fecha_vencimiento: factura.fecha_vencimiento,
       numero_tarjeta: factura.numero_tarjeta,
     };
   }

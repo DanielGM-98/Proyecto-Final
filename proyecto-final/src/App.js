@@ -17,6 +17,7 @@ import MySocieties from "./views/MySocieties";
 import CreateInvoice from "./views/CreateInvoice";
 import Facturas from "./views/Facturas";
 import Sociedad from "./views/Sociedad";
+import EditSociety from "./views/EditSociety";
 
 function App() {
   return (
@@ -37,6 +38,7 @@ function App() {
           <Route path="crearfactura" element={<CreateInvoice />} />
           <Route path="factura/:id" element={<Factura />} />
           <Route path="sociedad/:id" element={<Sociedad />} />
+          <Route path="editarsociedad/:id" element={<EditSociety />} />
         </Route>
         <Route path="*" element={<Missing />} />
       </Route>

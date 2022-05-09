@@ -91,7 +91,7 @@ export default function CreateInvoice() {
       }
       callSocieties();
     },
-    [auth, n]
+    [auth, n],
   );
 
   //Llama a una sociedad
@@ -112,7 +112,7 @@ export default function CreateInvoice() {
       }
       callSociety();
     },
-    [n, idsociedad]
+    [n, idsociedad],
   );
 
   const [company, setCompany] = useState({
@@ -129,8 +129,6 @@ export default function CreateInvoice() {
     id_sociedad: "",
     numero_tarjeta: "",
     forma_pago: "efectivo",
-    fecha_vencimiento: null,
-    cvv: null,
   });
 
   if (!society)
@@ -358,24 +356,6 @@ export default function CreateInvoice() {
                   type="number"
                   id="numero_tarjeta"
                   name="numero_tarjeta"
-                  autoComplete="off"
-                  onChange={handleInputs}
-                  required
-                />
-                <label htmlFor="fecha_vencimiento">Fecha Vencimiento:</label>
-                <input
-                  type="date"
-                  id="fecha_vencimiento"
-                  name="fecha_vencimiento"
-                  autoComplete="off"
-                  onChange={handleInputs}
-                  required
-                />
-                <label htmlFor="cvv">CVV:</label>
-                <input
-                  type="number"
-                  id="cvv"
-                  name="cvv"
                   autoComplete="off"
                   onChange={handleInputs}
                   required
