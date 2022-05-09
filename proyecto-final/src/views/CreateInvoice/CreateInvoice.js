@@ -17,7 +17,9 @@ export default function CreateInvoice() {
   const userRef = useRef();
 
   function handleDelete(index) {
-    //setData(list.filter((contacto) => contacto.id !== id));
+    console.log(index);
+    company.datos.filter((dato) => dato.index !== index);
+    setN(n + 1);
   }
   //Datos de los conceptos que se almacena hasta hacer click
   const [data, setData] = useState({
@@ -327,7 +329,7 @@ export default function CreateInvoice() {
                 </thead>
                 <tbody>
                   {company.datos.map((obj, index) => (
-                    <tr>
+                    <tr key={index}>
                       <td>{obj.descripcion}</td>
                       <td>{obj.cantidad}</td>
                       <td>{obj.precio}</td>
