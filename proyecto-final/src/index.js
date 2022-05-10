@@ -6,7 +6,8 @@ import App from "./App";
 import AuthContextProvider from "./context/AuthContext";
 import reportWebVitals from "./reportWebVitals";
 import "bootstrap/dist/css/bootstrap.min.css";
-import "bootstrap/dist/js/bootstrap.min.js";
+import "bootstrap/dist/js/bootstrap.js";
+import "jquery/dist/jquery.min.js";
 import DatabaseContextProvider from "./context/DatabaseContext";
 
 ReactDOM.render(

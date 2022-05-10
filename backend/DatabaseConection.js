@@ -311,7 +311,7 @@ app.post("/insertinvoice", function (req, res) {
   let numero_tarjeta = req.body.numero_tarjeta;
 
   connection.query(
-    "insert into facturas(codigo,nombre_empresa,direccion_empresa,email,codigo_pais,telefono_empresa,date,nombre_sociedad,logo,id_sociedad,datos,forma_pago,fecha_vencimiento,cvv,numero_tarjeta) values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
+    "insert into facturas(codigo,nombre_empresa,direccion_empresa,email,codigo_pais,telefono_empresa,date,nombre_sociedad,logo,id_sociedad,datos,forma_pago,numero_tarjeta) values(?,?,?,?,?,?,?,?,?,?,?,?,?)",
     [
       codigo,
       nombre_empresa,
@@ -325,8 +325,6 @@ app.post("/insertinvoice", function (req, res) {
       id_sociedad,
       datos,
       forma_pago,
-      fecha_vencimiento,
-      cvv,
       numero_tarjeta,
     ],
     function (err, results) {

@@ -4,7 +4,7 @@ import "./UserData.css";
 export default function UserData() {
   const { auth } = useAuthContext();
   return (
-    <div>
+    <div className="p-md-5">
       <h1>Datos del usuario</h1>
       <div className="signin">
         <section>
