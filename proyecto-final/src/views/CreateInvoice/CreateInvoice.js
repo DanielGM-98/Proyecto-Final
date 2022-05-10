@@ -17,10 +17,17 @@ export default function CreateInvoice() {
   const userRef = useRef();
 
   function handleDelete(index) {
-    console.log(index);
-    company.datos.filter((dato) => dato.index !== index);
+    let x = [];
+    for (let i = 0; i < company.datos.length; i++) {
+      if (i !== index) {
+        x.push(company.datos[i]);
+      }
+    }
+
+    company.datos = x;
     setN(n + 1);
   }
+
   //Datos de los conceptos que se almacena hasta hacer click
   const [data, setData] = useState({
     descripcion: "",
@@ -98,7 +105,7 @@ export default function CreateInvoice() {
       }
       callSocieties();
     },
-    [auth, n]
+    [auth, n],
   );
 
   //Llama a una sociedad
@@ -119,7 +126,7 @@ export default function CreateInvoice() {
       }
       callSociety();
     },
-    [n, idsociedad]
+    [n, idsociedad],
   );
 
   const [company, setCompany] = useState({
