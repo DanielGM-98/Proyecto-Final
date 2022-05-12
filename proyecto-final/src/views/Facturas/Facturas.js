@@ -50,7 +50,7 @@ export default function Facturas() {
       }
       callSocieties();
     },
-    [auth, n],
+    [auth, n]
   );
 
   //Llamar a una sociedad
@@ -71,7 +71,7 @@ export default function Facturas() {
       }
       callSociety();
     },
-    [n, idsociedad],
+    [n, idsociedad]
   );
 
   //Llamar a todas las facturas del usuario
@@ -104,7 +104,7 @@ export default function Facturas() {
       }
       callFacturas();
     },
-    [auth, n, idsociedad],
+    [auth, n, idsociedad]
   );
 
   if (!society || !sociedad || !facturas) {
@@ -140,54 +140,56 @@ export default function Facturas() {
   }
 
   return (
-    <div>
-      <h1>Mis facturas</h1>
-      <h3>Seleccione una sociedad:</h3>
-      <select name="select" onChange={handleSelect}>
-        {society.map((soc) => (
-          <option value={soc.id_sociedad} key={soc.id_sociedad}>
-            {soc.nombre_sociedad}
-          </option>
-        ))}
-      </select>
-      <div>
-        {facturas.length === 0 ? (
-          <p>Añade una factura para poder mostrar algo</p>
-        ) : (
-          <div className="container mt-5">
-            <table className="table ">
-              <thead className="thead-dark">
-                <tr>
-                  <th scope="col">Nombre empresa</th>
-                  <th scope="col">Fecha Creación</th>
-                  <th scope="col">Acciones</th>
-                </tr>
-              </thead>
-              <tbody>
-                {facturas.map((obj) => (
-                  <tr key={obj.id_factura}>
-                    <td>{obj.nombre_empresa}</td>
-                    <td>{obj.date}</td>
-                    <td>
-                      <Link
-                        className="btn btn-primary btn-sm mx-2"
-                        to={`/factura/${obj.id_factura}`}
-                      >
-                        <EditIcon />
-                      </Link>
-                      <button
-                        className="btn btn-danger btn-sm"
-                        onClick={() => deleteInvoice(obj.id_factura)}
-                      >
-                        <DeleteIcon />
-                      </button>
-                    </td>
+    <div className="text-light">
+      <h1 className="my-4">Mis facturas</h1>
+      <div className="container backgr-op settings-menu scroll-part rounded p-5">
+        <h3>Seleccione una sociedad:</h3>
+        <select name="select" onChange={handleSelect}>
+          {society.map((soc) => (
+            <option value={soc.id_sociedad} key={soc.id_sociedad}>
+              {soc.nombre_sociedad}
+            </option>
+          ))}
+        </select>
+        <div>
+          {facturas.length === 0 ? (
+            <p>Añade una factura para poder mostrar algo</p>
+          ) : (
+            <div className="container mt-5">
+              <table className="table text-light">
+                <thead className="thead-dark">
+                  <tr>
+                    <th scope="col">Nombre empresa</th>
+                    <th scope="col">Fecha Creación</th>
+                    <th scope="col">Acciones</th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        )}
+                </thead>
+                <tbody>
+                  {facturas.map((obj) => (
+                    <tr key={obj.id_factura}>
+                      <td>{obj.nombre_empresa}</td>
+                      <td>{obj.date}</td>
+                      <td>
+                        <Link
+                          className="btn btn-primary btn-sm mx-2"
+                          to={`/factura/${obj.id_factura}`}
+                        >
+                          <EditIcon />
+                        </Link>
+                        <button
+                          className="btn btn-danger btn-sm"
+                          onClick={() => deleteInvoice(obj.id_factura)}
+                        >
+                          <DeleteIcon />
+                        </button>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );

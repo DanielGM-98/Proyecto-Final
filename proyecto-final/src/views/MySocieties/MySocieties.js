@@ -59,7 +59,7 @@ export default function MySocieties() {
 
   if (society.length === 0) {
     return (
-      <div>
+      <div className="text-light">
         <h1>Mis Sociedades</h1>
         <div>
           <p>Aún no has añadido ninguna sociedad</p>
@@ -78,10 +78,10 @@ export default function MySocieties() {
     );
   }
   return (
-    <div>
+    <div className="text-light">
       <h1>Mis Sociedades</h1>
-      <div className="container mt-5">
-        <table className="table ">
+      <div className="container mt-5 ">
+        <table className="table text-light">
           <thead className="thead-dark">
             <tr>
               <th scope="col">Nombre Sociedad</th>

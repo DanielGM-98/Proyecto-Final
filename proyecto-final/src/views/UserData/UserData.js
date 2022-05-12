@@ -4,9 +4,9 @@ import "./UserData.css";
 export default function UserData() {
   const { auth } = useAuthContext();
   return (
-    <div className="p-md-5">
+    <div className="">
       <h1>Datos del usuario</h1>
-      <div className="signin">
+      <div className="signin text-light">
         <section>
           <form>
             <label htmlFor="nombre">Nombre:</label>
@@ -37,12 +37,6 @@ export default function UserData() {
               className="text-center"
             />
           </form>
-          <Link
-            to="/editarusuario"
-            className="btn btn-outline-primary link-page-button"
-          >
-            Editar usuario
-          </Link>
         </section>
       </div>
     </div>

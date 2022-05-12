@@ -2,23 +2,27 @@ import { Link } from "react-router-dom";
 import "./Settings.scss";
 import "./Settings.css";
 import AddIcon from "@mui/icons-material/Add";
+import GroupsIcon from "@mui/icons-material/Groups";
+import EditIcon from "@mui/icons-material/Edit";
+
 import UserData from "../UserData";
 import { useAuthContext } from "../../context/AuthContext";
 import SocietyCreate from "../SocietyCreate/SocietyCreate";
 import MySocieties from "../MySocieties";
+import UserUpdate from "../UserUpdate/UserUpdate";
 
 export default function Settings() {
   const { auth } = useAuthContext();
   return (
     <div className="">
-      <h1 className="mb-5">Panel de Control</h1>
+      <h1 className="my-4 text-light">Panel de Control</h1>
       <div className="rounded-lg d-block d-sm-flex">
-        <div className="container bg-light settings-menu scroll-part">
+        <div className="container backgr-op settings-menu scroll-part rounded p-5">
           <div className="row">
             <div className="d-flex align-items-start">
               <div className="profile-tab-nav border-right">
                 <div className="p-4">
-                  <h4 className="text-center">
+                  <h4 className="text-center text-light">
                     {auth.nombre} {auth.apellidos}
                   </h4>
                 </div>
@@ -29,7 +33,7 @@ export default function Settings() {
                   aria-orientation="vertical"
                 >
                   <button
-                    className="nav-link active"
+                    className="nav-link active text-light"
                     id="v-pills-home-tab"
                     data-bs-toggle="pill"
                     data-bs-target="#v-pills-home"
@@ -42,7 +46,19 @@ export default function Settings() {
                     usuario
                   </button>
                   <button
-                    className="nav-link"
+                    className="nav-link text-light"
+                    id="v-pills-settings-tab"
+                    data-bs-toggle="pill"
+                    data-bs-target="#v-pills-settings"
+                    type="button"
+                    role="tab"
+                    aria-controls="v-pills-settings"
+                    aria-selected="false"
+                  >
+                    <EditIcon /> Editar Usuario
+                  </button>
+                  <button
+                    className="nav-link text-light"
                     id="v-pills-profile-tab"
                     data-bs-toggle="pill"
                     data-bs-target="#v-pills-profile"
@@ -55,7 +71,7 @@ export default function Settings() {
                     Añadir Sociedad
                   </button>
                   <button
-                    className="nav-link"
+                    className="nav-link text-light"
                     id="v-pills-messages-tab"
                     data-bs-toggle="pill"
                     data-bs-target="#v-pills-messages"
@@ -64,19 +80,7 @@ export default function Settings() {
                     aria-controls="v-pills-messages"
                     aria-selected="false"
                   >
-                    Mis Sociedades
-                  </button>
-                  <button
-                    className="nav-link"
-                    id="v-pills-settings-tab"
-                    data-bs-toggle="pill"
-                    data-bs-target="#v-pills-settings"
-                    type="button"
-                    role="tab"
-                    aria-controls="v-pills-settings"
-                    aria-selected="false"
-                  >
-                    Editar Usuario
+                    <GroupsIcon /> Mis Sociedades
                   </button>
                 </div>
               </div>
@@ -111,7 +115,7 @@ export default function Settings() {
                   role="tabpanel"
                   aria-labelledby="v-pills-settings-tab"
                 >
-                  ...
+                  <UserUpdate />
                 </div>
               </div>
             </div>

@@ -5,6 +5,8 @@ import { useDatabaseContext } from "../../context/DatabaseContext";
 import { v4 as uuidv4 } from "uuid";
 import DeleteIcon from "@mui/icons-material/Delete";
 
+import "../Settings/Settings.css";
+
 export default function CreateInvoice() {
   const [society, setSociety] = useState(null);
   const [n, setN] = useState(0);
@@ -105,7 +107,7 @@ export default function CreateInvoice() {
       }
       callSocieties();
     },
-    [auth, n],
+    [auth, n]
   );
 
   //Llama a una sociedad
@@ -126,7 +128,7 @@ export default function CreateInvoice() {
       }
       callSociety();
     },
-    [n, idsociedad],
+    [n, idsociedad]
   );
 
   const [company, setCompany] = useState({
@@ -167,9 +169,9 @@ export default function CreateInvoice() {
 
   if (society.length === 0) {
     return (
-      <div>
-        <h1>Crear Factura</h1>
-        <div>
+      <div className="text-light">
+        <h1 className="my-5">Crear Factura</h1>
+        <div className="container backgr-op settings-menu scroll-part rounded p-5">
           <p>Aún no has añadido ninguna sociedad</p>
           <p>
             Para poder utilizar la aplicación es necesario registrar al menos
@@ -187,10 +189,12 @@ export default function CreateInvoice() {
   }
 
   return (
-    <div>
-      <h1>Crear Factura</h1>
-      <br />
-      <div id="element1">
+    <div className="text-light">
+      <h1 className="my-4">Crear Factura</h1>
+      <div
+        id="element1"
+        className="container backgr-op settings-menu scroll-part rounded p-5"
+      >
         <h3>
           Seleccione una sociedad:{" "}
           <select name="select" onChange={handleSelect}>
@@ -207,7 +211,10 @@ export default function CreateInvoice() {
         </button>
       </div>
 
-      <div className="signin d-none" id="element2">
+      <div
+        className="signin d-none container backgr-op settings-menu scroll-part rounded p-5"
+        id="element2"
+      >
         <section>
           <h3 className="mt-3">Introduzca los datos de la empresa: </h3>
           <form onSubmit={handleSubmit}>
@@ -280,7 +287,10 @@ export default function CreateInvoice() {
         </section>
       </div>
 
-      <div className="signin d-none" id="element3">
+      <div
+        className="signin d-none container backgr-op settings-menu scroll-part rounded p-5"
+        id="element3"
+      >
         <div>
           <h3 className="mt-3">Datos de la operación: </h3>
           <form onSubmit={handleDatos}>
@@ -363,7 +373,10 @@ export default function CreateInvoice() {
         </div>
       </div>
 
-      <div className="signin d-none" id="element4">
+      <div
+        className="signin d-none container backgr-op settings-menu scroll-part rounded p-5"
+        id="element4"
+      >
         <div>
           <h3 className="mt-3">Método de pago: </h3>
           <form>

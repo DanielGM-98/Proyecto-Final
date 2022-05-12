@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import { useAuthContext } from "../../context/AuthContext";
 import { useNavigate, useLocation, Link } from "react-router-dom";
 import DoneIcon from "@mui/icons-material/Done";
+import Swal from "sweetalert2";
 
 import "./Login.css";
 
@@ -35,20 +36,22 @@ export default function Login() {
       password: "",
     });
     if (x) {
-      setInProp(true);
-      document.getElementById("bg-login").classList.remove("d-none");
-      document.getElementById("myModal").classList.add("d-block");
-      document.getElementById("myModal").classList.add("show");
-      document.getElementById("myModal").classList.remove("d-none");
-      //navigate("/ajustes");
+      Swal.fire({
+        title: "Inicio de sesión correcto!",
+        text: "You clicked the button!",
+        icon: "success",
+        allowOutsideClick: false,
+      }).then((result) => {
+        /* Read more about isConfirmed, isDenied below */
+        if (result.isConfirmed) {
+          navigate("/ajustes");
+        }
+      });
     } else {
       navigate("/login");
     }
   }
 
-  function navigateTo() {
-    navigate("/ajustes");
-  }
   return (
     <div className="signin">
       <section>
@@ -59,7 +62,7 @@ export default function Login() {
           {errorMessage}
         </p>
 
-        <div id="myModal" className="modal fade">
+        {/* <div id="myModal" className="modal fade">
           <div className="modal-dialog modal-confirm">
             <div className="modal-content">
               <div className="modal-header">
@@ -83,7 +86,7 @@ export default function Login() {
             </div>
           </div>
         </div>
-        <div className="modal-backdrop fade show d-none" id="bg-login"></div>
+        <div className="modal-backdrop fade show d-none" id="bg-login"></div> */}
 
         <h1>Inicia Sesión</h1>
         <form onSubmit={handleSubmit}>

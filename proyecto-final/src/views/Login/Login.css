@@ -58,9 +58,7 @@ textarea, select {
   border-radius: 0.5rem;
 }
 label,
-button {
-  margin-top: 1rem;
-}
+
 button {
   padding: 0.5rem;
 }

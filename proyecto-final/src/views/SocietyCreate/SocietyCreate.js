@@ -34,7 +34,7 @@ export default function SocietyCreate() {
     navigate("/ajustes");
   }
   return (
-    <div className="signin p-md-5">
+    <div className="signin">
       <section>
         <p
           className={errorRegister ? "errmsg" : "offscreen"}

@@ -49,13 +49,13 @@ export default function Prueba() {
         xhttp.setRequestHeader(
           "Content-Type",
           "application/json",
-          "Access-Control-Allow-Origin",
+          "Access-Control-Allow-Origin"
         );
         xhttp.send(JSON.stringify(data));
       }
       callFactura();
     },
-    [id],
+    [id]
   );
   let invoice = {
     id: "5df3180a09ea16dc4b95f910",
@@ -102,15 +102,16 @@ export default function Prueba() {
     ],
   };
   if (factura) {
-    factura.numero_tarjeta =
-      factura.numero_tarjeta.slice(0, 4) +
-      "-" +
-      factura.numero_tarjeta.slice(4);
-    factura.numero_tarjeta =
-      factura.numero_tarjeta.slice(0, 9) +
-      "-" +
-      factura.numero_tarjeta.slice(9);
-
+    if (factura.forma_pago === "tarjeta") {
+      factura.numero_tarjeta =
+        factura.numero_tarjeta.slice(0, 4) +
+        "-" +
+        factura.numero_tarjeta.slice(4);
+      factura.numero_tarjeta =
+        factura.numero_tarjeta.slice(0, 9) +
+        "-" +
+        factura.numero_tarjeta.slice(9);
+    }
     invoice = {
       id_factura: factura.id_factura,
       id: factura.codigo,
