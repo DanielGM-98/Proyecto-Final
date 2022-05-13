@@ -190,7 +190,10 @@ export default function CreateInvoice() {
     <div>
       <h1>Crear Factura</h1>
       <br />
-      <div id="element1">
+      <div
+        id="element1"
+        className="container my-4 py-5 bg-light settings-menu scroll-part rounded"
+      >
         <h3>
           Seleccione una sociedad:{" "}
           <select name="select" onChange={handleSelect}>
@@ -207,7 +210,10 @@ export default function CreateInvoice() {
         </button>
       </div>
 
-      <div className="signin d-none" id="element2">
+      <div
+        className="signin d-none container my-4 py-5 bg-light settings-menu scroll-part rounded"
+        id="element2"
+      >
         <section>
           <h3 className="mt-3">Introduzca los datos de la empresa: </h3>
           <form onSubmit={handleSubmit}>
@@ -280,7 +286,10 @@ export default function CreateInvoice() {
         </section>
       </div>
 
-      <div className="signin d-none" id="element3">
+      <div
+        className="signin d-none container my-4 py-5 bg-light settings-menu scroll-part rounded"
+        id="element3"
+      >
         <div>
           <h3 className="mt-3">Datos de la operación: </h3>
           <form onSubmit={handleDatos}>
@@ -363,7 +372,10 @@ export default function CreateInvoice() {
         </div>
       </div>
 
-      <div className="signin d-none" id="element4">
+      <div
+        className="signin d-none  container my-4 py-5 bg-light settings-menu scroll-part rounded"
+        id="element4"
+      >
         <div>
           <h3 className="mt-3">Método de pago: </h3>
           <form>

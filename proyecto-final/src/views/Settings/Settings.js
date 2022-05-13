@@ -1,11 +1,16 @@
 import { Link } from "react-router-dom";
 import "./Settings.scss";
 import "./Settings.css";
+
 import AddIcon from "@mui/icons-material/Add";
+import GroupsIcon from "@mui/icons-material/Groups";
+import EditIcon from "@mui/icons-material/Edit";
+
 import UserData from "../UserData";
 import { useAuthContext } from "../../context/AuthContext";
 import SocietyCreate from "../SocietyCreate/SocietyCreate";
 import MySocieties from "../MySocieties";
+import UserUpdate from "../UserUpdate/UserUpdate";
 
 export default function Settings() {
   const { auth } = useAuthContext();
@@ -13,7 +18,7 @@ export default function Settings() {
     <div className="">
       <h1 className="mb-5">Panel de Control</h1>
       <div className="rounded-lg d-block d-sm-flex">
-        <div className="container bg-light settings-menu scroll-part">
+        <div className="container bg-light settings-menu scroll-part rounded">
           <div className="row">
             <div className="d-flex align-items-start">
               <div className="profile-tab-nav border-right">
@@ -43,6 +48,18 @@ export default function Settings() {
                   </button>
                   <button
                     className="nav-link"
+                    id="v-pills-settings-tab"
+                    data-bs-toggle="pill"
+                    data-bs-target="#v-pills-settings"
+                    type="button"
+                    role="tab"
+                    aria-controls="v-pills-settings"
+                    aria-selected="false"
+                  >
+                    <EditIcon /> Editar Usuario
+                  </button>
+                  <button
+                    className="nav-link"
                     id="v-pills-profile-tab"
                     data-bs-toggle="pill"
                     data-bs-target="#v-pills-profile"
@@ -64,19 +81,7 @@ export default function Settings() {
                     aria-controls="v-pills-messages"
                     aria-selected="false"
                   >
-                    Mis Sociedades
-                  </button>
-                  <button
-                    className="nav-link"
-                    id="v-pills-settings-tab"
-                    data-bs-toggle="pill"
-                    data-bs-target="#v-pills-settings"
-                    type="button"
-                    role="tab"
-                    aria-controls="v-pills-settings"
-                    aria-selected="false"
-                  >
-                    Editar Usuario
+                    <GroupsIcon /> Mis Sociedades
                   </button>
                 </div>
               </div>
@@ -111,7 +116,7 @@ export default function Settings() {
                   role="tabpanel"
                   aria-labelledby="v-pills-settings-tab"
                 >
-                  ...
+                  <UserUpdate />
                 </div>
               </div>
             </div>

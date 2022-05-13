@@ -142,19 +142,30 @@ export default function Facturas() {
   return (
     <div>
       <h1>Mis facturas</h1>
-      <h3>Seleccione una sociedad:</h3>
-      <select name="select" onChange={handleSelect}>
-        {society.map((soc) => (
-          <option value={soc.id_sociedad} key={soc.id_sociedad}>
-            {soc.nombre_sociedad}
-          </option>
-        ))}
-      </select>
+
       <div>
         {facturas.length === 0 ? (
-          <p>Añade una factura para poder mostrar algo</p>
+          <div className="container bg-light settings-menu scroll-part rounded my-4 py-5">
+            <h3>Seleccione una sociedad:</h3>
+            <select name="select  " onChange={handleSelect}>
+              {society.map((soc) => (
+                <option value={soc.id_sociedad} key={soc.id_sociedad}>
+                  {soc.nombre_sociedad}
+                </option>
+              ))}
+            </select>
+            <p>Añade una factura para poder mostrar algo</p>
+          </div>
         ) : (
-          <div className="container mt-5">
+          <div className="container my-4 py-5 bg-light settings-menu scroll-part rounded">
+            <h3>Seleccione una sociedad:</h3>
+            <select name="select  " onChange={handleSelect}>
+              {society.map((soc) => (
+                <option value={soc.id_sociedad} key={soc.id_sociedad}>
+                  {soc.nombre_sociedad}
+                </option>
+              ))}
+            </select>
             <table className="table ">
               <thead className="thead-dark">
                 <tr>

@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import { useAuthContext } from "../../context/AuthContext";
 import { useNavigate, useLocation, Link } from "react-router-dom";
 import DoneIcon from "@mui/icons-material/Done";
+import Swal from "sweetalert2";
 
 import "./Login.css";
 
@@ -36,10 +37,21 @@ export default function Login() {
     });
     if (x) {
       setInProp(true);
-      document.getElementById("bg-login").classList.remove("d-none");
+      /* document.getElementById("bg-login").classList.remove("d-none");
       document.getElementById("myModal").classList.add("d-block");
       document.getElementById("myModal").classList.add("show");
-      document.getElementById("myModal").classList.remove("d-none");
+      document.getElementById("myModal").classList.remove("d-none"); */
+      Swal.fire({
+        title: "Inicio de sesión correcto",
+        text: "You clicked the button!",
+        icon: "success",
+        allowOutsideClick: false,
+      }).then((result) => {
+        /* Read more about isConfirmed, isDenied below */
+        if (result.isConfirmed) {
+          navigate("/ajustes");
+        }
+      });
       //navigate("/ajustes");
     } else {
       navigate("/login");
