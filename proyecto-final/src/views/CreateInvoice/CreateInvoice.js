@@ -192,7 +192,7 @@ export default function CreateInvoice() {
       <br />
       <div
         id="element1"
-        className="container my-4 py-5 bg-light settings-menu scroll-part rounded"
+        className="container my-4 py-5 bg-op settings-menu scroll-part rounded"
       >
         <h3>
           Seleccione una sociedad:{" "}
@@ -211,7 +211,7 @@ export default function CreateInvoice() {
       </div>
 
       <div
-        className="signin d-none container my-4 py-5 bg-light settings-menu scroll-part rounded"
+        className="signin d-none container my-4 py-5 bg-op settings-menu scroll-part rounded"
         id="element2"
       >
         <section>
@@ -287,7 +287,7 @@ export default function CreateInvoice() {
       </div>
 
       <div
-        className="signin d-none container my-4 py-5 bg-light settings-menu scroll-part rounded"
+        className="signin d-none container my-4 py-5 bg-op settings-menu scroll-part rounded"
         id="element3"
       >
         <div>
@@ -373,7 +373,7 @@ export default function CreateInvoice() {
       </div>
 
       <div
-        className="signin d-none  container my-4 py-5 bg-light settings-menu scroll-part rounded"
+        className="signin d-none  container my-4 py-5 bg-op settings-menu scroll-part rounded"
         id="element4"
       >
         <div>

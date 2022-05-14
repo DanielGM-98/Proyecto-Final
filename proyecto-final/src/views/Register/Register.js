@@ -38,9 +38,11 @@ export default function Register() {
         >
           {errorRegister}
         </p>
-        <h1>Regístrate</h1>
+        <h1 className="text-light">Regístrate</h1>
         <form onSubmit={handleSubmit}>
-          <label htmlFor="nombre">Nombre:</label>
+          <label htmlFor="nombre" className="text-light">
+            Nombre:
+          </label>
           <input
             type="text"
             id="nombre"
@@ -51,7 +53,9 @@ export default function Register() {
             value={user.nombre}
             required
           />
-          <label htmlFor="apellidos">Apellidos:</label>
+          <label htmlFor="apellidos" className="text-light">
+            Apellidos:
+          </label>
           <input
             type="text"
             id="apellidos"
@@ -61,7 +65,9 @@ export default function Register() {
             value={user.apellidos}
             required
           />
-          <label htmlFor="email">Correo electrónico:</label>
+          <label htmlFor="email" className="text-light">
+            Correo electrónico:
+          </label>
           <input
             type="text"
             id="email"
@@ -71,7 +77,9 @@ export default function Register() {
             value={user.email}
             required
           />
-          <label htmlFor="password">Contraseña:</label>
+          <label htmlFor="password" className="text-light">
+            Contraseña:
+          </label>
           <input
             type="password"
             id="password"
@@ -82,7 +90,7 @@ export default function Register() {
           />
           <button className="btn btn-primary mt-3">Confirmar Datos</button>
         </form>
-        <p>
+        <p className="text-light">
           ¿Ya estás registrado? Inicia sesión{" "}
           <Link className="link-page" to="/login">
             aquí

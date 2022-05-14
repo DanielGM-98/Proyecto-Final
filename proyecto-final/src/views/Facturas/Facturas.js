@@ -3,6 +3,8 @@ import { useAuthContext } from "../../context/AuthContext";
 import { Link } from "react-router-dom";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
+import missing from "../images/missing.png";
+import Swal from "sweetalert2";
 
 export default function Facturas() {
   const [society, setSociety] = useState(null);
@@ -15,16 +17,38 @@ export default function Facturas() {
   function deleteInvoice(id) {
     let xhttp = new XMLHttpRequest();
     let data = { id_factura: id };
-    xhttp.onreadystatechange = function () {
-      if (this.readyState === 4 && this.status === 200) {
-        console.log(this.responseText);
-        setN(n + 1);
-      }
-    };
+    Swal.fire({
+      title: "¿Estas seguro de querer eliminar esta factura?",
+      text: "No podrás volver atrás",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Eliminar",
+      allowOutsideClick: false,
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire({
+          title: "Eliminado!",
+          text: "La factura ha sido eliminada con éxito",
+          icon: "success",
+          allowOutsideClick: false,
+        }).then((result) => {
+          if (result.isConfirmed) {
+            xhttp.onreadystatechange = function () {
+              if (this.readyState === 4 && this.status === 200) {
+                console.log(this.responseText);
+                setN(n + 1);
+              }
+            };
 
-    xhttp.open("POST", "http://localhost:8080/deleteinvoice", true);
-    xhttp.setRequestHeader("Content-Type", "application/json");
-    xhttp.send(JSON.stringify(data));
+            xhttp.open("POST", "http://localhost:8080/deleteinvoice", true);
+            xhttp.setRequestHeader("Content-Type", "application/json");
+            xhttp.send(JSON.stringify(data));
+          }
+        });
+      }
+    });
   }
 
   function handleSelect(e) {
@@ -123,6 +147,7 @@ export default function Facturas() {
       <div>
         <h1>Mis Facturas</h1>
         <div>
+          <img src={missing} />
           <p>Aún no has añadido ninguna sociedad</p>
           <p>
             Para poder utilizar la aplicación es necesario registrar al menos
@@ -145,7 +170,7 @@ export default function Facturas() {
 
       <div>
         {facturas.length === 0 ? (
-          <div className="container bg-light settings-menu scroll-part rounded my-4 py-5">
+          <div className="container bg-op settings-menu scroll-part rounded my-4 py-5">
             <h3>Seleccione una sociedad:</h3>
             <select name="select  " onChange={handleSelect}>
               {society.map((soc) => (
@@ -154,10 +179,21 @@ export default function Facturas() {
                 </option>
               ))}
             </select>
-            <p>Añade una factura para poder mostrar algo</p>
+            <br />
+            <img src={missing} />
+            <p className="text-light py-4">
+              No has creado ninguna factura. Para poder mostrar las facturas es
+              necesario haber creado alguna.
+            </p>
+            <p className="text-light">
+              Para crear una factura pulsa{" "}
+              <Link to="/crearfactura" className="link-page">
+                aquí
+              </Link>
+            </p>
           </div>
         ) : (
-          <div className="container my-4 py-5 bg-light settings-menu scroll-part rounded">
+          <div className="container my-4 py-5 bg-op settings-menu scroll-part rounded p-md-5">
             <h3>Seleccione una sociedad:</h3>
             <select name="select  " onChange={handleSelect}>
               {society.map((soc) => (

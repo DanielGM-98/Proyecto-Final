@@ -18,7 +18,7 @@ export default function Settings() {
     <div className="">
       <h1 className="mb-5">Panel de Control</h1>
       <div className="rounded-lg d-block d-sm-flex">
-        <div className="container bg-light settings-menu scroll-part rounded">
+        <div className="container bg-op settings-menu scroll-part rounded">
           <div className="row">
             <div className="d-flex align-items-start">
               <div className="profile-tab-nav border-right">
@@ -34,7 +34,7 @@ export default function Settings() {
                   aria-orientation="vertical"
                 >
                   <button
-                    className="nav-link active"
+                    className="nav-link active text-light"
                     id="v-pills-home-tab"
                     data-bs-toggle="pill"
                     data-bs-target="#v-pills-home"
@@ -43,11 +43,11 @@ export default function Settings() {
                     aria-controls="v-pills-home"
                     aria-selected="true"
                   >
-                    <i className="fa fa-user text-center mr-1"></i> Datos del
+                    <i className="fa fa-user text-center mr-1 "></i> Datos del
                     usuario
                   </button>
                   <button
-                    className="nav-link"
+                    className="nav-link text-light"
                     id="v-pills-settings-tab"
                     data-bs-toggle="pill"
                     data-bs-target="#v-pills-settings"
@@ -59,7 +59,7 @@ export default function Settings() {
                     <EditIcon /> Editar Usuario
                   </button>
                   <button
-                    className="nav-link"
+                    className="nav-link text-light"
                     id="v-pills-profile-tab"
                     data-bs-toggle="pill"
                     data-bs-target="#v-pills-profile"
@@ -72,7 +72,7 @@ export default function Settings() {
                     Añadir Sociedad
                   </button>
                   <button
-                    className="nav-link"
+                    className="nav-link text-light"
                     id="v-pills-messages-tab"
                     data-bs-toggle="pill"
                     data-bs-target="#v-pills-messages"
