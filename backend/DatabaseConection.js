@@ -331,7 +331,31 @@ app.post("/insertinvoice", function (req, res) {
       if (err) {
         res.send("Error:" + err.message);
       } else {
-        res.send("Factura insertada insertada!");
+        res.send("Factura insertada!");
+      }
+    },
+  );
+  desconectar(connection);
+});
+
+//Subir una factura
+app.post("/uploadinvoice", function (req, res) {
+  let connection = conectar();
+  console.log(req.body);
+  let nombre_factura = req.body.factura;
+  let id_sociedad = req.body.id_sociedad;
+
+  nombre_factura = nombre_factura.split("\\");
+  let facturaFull = "http://localhost:8080/files/" + nombre_factura[2];
+
+  connection.query(
+    "insert into facturas_subidas(nombre_factura, id_sociedad) values(?,?)",
+    [facturaFull, id_sociedad],
+    function (err, results) {
+      if (err) {
+        res.send("Error:" + err.message);
+      } else {
+        res.send("Factura insertada!");
       }
     },
   );
@@ -345,6 +369,45 @@ app.post("/deleteinvoice", function (req, res) {
 
   connection.query(
     "delete from facturas where id_factura = ?",
+    [id_factura],
+    function (err, results) {
+      if (err) {
+        res.send("Error: " + err.message);
+      } else {
+        res.send("Factura eliminada");
+      }
+    },
+  );
+  desconectar(connection);
+});
+
+//Mostrar todas las facturas subidas
+
+app.post("/selectuploadedinvoices", function (req, res) {
+  let connection = conectar();
+  console.log(req.body);
+  let id_sociedad = req.body.id_sociedad;
+  connection.query(
+    "select * from facturas_subidas where id_sociedad=?",
+    [id_sociedad],
+    function (err, results) {
+      if (err) {
+        res.send(err);
+      } else {
+        res.send(results);
+      }
+    },
+  );
+  desconectar(connection);
+});
+
+//Elimina una factura
+app.post("/deleteuploadedinvoice", function (req, res) {
+  let connection = conectar();
+  let id_factura = req.body.id_facturas_subidas;
+
+  connection.query(
+    "delete from facturas_subidas where id_facturas_subidas = ?",
     [id_factura],
     function (err, results) {
       if (err) {

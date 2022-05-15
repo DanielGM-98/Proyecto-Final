@@ -43,7 +43,6 @@ export default function Login() {
       document.getElementById("myModal").classList.remove("d-none"); */
       Swal.fire({
         title: "Inicio de sesión correcto",
-        text: "You clicked the button!",
         icon: "success",
         allowOutsideClick: false,
       }).then((result) => {

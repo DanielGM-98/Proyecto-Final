@@ -18,6 +18,8 @@ import CreateInvoice from "./views/CreateInvoice";
 import Facturas from "./views/Facturas";
 import Sociedad from "./views/Sociedad";
 import EditSociety from "./views/EditSociety";
+import UploadInvoice from "./views/UploadInvoice";
+import UploadedInvoices from "./views/UploadedInvoices";
 
 function App() {
   return (
@@ -39,6 +41,8 @@ function App() {
           <Route path="factura/:id" element={<Factura />} />
           <Route path="sociedad/:id" element={<Sociedad />} />
           <Route path="editarsociedad/:id" element={<EditSociety />} />
+          <Route path="uploadinvoice" element={<UploadInvoice />} />
+          <Route path="uploadedinvoices" element={<UploadedInvoices />} />
         </Route>
         <Route path="*" element={<Missing />} />
       </Route>

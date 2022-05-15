@@ -16,7 +16,7 @@ export default function MySocieties() {
 
     Swal.fire({
       title: "¿Estas seguro de querer eliminar esta sociedad?",
-      text: "No podrás volver atrás",
+      text: "Esta acción es irreversible",
       icon: "warning",
       showCancelButton: true,
       confirmButtonColor: "#3085d6",

@@ -34,7 +34,7 @@ export default function Settings() {
                   aria-orientation="vertical"
                 >
                   <button
-                    className="nav-link active text-light"
+                    className="nav-link active text-light my-3"
                     id="v-pills-home-tab"
                     data-bs-toggle="pill"
                     data-bs-target="#v-pills-home"
@@ -47,7 +47,7 @@ export default function Settings() {
                     usuario
                   </button>
                   <button
-                    className="nav-link text-light"
+                    className="nav-link text-light my-3"
                     id="v-pills-settings-tab"
                     data-bs-toggle="pill"
                     data-bs-target="#v-pills-settings"
@@ -59,7 +59,7 @@ export default function Settings() {
                     <EditIcon /> Editar Usuario
                   </button>
                   <button
-                    className="nav-link text-light"
+                    className="nav-link text-light my-3"
                     id="v-pills-profile-tab"
                     data-bs-toggle="pill"
                     data-bs-target="#v-pills-profile"
@@ -72,7 +72,7 @@ export default function Settings() {
                     Añadir Sociedad
                   </button>
                   <button
-                    className="nav-link text-light"
+                    className="nav-link text-light my-3"
                     id="v-pills-messages-tab"
                     data-bs-toggle="pill"
                     data-bs-target="#v-pills-messages"

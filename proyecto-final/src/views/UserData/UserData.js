@@ -37,12 +37,6 @@ export default function UserData() {
               className="text-center"
             />
           </form>
-          <Link
-            to="/editarusuario"
-            className="btn btn-outline-primary link-page-button"
-          >
-            Editar usuario
-          </Link>
         </section>
       </div>
     </div>

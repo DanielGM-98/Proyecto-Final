@@ -56,7 +56,7 @@ export default function EditSociety() {
       }
       callSociety();
     },
-    [id]
+    [id],
   );
 
   function handleInputs(e) {
@@ -73,7 +73,7 @@ export default function EditSociety() {
   return (
     <div>
       <h1>Editar Sociedad</h1>
-      <div className="signin">
+      <div className="signin container my-4 py-5 bg-op settings-menu scroll-part rounded p-md-5">
         <section>
           {sociedad.logo !== null && (
             <img
@@ -135,7 +135,7 @@ export default function EditSociety() {
               className="text-center"
               onChange={handleInputs}
             />
-            <button className="btn btn-outline-primary link-page-button my-5">
+            <button className="btn btn-primary link-page-button my-5 text-light">
               Actualizar Sociedad
             </button>
           </form>

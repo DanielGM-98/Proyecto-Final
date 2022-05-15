@@ -3,6 +3,8 @@ import { Link, useNavigate } from "react-router-dom";
 import { useAuthContext } from "../../context/AuthContext";
 import { useDatabaseContext } from "../../context/DatabaseContext";
 import { v4 as uuidv4 } from "uuid";
+
+import Swal from "sweetalert2";
 import DeleteIcon from "@mui/icons-material/Delete";
 
 export default function CreateInvoice() {
@@ -77,9 +79,19 @@ export default function CreateInvoice() {
     company.logo = sociedad[0].logo;
     company.nombre_sociedad = sociedad[0].nombre_sociedad;
     company.id_sociedad = sociedad[0].id_sociedad;
-    registerInvoice(company);
-    console.log(company);
-    navigate("/facturas");
+
+    Swal.fire({
+      title: "Factura creada!",
+      text: "La factura ha sido creada con éxito",
+      icon: "success",
+      allowOutsideClick: false,
+    }).then((result) => {
+      if (result.isConfirmed) {
+        registerInvoice(company);
+        console.log(company);
+        navigate("/facturas");
+      }
+    });
   }
 
   function handleSelect(e) {
@@ -116,6 +128,7 @@ export default function CreateInvoice() {
         let data = { id_sociedad: idsociedad };
         xhttp.onreadystatechange = function () {
           if (this.readyState === 4 && this.status === 200) {
+            setN(n + 1);
             setSociedad(JSON.parse(this.responseText));
           }
         };
@@ -367,7 +380,7 @@ export default function CreateInvoice() {
               </button>
             </>
           ) : (
-            <div>Añade algo para continuar</div>
+            <div>Introduzca datos para poder continuar</div>
           )}
         </div>
       </div>

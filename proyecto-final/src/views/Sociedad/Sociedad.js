@@ -36,7 +36,7 @@ export default function Sociedad() {
   return (
     <div>
       <h1>Datos de la sociedad</h1>
-      <div className="signin">
+      <div className="signin container my-4 py-5 bg-op settings-menu scroll-part rounded p-md-5">
         <section>
           {sociedad[0].logo !== null && (
             <img
@@ -90,7 +90,7 @@ export default function Sociedad() {
           </form>
           <Link
             to={`/editarsociedad/${sociedad[0].id_sociedad}`}
-            className="btn btn-outline-primary link-page-button"
+            className="btn btn-primary link-page-button text-light"
           >
             Editar Sociedad
           </Link>
