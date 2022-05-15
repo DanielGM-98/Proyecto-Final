@@ -21,8 +21,10 @@ const styles = StyleSheet.create({
   logo: {
     width: 74,
     height: 66,
-    marginLeft: "auto",
-    marginRight: "auto",
+  },
+
+  descSociedad: {
+    color: "black",
   },
 });
 
@@ -36,7 +38,7 @@ export default function Invoice({ invoice }) {
           id="logo-img"
           crossorigin="anonymous"
         />
-        <InvoiceTitle title="Invoice" />
+        <InvoiceTitle style={styles.descSociedad} title="Invoice" />
         <InvoiceNo invoice={invoice} />
         <BillTo invoice={invoice} />
         <InvoiceItemsTable invoice={invoice} />

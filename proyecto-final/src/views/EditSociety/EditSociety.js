@@ -1,5 +1,6 @@
 import { useParams, Link, Navigate, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
+import Swal from "sweetalert2";
 
 export default function EditSociety() {
   const navigate = useNavigate();
@@ -33,7 +34,18 @@ export default function EditSociety() {
   function handleSubmit(e) {
     e.preventDefault();
     updateSociety();
-    navigate(`/sociedad/${id}`);
+    setN(n + 1);
+
+    Swal.fire({
+      title: "Sociedad actualizada!",
+      icon: "success",
+      allowOutsideClick: false,
+    }).then((result) => {
+      /* Read more about isConfirmed, isDenied below */
+      if (result.isConfirmed) {
+        navigate(`/sociedad/${id}`);
+      }
+    });
   }
 
   //Llamar a una sociedad

@@ -2,12 +2,14 @@ import { Link, useNavigate, useLocation } from "react-router-dom";
 import { useEffect, useRef, useState } from "react";
 import { useAuthContext } from "../../context/AuthContext";
 import { useDatabaseContext } from "../../context/DatabaseContext";
+import Swal from "sweetalert2";
+
 export default function UserUpdate() {
   const { updateUser, success } = useDatabaseContext();
   const { auth, setAuth } = useAuthContext();
   const [errorMsg, setErrorMsg] = useState("");
   const [authCopy, setAuthCopy] = useState(auth);
-
+  const navigate = useNavigate();
   const userRef = useRef();
 
   const [user, setUser] = useState({
@@ -36,6 +38,17 @@ export default function UserUpdate() {
       password: user.password,
       confirmado: authCopy.confirmado,
       email: authCopy.email,
+    });
+    Swal.fire({
+      title: "Usuario actualizado!",
+      icon: "success",
+      allowOutsideClick: false,
+    }).then((result) => {
+      /* Read more about isConfirmed, isDenied below */
+      if (result.isConfirmed) {
+        navigate("/inicio");
+        navigate("/ajustes");
+      }
     });
   }
   return (

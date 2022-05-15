@@ -20,17 +20,23 @@ const styles = StyleSheet.create({
   },
 });
 
-const InvoiceNo = ({ invoice }) => (
-  <Fragment>
-    <View style={styles.invoiceNoContainer}>
-      <Text style={styles.label}>Invoice No:</Text>
-      <Text style={styles.invoiceDate}>{invoice.invoice_no}</Text>
-    </View>
-    <View style={styles.invoiceDateContainer}>
-      <Text style={styles.label}>Date: </Text>
-      <Text>{invoice.trans_date}</Text>
-    </View>
-  </Fragment>
-);
-
-export default InvoiceNo;
+export default function InvoiceNo({ invoice }) {
+  let x = invoice.trans_date.split("-");
+  let j = "";
+  for (let y of x) {
+    j += y;
+  }
+  j += invoice.id_factura;
+  return (
+    <Fragment>
+      <View style={styles.invoiceNoContainer}>
+        <Text style={styles.label}>Factura Nº:</Text>
+        <Text style={styles.invoiceDate}>{j}</Text>
+      </View>
+      <View style={styles.invoiceDateContainer}>
+        <Text style={styles.label}>Fecha: </Text>
+        <Text>{invoice.trans_date}</Text>
+      </View>
+    </Fragment>
+  );
+}

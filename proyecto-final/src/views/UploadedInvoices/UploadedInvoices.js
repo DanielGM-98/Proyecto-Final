@@ -7,6 +7,7 @@ import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
 import missing from "../images/missing.png";
 import Swal from "sweetalert2";
 import { format } from "util";
+import Loading from "../../components/Loading";
 
 export default function UploadedInvoices() {
   const [society, setSociety] = useState(null);
@@ -142,7 +143,7 @@ export default function UploadedInvoices() {
       <div>
         <h1>Mis Sociedades</h1>
         <div>
-          <p>Cargando...</p>
+          <Loading />
         </div>
       </div>
     );
@@ -218,7 +219,7 @@ export default function UploadedInvoices() {
               <tbody>
                 {facturas.map((obj) => (
                   <tr key={obj.id_facturas_subidas}>
-                    <td>{obj.nombre_factura}</td>
+                    <td>{obj.nombre_completo}</td>
 
                     <td>
                       <a
