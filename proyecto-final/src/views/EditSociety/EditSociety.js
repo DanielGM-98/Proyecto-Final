@@ -84,7 +84,7 @@ export default function EditSociety() {
   }
   return (
     <div>
-      <h1>Editar Sociedad</h1>
+      <h1 className="text-light my-5">Editar Sociedad</h1>
       <div className="signin container my-4 py-5 bg-op settings-menu scroll-part rounded p-md-5">
         <section>
           {sociedad.logo !== null && (

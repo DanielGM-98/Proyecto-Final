@@ -10,7 +10,7 @@ export default function Facturas() {
   const [society, setSociety] = useState(null);
   const [n, setN] = useState(0);
   const [sociedad, setSociedad] = useState(null);
-  const [idsociedad, setIdSociedad] = useState(1);
+  const [idsociedad, setIdSociedad] = useState(null);
   const [facturas, setFacturas] = useState([]);
   const { auth } = useAuthContext();
 
@@ -57,26 +57,37 @@ export default function Facturas() {
     setN(n + 1);
   }
   //Llamar a todas las sociedades
+  useEffect(function () {
+    function callSocieties() {
+      let xhttp = new XMLHttpRequest();
+      let data = { id_usuario: auth.id_usuario };
+      xhttp.onreadystatechange = function () {
+        if (this.readyState === 4 && this.status === 200) {
+          setSociety(JSON.parse(this.responseText));
+        }
+      };
+
+      xhttp.open("POST", "http://localhost:8080/selectsocieties", true);
+      xhttp.setRequestHeader("Content-Type", "application/json");
+      xhttp.send(JSON.stringify(data));
+    }
+    callSocieties();
+  }, []);
+  //Introduce la primera id de la sociedad al cargar todas las sociedades
   useEffect(
     function () {
-      function callSocieties() {
-        let xhttp = new XMLHttpRequest();
-        let data = { id_usuario: auth.id_usuario };
-        xhttp.onreadystatechange = function () {
-          if (this.readyState === 4 && this.status === 200) {
-            setSociety(JSON.parse(this.responseText));
-          }
-        };
+      function addIdSociety() {
+        if (society) {
+          setN(n + 1);
+          setIdSociedad(society[0].id_sociedad);
+        }
 
-        xhttp.open("POST", "http://localhost:8080/selectsocieties", true);
-        xhttp.setRequestHeader("Content-Type", "application/json");
-        xhttp.send(JSON.stringify(data));
+        /*  */
       }
-      callSocieties();
+      addIdSociety();
     },
-    [auth, n]
+    [society],
   );
-
   //Llamar a una sociedad
   useEffect(
     function () {
@@ -95,7 +106,7 @@ export default function Facturas() {
       }
       callSociety();
     },
-    [n, idsociedad]
+    [n, idsociedad],
   );
 
   //Llamar a todas las facturas del usuario
@@ -128,7 +139,7 @@ export default function Facturas() {
       }
       callFacturas();
     },
-    [auth, n, idsociedad]
+    [auth, n, idsociedad],
   );
 
   if (!society || !sociedad || !facturas) {

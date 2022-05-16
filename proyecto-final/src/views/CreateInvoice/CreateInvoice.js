@@ -108,7 +108,6 @@ export default function CreateInvoice() {
       let data = { id_usuario: auth.id_usuario };
       xhttp.onreadystatechange = function () {
         if (this.readyState === 4 && this.status === 200) {
-          setN(n + 1);
           setSociety(JSON.parse(this.responseText));
           setN(n + 1);
         }
@@ -121,6 +120,7 @@ export default function CreateInvoice() {
     callSocieties();
   }, []);
 
+  //Introduce la primera id de la sociedad al cargar todas las sociedades
   useEffect(
     function () {
       function addIdSociety() {
@@ -198,7 +198,7 @@ export default function CreateInvoice() {
   if (society.length === 0) {
     return (
       <div className="text-light">
-        <h1 className="my-5">Crear Factura</h1>
+        <h1 className="text-light my-5">Crear Factura</h1>
         <div className="container backgr-op settings-menu scroll-part rounded p-5">
           <p>Aún no has añadido ninguna sociedad</p>
           <p>
@@ -218,7 +218,7 @@ export default function CreateInvoice() {
 
   return (
     <div>
-      <h1>Crear Factura</h1>
+      <h1 className="text-light my-5">Crear Factura</h1>
       <br />
       <div
         id="element1"

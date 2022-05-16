@@ -13,7 +13,7 @@ export default function UploadedInvoices() {
   const [society, setSociety] = useState(null);
   const [n, setN] = useState(0);
   const [sociedad, setSociedad] = useState(null);
-  const [idsociedad, setIdSociedad] = useState(1);
+  const [idsociedad, setIdSociedad] = useState(null);
   const [facturas, setFacturas] = useState([]);
   const { auth } = useAuthContext();
 
@@ -41,7 +41,6 @@ export default function UploadedInvoices() {
           if (result.isConfirmed) {
             xhttp.onreadystatechange = function () {
               if (this.readyState === 4 && this.status === 200) {
-                console.log(this.responseText);
                 setN(n + 1);
               }
             };
@@ -88,7 +87,23 @@ export default function UploadedInvoices() {
       }
       callSocieties();
     },
-    [auth, n],
+    [auth],
+  );
+
+  //Introduce la primera id de la sociedad al cargar todas las sociedades
+  useEffect(
+    function () {
+      function addIdSociety() {
+        if (society) {
+          setN(n + 1);
+          setIdSociedad(society[0].id_sociedad);
+        }
+
+        /*  */
+      }
+      addIdSociety();
+    },
+    [society],
   );
 
   //Llamar a una sociedad
@@ -173,7 +188,7 @@ export default function UploadedInvoices() {
 
   return (
     <div>
-      <h1>Mis facturas</h1>
+      <h1 className="text-light my-5">Facturas Subidas</h1>
 
       <div>
         {facturas.length === 0 ? (

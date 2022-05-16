@@ -9,7 +9,7 @@ export default function UploadInvoice() {
   const [society, setSociety] = useState(null);
   const [n, setN] = useState(0);
   const [sociedad, setSociedad] = useState(null);
-  const [idsociedad, setIdSociedad] = useState(1);
+  const [idsociedad, setIdSociedad] = useState(null);
 
   const [factura, setFactura] = useState({
     id_sociedad: "",
@@ -17,26 +17,23 @@ export default function UploadInvoice() {
     fecha: "",
   });
 
-  useEffect(
-    function () {
-      function callSocieties() {
-        let xhttp = new XMLHttpRequest();
-        let data = { id_usuario: auth.id_usuario };
-        xhttp.onreadystatechange = function () {
-          if (this.readyState === 4 && this.status === 200) {
-            setSociety(JSON.parse(this.responseText));
-            setN(n + 1);
-          }
-        };
+  useEffect(function () {
+    function callSocieties() {
+      let xhttp = new XMLHttpRequest();
+      let data = { id_usuario: auth.id_usuario };
+      xhttp.onreadystatechange = function () {
+        if (this.readyState === 4 && this.status === 200) {
+          setSociety(JSON.parse(this.responseText));
+          setN(n + 1);
+        }
+      };
 
-        xhttp.open("POST", "http://localhost:8080/selectsocieties", true);
-        xhttp.setRequestHeader("Content-Type", "application/json");
-        xhttp.send(JSON.stringify(data));
-      }
-      callSocieties();
-    },
-    [auth, n],
-  );
+      xhttp.open("POST", "http://localhost:8080/selectsocieties", true);
+      xhttp.setRequestHeader("Content-Type", "application/json");
+      xhttp.send(JSON.stringify(data));
+    }
+    callSocieties();
+  }, []);
 
   function handleInputs(e) {
     setFactura({ ...factura, [e.target.name]: e.target.value });
@@ -47,6 +44,22 @@ export default function UploadInvoice() {
     setIdSociedad(e.target.value);
     setN(n + 1);
   }
+
+  //Introduce la primera id de la sociedad al cargar todas las sociedades
+  useEffect(
+    function () {
+      function addIdSociety() {
+        if (society) {
+          setN(n + 1);
+          setIdSociedad(society[0].id_sociedad);
+        }
+
+        /*  */
+      }
+      addIdSociety();
+    },
+    [society],
+  );
 
   useEffect(
     function () {
@@ -95,20 +108,10 @@ export default function UploadInvoice() {
       }
     });
   }
-  if (!society)
+  if (!society || !sociedad)
     return (
       <div>
-        <h1>Mis Sociedades</h1>
-        <div>
-          <p>Cargando...</p>
-        </div>
-      </div>
-    );
-
-  if (!sociedad)
-    return (
-      <div>
-        <h1>Mis Sociedades</h1>
+        <h1 className="text-light my-5">Subir Factura</h1>
         <div>
           <p>Cargando...</p>
         </div>
@@ -118,7 +121,7 @@ export default function UploadInvoice() {
   if (society.length === 0) {
     return (
       <div>
-        <h1>Crear Factura</h1>
+        <h1 className="text-light my-5">Subir Factura</h1>
         <div>
           <p>Aún no has añadido ninguna sociedad</p>
           <p>
@@ -137,7 +140,7 @@ export default function UploadInvoice() {
   }
   return (
     <div>
-      <h1>Crear Factura</h1>
+      <h1 className="text-light my-5">Subir Factura</h1>
       <br />
       <div
         id="element1"
