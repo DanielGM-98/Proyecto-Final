@@ -139,7 +139,7 @@ export default function CreateInvoice() {
       }
       callSociety();
     },
-    [n, idsociedad],
+    [idsociedad],
   );
 
   const [company, setCompany] = useState({
@@ -217,6 +217,9 @@ export default function CreateInvoice() {
             ))}
           </select>
         </h3>
+        <div>
+          <p>Nombre de la sociedad: {sociedad[0].nombre_sociedad}</p>
+        </div>
 
         <button onClick={() => next1()} className="btn btn-primary mt-3">
           Siguiente

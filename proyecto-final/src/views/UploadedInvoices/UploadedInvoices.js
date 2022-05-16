@@ -213,6 +213,7 @@ export default function UploadedInvoices() {
               <thead className="thead-dark">
                 <tr>
                   <th scope="col">Nombre archivo</th>
+                  <th scope="col">Fecha</th>
                   <th scope="col">Acciones</th>
                 </tr>
               </thead>
@@ -220,7 +221,7 @@ export default function UploadedInvoices() {
                 {facturas.map((obj) => (
                   <tr key={obj.id_facturas_subidas}>
                     <td>{obj.nombre_completo}</td>
-
+                    <td>{obj.fecha}</td>
                     <td>
                       <a
                         href={obj.nombre_factura}

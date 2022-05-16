@@ -347,11 +347,12 @@ app.post("/uploadinvoice", function (req, res) {
 
   nombre_factura = nombre_factura.split("\\");
   let nombre_completo = nombre_factura[2];
+  let fecha = req.body.fecha;
   let facturaFull = "http://localhost:8080/files/" + nombre_factura[2];
 
   connection.query(
-    "insert into facturas_subidas(nombre_factura, id_sociedad,nombre_completo) values(?,?,?)",
-    [facturaFull, id_sociedad, nombre_completo],
+    "insert into facturas_subidas(nombre_factura, id_sociedad,nombre_completo,fecha) values(?,?,?,?)",
+    [facturaFull, id_sociedad, nombre_completo, fecha],
     function (err, results) {
       if (err) {
         res.send("Error:" + err.message);
@@ -389,7 +390,7 @@ app.post("/selectuploadedinvoices", function (req, res) {
   console.log(req.body);
   let id_sociedad = Number(req.body.id_sociedad);
   connection.query(
-    "select * from facturas_subidas where id_sociedad=?",
+    "select * from facturas_subidas where id_sociedad=? order by fecha desc",
     [id_sociedad],
     function (err, results) {
       if (err) {

@@ -14,6 +14,7 @@ export default function UploadInvoice() {
   const [factura, setFactura] = useState({
     id_sociedad: "",
     factura: "",
+    fecha: "",
   });
 
   useEffect(
@@ -84,8 +85,7 @@ export default function UploadInvoice() {
         let data = factura;
         xhttp.onreadystatechange = function () {
           if (this.readyState === 4 && this.status === 200) {
-            navigate("/inicio");
-            navigate("/ajustes");
+            navigate("/uploadedinvoices");
           }
         };
 
@@ -155,6 +155,14 @@ export default function UploadInvoice() {
         </h3>
         <section className="m-auto">
           <form onSubmit={handleSubmit}>
+            <label htmlFor="date">Fecha de la operación:</label>
+            <input
+              type="date"
+              id="date"
+              name="fecha"
+              onChange={handleInputs}
+              required
+            />
             <label htmlFor="icono_sociedad">
               Sube la factura para guardarla:
             </label>
