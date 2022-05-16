@@ -230,33 +230,11 @@ export default function Facturas() {
                       </button>
                     </td>
                   </tr>
-                </thead>
-                <tbody>
-                  {facturas.map((obj) => (
-                    <tr key={obj.id_factura}>
-                      <td>{obj.nombre_empresa}</td>
-                      <td>{obj.date}</td>
-                      <td>
-                        <Link
-                          className="btn btn-primary btn-sm mx-2"
-                          to={`/factura/${obj.id_factura}`}
-                        >
-                          <EditIcon />
-                        </Link>
-                        <button
-                          className="btn btn-danger btn-sm"
-                          onClick={() => deleteInvoice(obj.id_factura)}
-                        >
-                          <DeleteIcon />
-                        </button>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          )}
-        </div>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        )}
       </div>
     </div>
   );
