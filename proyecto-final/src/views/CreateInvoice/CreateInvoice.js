@@ -102,24 +102,38 @@ export default function CreateInvoice() {
   }
 
   //Llamar a todas las sociedades
+  useEffect(function () {
+    function callSocieties() {
+      let xhttp = new XMLHttpRequest();
+      let data = { id_usuario: auth.id_usuario };
+      xhttp.onreadystatechange = function () {
+        if (this.readyState === 4 && this.status === 200) {
+          setN(n + 1);
+          setSociety(JSON.parse(this.responseText));
+          setN(n + 1);
+        }
+      };
+
+      xhttp.open("POST", "http://localhost:8080/selectsocieties", true);
+      xhttp.setRequestHeader("Content-Type", "application/json");
+      xhttp.send(JSON.stringify(data));
+    }
+    callSocieties();
+  }, []);
+
   useEffect(
     function () {
-      function callSocieties() {
-        let xhttp = new XMLHttpRequest();
-        let data = { id_usuario: auth.id_usuario };
-        xhttp.onreadystatechange = function () {
-          if (this.readyState === 4 && this.status === 200) {
-            setSociety(JSON.parse(this.responseText));
-          }
-        };
+      function addIdSociety() {
+        if (society) {
+          setN(n + 1);
+          setIdSociedad(society[0].id_sociedad);
+        }
 
-        xhttp.open("POST", "http://localhost:8080/selectsocieties", true);
-        xhttp.setRequestHeader("Content-Type", "application/json");
-        xhttp.send(JSON.stringify(data));
+        /*  */
       }
-      callSocieties();
+      addIdSociety();
     },
-    [auth, n]
+    [society],
   );
 
   //Llama a una sociedad
@@ -127,6 +141,7 @@ export default function CreateInvoice() {
     function () {
       function callSociety() {
         let xhttp = new XMLHttpRequest();
+        //console.log(society);
         let data = { id_sociedad: idsociedad };
         xhttp.onreadystatechange = function () {
           if (this.readyState === 4 && this.status === 200) {
@@ -141,7 +156,7 @@ export default function CreateInvoice() {
       }
       callSociety();
     },
-    [idsociedad],
+    [idsociedad, society],
   );
 
   const [company, setCompany] = useState({

@@ -246,7 +246,7 @@ app.post("/updatesociety", function (req, res) {
 app.post("/selectinvoices", function (req, res) {
   let connection = conectar();
 
-  let id_sociedad = req.body.id_sociedad;
+  let id_sociedad = Number(req.body.id_sociedad);
   connection.query(
     "select * from facturas where id_sociedad=? order by date desc",
     [id_sociedad],
