@@ -1,5 +1,6 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useEffect, useRef, useState } from "react";
+import Swal from "sweetalert2";
 
 import { useDatabaseContext } from "../../context/DatabaseContext";
 import { useAuthContext } from "../../context/AuthContext";
@@ -7,6 +8,7 @@ export default function SocietyCreate() {
   const { errorRegister, registerSociety } = useDatabaseContext();
   const { auth } = useAuthContext();
 
+  const [n, setN] = useState(0);
   const navigate = useNavigate();
   const userRef = useRef();
   const [sociedad, setSociedad] = useState({
@@ -30,8 +32,20 @@ export default function SocietyCreate() {
   function handleSubmit(e) {
     e.preventDefault();
     registerSociety(sociedad);
+    setN(n + 1);
     console.log(sociedad);
-    navigate("/ajustes");
+    Swal.fire({
+      title: "Sociedad insertada!",
+      icon: "success",
+      allowOutsideClick: false,
+    }).then((result) => {
+      /* Read more about isConfirmed, isDenied below */
+      if (result.isConfirmed) {
+        navigate("/inicio");
+        navigate("/ajustes");
+      }
+    });
+    //navigate("/ajustes");
   }
   return (
     <div className="signin">

@@ -44,7 +44,7 @@ a:visited {
 }
 
 .link-page{
-  color:rgb(70, 54, 161)!important
+  color:rgb(255, 0, 0)!important
 }
 input[type="text"],
 input[type="password"],
@@ -53,12 +53,14 @@ input[type="date"],
 button,
 textarea, select {
   font-family: "Nunito", sans-serif;
-  font-size: 22px;
+  
   padding: 0.25rem;
   border-radius: 0.5rem;
 }
-label,
-
+label
+ {
+  margin-top: 1rem;
+}
 button {
   padding: 0.5rem;
 }
@@ -205,4 +207,8 @@ button {
 .trigger-btn {
   display: inline-block;
   margin: 100px auto;
+}
+
+.bg-op{
+  background-color: rgba(255,255,255,0.5);
 }

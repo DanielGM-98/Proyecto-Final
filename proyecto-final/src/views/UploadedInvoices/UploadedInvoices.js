@@ -3,10 +3,13 @@ import { useAuthContext } from "../../context/AuthContext";
 import { Link } from "react-router-dom";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
+import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
 import missing from "../images/missing.png";
 import Swal from "sweetalert2";
+import { format } from "util";
+import Loading from "../../components/Loading";
 
-export default function Facturas() {
+export default function UploadedInvoices() {
   const [society, setSociety] = useState(null);
   const [n, setN] = useState(0);
   const [sociedad, setSociedad] = useState(null);
@@ -16,7 +19,8 @@ export default function Facturas() {
 
   function deleteInvoice(id) {
     let xhttp = new XMLHttpRequest();
-    let data = { id_factura: id };
+    let data = { id_facturas_subidas: id };
+
     Swal.fire({
       title: "¿Estas seguro de querer eliminar esta factura?",
       text: "No podrás volver atrás",
@@ -42,7 +46,11 @@ export default function Facturas() {
               }
             };
 
-            xhttp.open("POST", "http://localhost:8080/deleteinvoice", true);
+            xhttp.open(
+              "POST",
+              "http://localhost:8080/deleteuploadedinvoice",
+              true,
+            );
             xhttp.setRequestHeader("Content-Type", "application/json");
             xhttp.send(JSON.stringify(data));
           }
@@ -65,6 +73,12 @@ export default function Facturas() {
         xhttp.onreadystatechange = function () {
           if (this.readyState === 4 && this.status === 200) {
             setSociety(JSON.parse(this.responseText));
+            for (let factura of facturas) {
+              let x = factura.nombre_factura.split("/");
+              console.log(x);
+              factura.nombre_factura = x[4];
+              console.log(facturas);
+            }
           }
         };
 
@@ -74,7 +88,7 @@ export default function Facturas() {
       }
       callSocieties();
     },
-    [auth, n]
+    [auth, n],
   );
 
   //Llamar a una sociedad
@@ -95,7 +109,7 @@ export default function Facturas() {
       }
       callSociety();
     },
-    [n, idsociedad]
+    [n, idsociedad],
   );
 
   //Llamar a todas las facturas del usuario
@@ -107,28 +121,21 @@ export default function Facturas() {
         let data = { id_sociedad: idsociedad };
         xhttp.onreadystatechange = function () {
           if (this.readyState === 4 && this.status === 200) {
-            let x = JSON.parse(this.responseText);
-            let j = [];
-
-            for (let y of x) {
-              let h = JSON.parse(y.datos);
-              j = [];
-              for (let z of h) {
-                j.push(z);
-                y.datos = j;
-              }
-            }
-            setFacturas(x);
+            setFacturas(JSON.parse(this.responseText));
           }
         };
 
-        xhttp.open("POST", "http://localhost:8080/selectinvoices", true);
+        xhttp.open(
+          "POST",
+          "http://localhost:8080/selectuploadedinvoices",
+          true,
+        );
         xhttp.setRequestHeader("Content-Type", "application/json");
         xhttp.send(JSON.stringify(data));
       }
       callFacturas();
     },
-    [auth, n, idsociedad]
+    [auth, n, idsociedad],
   );
 
   if (!society || !sociedad || !facturas) {
@@ -136,7 +143,7 @@ export default function Facturas() {
       <div>
         <h1>Mis Sociedades</h1>
         <div>
-          <p>Cargando...</p>
+          <Loading />
         </div>
       </div>
     );
@@ -205,58 +212,37 @@ export default function Facturas() {
             <table className="table ">
               <thead className="thead-dark">
                 <tr>
-                  <th scope="col">Nombre empresa</th>
-                  <th scope="col">Fecha Creación</th>
+                  <th scope="col">Nombre archivo</th>
+                  <th scope="col">Fecha</th>
                   <th scope="col">Acciones</th>
                 </tr>
               </thead>
               <tbody>
                 {facturas.map((obj) => (
-                  <tr key={obj.id_factura}>
-                    <td>{obj.nombre_empresa}</td>
-                    <td>{obj.date}</td>
+                  <tr key={obj.id_facturas_subidas}>
+                    <td>{obj.nombre_completo}</td>
+                    <td>{obj.fecha}</td>
                     <td>
-                      <Link
+                      <a
+                        href={obj.nombre_factura}
                         className="btn btn-primary btn-sm mx-2"
-                        to={`/factura/${obj.id_factura}`}
+                        target="_blank"
                       >
-                        <EditIcon />
-                      </Link>
+                        <RemoveRedEyeIcon />
+                      </a>
                       <button
                         className="btn btn-danger btn-sm"
-                        onClick={() => deleteInvoice(obj.id_factura)}
+                        onClick={() => deleteInvoice(obj.id_facturas_subidas)}
                       >
                         <DeleteIcon />
                       </button>
                     </td>
                   </tr>
-                </thead>
-                <tbody>
-                  {facturas.map((obj) => (
-                    <tr key={obj.id_factura}>
-                      <td>{obj.nombre_empresa}</td>
-                      <td>{obj.date}</td>
-                      <td>
-                        <Link
-                          className="btn btn-primary btn-sm mx-2"
-                          to={`/factura/${obj.id_factura}`}
-                        >
-                          <EditIcon />
-                        </Link>
-                        <button
-                          className="btn btn-danger btn-sm"
-                          onClick={() => deleteInvoice(obj.id_factura)}
-                        >
-                          <DeleteIcon />
-                        </button>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          )}
-        </div>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        )}
       </div>
     </div>
   );

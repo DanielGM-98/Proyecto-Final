@@ -3,6 +3,7 @@ import { useAuthContext } from "../../context/AuthContext";
 import { Link } from "react-router-dom";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
+import Swal from "sweetalert2";
 
 export default function MySocieties() {
   const { auth } = useAuthContext();
@@ -12,16 +13,39 @@ export default function MySocieties() {
   function deleteSociety(id) {
     let xhttp = new XMLHttpRequest();
     let data = { id_sociedad: id };
-    xhttp.onreadystatechange = function () {
-      if (this.readyState === 4 && this.status === 200) {
-        console.log(this.responseText);
-        setN(n + 1);
-      }
-    };
 
-    xhttp.open("POST", "http://localhost:8080/deletesociety", true);
-    xhttp.setRequestHeader("Content-Type", "application/json");
-    xhttp.send(JSON.stringify(data));
+    Swal.fire({
+      title: "¿Estas seguro de querer eliminar esta sociedad?",
+      text: "Esta acción es irreversible",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Eliminar",
+      allowOutsideClick: false,
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire({
+          title: "Eliminado!",
+          text: "La sociedad ha sido eliminada con éxito",
+          icon: "success",
+          allowOutsideClick: false,
+        }).then((result) => {
+          if (result.isConfirmed) {
+            xhttp.onreadystatechange = function () {
+              if (this.readyState === 4 && this.status === 200) {
+                console.log(this.responseText);
+                setN(n + 1);
+              }
+            };
+
+            xhttp.open("POST", "http://localhost:8080/deletesociety", true);
+            xhttp.setRequestHeader("Content-Type", "application/json");
+            xhttp.send(JSON.stringify(data));
+          }
+        });
+      }
+    });
   }
 
   //Llamar a todas las sociedades
@@ -42,7 +66,7 @@ export default function MySocieties() {
       }
       callSocieties();
     },
-    [auth, n]
+    [auth, n],
   );
 
   //Llama a una sociedad
@@ -78,7 +102,7 @@ export default function MySocieties() {
     );
   }
   return (
-    <div className="text-light">
+    <div className="p-md-5">
       <h1>Mis Sociedades</h1>
       <div className="container mt-5 ">
         <table className="table text-light">

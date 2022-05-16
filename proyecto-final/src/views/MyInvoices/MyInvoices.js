@@ -3,7 +3,7 @@ export default function MyInvoices() {
   return (
     <div>
       <h1>Facturas</h1>
-      <Link to="/factura" className="text-info">
+      <Link to="/factura" className="text-info ">
         Factura de ejemplo
       </Link>
     </div>

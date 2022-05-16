@@ -84,6 +84,26 @@ export default function Navbar() {
                 <Link
                   data-toggle="collapse"
                   aria-expanded="false"
+                  to="uploadinvoice"
+                  onClick={() => closeMenu()}
+                >
+                  Subir factura
+                </Link>
+              </li>
+              <li>
+                <Link
+                  data-toggle="collapse"
+                  aria-expanded="false"
+                  to="uploadedinvoices"
+                  onClick={() => closeMenu()}
+                >
+                  Facturas subidas
+                </Link>
+              </li>
+              <li>
+                <Link
+                  data-toggle="collapse"
+                  aria-expanded="false"
                   to="ajustes"
                   onClick={() => closeMenu()}
                 >

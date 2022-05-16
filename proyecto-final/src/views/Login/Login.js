@@ -36,9 +36,13 @@ export default function Login() {
       password: "",
     });
     if (x) {
+      setInProp(true);
+      /* document.getElementById("bg-login").classList.remove("d-none");
+      document.getElementById("myModal").classList.add("d-block");
+      document.getElementById("myModal").classList.add("show");
+      document.getElementById("myModal").classList.remove("d-none"); */
       Swal.fire({
-        title: "Inicio de sesión correcto!",
-        text: "You clicked the button!",
+        title: "Inicio de sesión correcto",
         icon: "success",
         allowOutsideClick: false,
       }).then((result) => {
@@ -47,13 +51,14 @@ export default function Login() {
           navigate("/ajustes");
         }
       });
+      //navigate("/ajustes");
     } else {
       navigate("/login");
     }
   }
 
   return (
-    <div className="signin">
+    <div className="signin container settings-menu scroll-part rounded my-4 py-5">
       <section>
         <p
           className={errorMessage ? "errmsg" : "offscreen"}
@@ -62,35 +67,11 @@ export default function Login() {
           {errorMessage}
         </p>
 
-        {/* <div id="myModal" className="modal fade">
-          <div className="modal-dialog modal-confirm">
-            <div className="modal-content">
-              <div className="modal-header">
-                <div className="icon-box">
-                  <DoneIcon className="w-100 h-auto" />
-                </div>
-                <h4 className="modal-title w-100">Awesome!</h4>
-              </div>
-              <div className="modal-body">
-                <p className="text-center">Inicio de sesión correcto</p>
-              </div>
-              <div className="modal-footer">
-                <button
-                  className="btn btn-success btn-block w-100"
-                  data-dismiss="modal"
-                  onClick={() => navigateTo()}
-                >
-                  OK
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div className="modal-backdrop fade show d-none" id="bg-login"></div> */}
-
-        <h1>Inicia Sesión</h1>
+        <h1 className="text-light">Inicia Sesión</h1>
         <form onSubmit={handleSubmit}>
-          <label htmlFor="email">Correo electrónico:</label>
+          <label htmlFor="email" className="text-light">
+            Correo electrónico:
+          </label>
           <input
             type="text"
             id="email"
@@ -101,7 +82,9 @@ export default function Login() {
             value={user.email}
             required
           />
-          <label htmlFor="password">Contraseña:</label>
+          <label htmlFor="password" className="text-light">
+            Contraseña:
+          </label>
           <input
             type="password"
             id="password"
@@ -113,7 +96,7 @@ export default function Login() {
 
           <button className="btn btn-primary mt-3">Iniciar Sesión</button>
         </form>
-        <p>
+        <p className="text-light">
           ¿Aún no estás registrado? Registrate{" "}
           <Link className="link-page" to="/registro">
             aquí
