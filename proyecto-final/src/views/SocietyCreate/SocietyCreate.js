@@ -19,6 +19,7 @@ export default function SocietyCreate() {
     telefono_sociedad: "",
     icono_empresa: "",
     codigo_pais: "",
+    cif: "",
   });
 
   useEffect(function () {
@@ -107,6 +108,18 @@ export default function SocietyCreate() {
             name="telefono_sociedad"
             onChange={handleInputs}
             value={sociedad.telefono_sociedad}
+            required
+          />
+
+          <label htmlFor="cif">Código de Identificación Fiscal:</label>
+          <input
+            type="text"
+            id="cif"
+            name="cif"
+            autoComplete="off"
+            onChange={handleInputs}
+            value={sociedad.cif}
+            pattern="[A-B]+[-]+[0-9]{8}"
             required
           />
 

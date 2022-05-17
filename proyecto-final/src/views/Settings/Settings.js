@@ -58,6 +58,19 @@ export default function Settings() {
                   >
                     <EditIcon /> Editar Usuario
                   </button>
+
+                  <button
+                    className="nav-link text-light my-3"
+                    id="v-pills-messages-tab"
+                    data-bs-toggle="pill"
+                    data-bs-target="#v-pills-messages"
+                    type="button"
+                    role="tab"
+                    aria-controls="v-pills-messages"
+                    aria-selected="false"
+                  >
+                    <GroupsIcon /> Mis Sociedades
+                  </button>
                   <button
                     className="nav-link text-light my-3"
                     id="v-pills-profile-tab"
@@ -70,18 +83,6 @@ export default function Settings() {
                   >
                     <AddIcon />
                     Añadir Sociedad
-                  </button>
-                  <button
-                    className="nav-link text-light my-3"
-                    id="v-pills-messages-tab"
-                    data-bs-toggle="pill"
-                    data-bs-target="#v-pills-messages"
-                    type="button"
-                    role="tab"
-                    aria-controls="v-pills-messages"
-                    aria-selected="false"
-                  >
-                    <GroupsIcon /> Mis Sociedades
                   </button>
                 </div>
               </div>

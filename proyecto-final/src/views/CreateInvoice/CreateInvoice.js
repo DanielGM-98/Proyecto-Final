@@ -81,6 +81,7 @@ export default function CreateInvoice() {
     company.logo = sociedad[0].logo;
     company.nombre_sociedad = sociedad[0].nombre_sociedad;
     company.id_sociedad = sociedad[0].id_sociedad;
+    company.cif = sociedad[0].cif;
 
     Swal.fire({
       title: "Factura creada!",
@@ -173,6 +174,7 @@ export default function CreateInvoice() {
     id_sociedad: "",
     numero_tarjeta: "",
     forma_pago: "efectivo",
+    cif: "",
   });
 
   if (!society)
@@ -224,18 +226,22 @@ export default function CreateInvoice() {
         id="element1"
         className="container my-4 py-5 bg-op settings-menu scroll-part rounded"
       >
-        <h3>
-          Seleccione una sociedad:{" "}
-          <select name="select" onChange={handleSelect}>
-            {society.map((soc) => (
-              <option value={soc.id_sociedad} key={soc.id_sociedad}>
-                {soc.nombre_sociedad}
-              </option>
-            ))}
-          </select>
-        </h3>
+        <h3>Seleccione una sociedad: </h3>
+        <select name="select" onChange={handleSelect}>
+          {society.map((soc) => (
+            <option value={soc.id_sociedad} key={soc.id_sociedad}>
+              {soc.nombre_sociedad}
+            </option>
+          ))}
+        </select>
         <div>
+          <img
+            src={sociedad[0].logo}
+            className="m-auto logo-invoice my-5"
+            alt="logo-empresa"
+          />
           <p>Nombre de la sociedad: {sociedad[0].nombre_sociedad}</p>
+          <p>Dirección de la sociedad: {sociedad[0].direccion_sociedad}</p>
         </div>
 
         <button onClick={() => next1()} className="btn btn-primary mt-3">

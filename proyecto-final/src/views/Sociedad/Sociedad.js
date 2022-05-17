@@ -87,6 +87,15 @@ export default function Sociedad() {
               readOnly
               className="text-center"
             />
+            <label htmlFor="cif">Código de Identificación Fiscal:</label>
+            <input
+              type="text"
+              id="email"
+              name="email"
+              value={sociedad[0].cif}
+              readOnly
+              className="text-center"
+            />
           </form>
           <Link
             to={`/editarsociedad/${sociedad[0].id_sociedad}`}

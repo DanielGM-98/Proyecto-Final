@@ -1,5 +1,8 @@
 import { createContext, useContext, useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { useAuthContext } from "./AuthContext";
+import Swal from "sweetalert2";
+
 const DatabaseContext = createContext({
   users: [],
   setUsers: () => {},
@@ -22,7 +25,7 @@ export default function DatabaseContextProvider({ children }) {
   const [errorRegister, setErrorRegister] = useState("");
   const [errorRegisterSociety, setErrorRegisterSociety] = useState("");
   const [society, setSociety] = useState(null);
-
+  const navigate = useNavigate();
   useEffect(
     function () {
       function callUsers() {
@@ -78,6 +81,7 @@ export default function DatabaseContextProvider({ children }) {
 
   //Función para registrar un usuario
   function register(data) {
+    let x = false;
     let url = "http://localhost:8080/insertuser";
 
     let xhttp = new XMLHttpRequest();
@@ -88,10 +92,20 @@ export default function DatabaseContextProvider({ children }) {
           `Error:ER_DUP_ENTRY: Duplicate entry '${data.email}' for key 'email_UNIQUE'`
         ) {
           setErrorRegister("Error: Ya existe un usuario con ese email");
+
+          setAct(act + 1);
         } else {
           setErrorRegister("");
+          setAct(act + 1);
+          Swal.fire({
+            title: "Usuario registrado!",
+            icon: "success",
+            text: "Ahora inicia sesión para continuar",
+            allowOutsideClick: false,
+          }).then((result) => {
+            navigate("/login");
+          });
         }
-        setAct(act + 1);
       }
     };
     xhttp.open("POST", url, true);

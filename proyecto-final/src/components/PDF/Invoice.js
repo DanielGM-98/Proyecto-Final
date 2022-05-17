@@ -1,5 +1,12 @@
 import React from "react";
-import { Page, Document, Image, StyleSheet } from "@react-pdf/renderer";
+import {
+  Page,
+  Document,
+  Image,
+  StyleSheet,
+  View,
+  Text,
+} from "@react-pdf/renderer";
 import InvoiceTitle from "./InvoiceTitle";
 import BillTo from "./BillTo";
 import InvoiceNo from "./InvoiceNo";
@@ -16,7 +23,6 @@ const styles = StyleSheet.create({
     paddingLeft: 60,
     paddingRight: 60,
     lineHeight: 1.5,
-    flexDirection: "column",
   },
   logo: {
     width: 74,
@@ -26,19 +32,37 @@ const styles = StyleSheet.create({
   descSociedad: {
     color: "black",
   },
+
+  society: {
+    float: "right",
+  },
+
+  titleContainer: {
+    flexDirection: "row",
+    marginTop: 12,
+    justifyContent: "space-between",
+  },
 });
 
 export default function Invoice({ invoice }) {
   return (
     <Document>
       <Page size="A4" style={styles.page}>
-        <Image
-          style={styles.logo}
-          src={invoice.logo}
-          id="logo-img"
-          crossorigin="anonymous"
-        />
-        <InvoiceTitle style={styles.descSociedad} title="Invoice" />
+        <View style={styles.titleContainer}>
+          <Image
+            style={styles.logo}
+            src={invoice.logo}
+            id="logo-img"
+            crossorigin="anonymous"
+          />
+
+          <div style={styles.society}>
+            <Text>hola</Text>
+            <Text>hola</Text>
+            <Text>hola</Text>
+            <Text>hola</Text>
+          </div>
+        </View>
         <InvoiceNo invoice={invoice} />
         <BillTo invoice={invoice} />
         <InvoiceItemsTable invoice={invoice} />

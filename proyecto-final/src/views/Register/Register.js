@@ -1,13 +1,12 @@
-import { Link, useNavigate, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useEffect, useRef, useState } from "react";
 import { useDatabaseContext } from "../../context/DatabaseContext";
 export default function Register() {
   const { register, errorRegister } = useDatabaseContext();
-  const location = useLocation();
-  const navigate = useNavigate();
-  const userRef = useRef();
 
-  const from = location.state?.from?.pathname || "/";
+  const userRef = useRef();
+  const [n, setN] = useState(0);
+
   const [user, setUser] = useState({
     nombre: "",
     apellidos: "",
@@ -25,12 +24,12 @@ export default function Register() {
 
   function handleSubmit(e) {
     e.preventDefault();
+    setN(n + 1);
     register(user);
-
-    navigate(from, { replace: true });
+    console.log(errorRegister);
   }
   return (
-    <div className="signin">
+    <div className="signin container settings-menu scroll-part rounded my-4 py-5">
       <section>
         <p
           className={errorRegister ? "errmsg" : "offscreen"}
@@ -69,7 +68,7 @@ export default function Register() {
             Correo electrónico:
           </label>
           <input
-            type="text"
+            type="email"
             id="email"
             name="email"
             autoComplete="off"

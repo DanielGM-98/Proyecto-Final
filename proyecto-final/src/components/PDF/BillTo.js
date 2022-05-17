@@ -19,6 +19,7 @@ const BillTo = ({ invoice }) => (
     <Text>Dirección: {invoice.address}</Text>
     <Text>Teléfono: {invoice.phone}</Text>
     <Text>Email: {invoice.email}</Text>
+    <Text>CIF: {invoice.cif}</Text>
   </View>
 );
 

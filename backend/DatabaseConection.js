@@ -172,14 +172,24 @@ app.post("/insertsociety", function (req, res) {
   let telefono = Number(req.body.telefono_sociedad);
   let icono = req.body.icono_empresa;
   let codigo_pais = Number(req.body.codigo_pais);
+  let cif = req.body.cif;
 
   icono = icono.split("\\");
   let iconoFull = "http://localhost:8080/images/" + icono[2];
   let id_usuario = req.body.id_usuario;
 
   connection.query(
-    "insert into sociedades(nombre_sociedad,telefono_sociedad,email_sociedad,direccion_sociedad,logo,id_usuario,codigo_pais) values(?,?,?,?,?,?,?)",
-    [nombre, telefono, email, direccion, iconoFull, id_usuario, codigo_pais],
+    "insert into sociedades(nombre_sociedad,telefono_sociedad,email_sociedad,direccion_sociedad,logo,id_usuario,codigo_pais,cif) values(?,?,?,?,?,?,?,?)",
+    [
+      nombre,
+      telefono,
+      email,
+      direccion,
+      iconoFull,
+      id_usuario,
+      codigo_pais,
+      cif,
+    ],
     function (err, results) {
       if (err) {
         res.send("Error:" + err.message);
@@ -309,9 +319,10 @@ app.post("/insertinvoice", function (req, res) {
   let datos = JSON.stringify(req.body.datos);
   let forma_pago = req.body.forma_pago;
   let numero_tarjeta = req.body.numero_tarjeta;
+  let cif = req.body.cif;
 
   connection.query(
-    "insert into facturas(codigo,nombre_empresa,direccion_empresa,email,codigo_pais,telefono_empresa,date,nombre_sociedad,logo,id_sociedad,datos,forma_pago,numero_tarjeta) values(?,?,?,?,?,?,?,?,?,?,?,?,?)",
+    "insert into facturas(codigo,nombre_empresa,direccion_empresa,email,codigo_pais,telefono_empresa,date,nombre_sociedad,logo,id_sociedad,datos,forma_pago,numero_tarjeta,cif) values(?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
     [
       codigo,
       nombre_empresa,
@@ -326,6 +337,7 @@ app.post("/insertinvoice", function (req, res) {
       datos,
       forma_pago,
       numero_tarjeta,
+      cif,
     ],
     function (err, results) {
       if (err) {
