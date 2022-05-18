@@ -177,11 +177,11 @@ export default function Facturas() {
 
   return (
     <div>
-      <h1>Mis facturas</h1>
+      <h1 className="text-light my-5">Mis facturas</h1>
 
-      <div>
+      <div className="container my-4 py-5">
         {facturas.length === 0 ? (
-          <div className="container bg-op settings-menu scroll-part rounded my-4 py-5">
+          <div className="bg-op settings-menu scroll-part rounded py-5">
             <h3>Seleccione una sociedad:</h3>
             <select name="select  " onChange={handleSelect}>
               {society.map((soc) => (
@@ -204,7 +204,7 @@ export default function Facturas() {
             </p>
           </div>
         ) : (
-          <div className="container my-4 py-5 bg-op settings-menu scroll-part rounded p-md-5">
+          <div className="py-5 bg-op settings-menu scroll-part rounded p-md-5">
             <h3>Seleccione una sociedad:</h3>
             <select name="select  " onChange={handleSelect}>
               {society.map((soc) => (
@@ -213,7 +213,7 @@ export default function Facturas() {
                 </option>
               ))}
             </select>
-            <table className="table ">
+            <table className="table my-5">
               <thead className="thead-dark">
                 <tr>
                   <th scope="col">Nombre empresa</th>

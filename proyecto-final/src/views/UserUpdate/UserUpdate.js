@@ -52,7 +52,7 @@ export default function UserUpdate() {
     });
   }
   return (
-    <div className="signin p-md-5">
+    <div className="signin px-5 my-4">
       <section>
         <p className={errorMsg ? "errmsg" : "offscreen"} aria-live="assertive">
           {errorMsg}

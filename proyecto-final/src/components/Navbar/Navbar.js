@@ -26,16 +26,7 @@ export default function Navbar() {
 
         <ul className="list-unstyled components">
           <p>{auth ? <>Bienvenido de nuevo, {auth.nombre}</> : <>Menú</>}</p>
-          <li className="active">
-            <Link
-              data-toggle="collapse"
-              aria-expanded="false"
-              to="inicio"
-              onClick={() => closeMenu()}
-            >
-              Inicio
-            </Link>
-          </li>
+
           {!auth && (
             <>
               <li>
@@ -60,6 +51,17 @@ export default function Navbar() {
           )}
           {auth && (
             <>
+              <li>
+                <Link
+                  data-toggle="collapse"
+                  className="active"
+                  aria-expanded="false"
+                  to="ajustes"
+                  onClick={() => closeMenu()}
+                >
+                  Panel de Control
+                </Link>
+              </li>
               <li>
                 <Link
                   data-toggle="collapse"
@@ -100,16 +102,7 @@ export default function Navbar() {
                   Facturas subidas
                 </Link>
               </li>
-              <li>
-                <Link
-                  data-toggle="collapse"
-                  aria-expanded="false"
-                  to="ajustes"
-                  onClick={() => closeMenu()}
-                >
-                  Panel de Control
-                </Link>
-              </li>
+
               <li>
                 <a onClick={() => logout()}>Cerrar Sesión</a>
               </li>

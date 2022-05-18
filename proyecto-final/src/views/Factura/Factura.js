@@ -11,6 +11,9 @@ import logo from "../../components/PDF/images/logo.jpg";
 export default function Prueba() {
   const { id } = useParams();
   const [factura, setFactura] = useState(null);
+  const [sociedad, setSociedad] = useState(null);
+  const [n, setN] = useState(0);
+
   //Llamar a todas las facturas del usuario
   useEffect(
     function () {
@@ -101,7 +104,33 @@ export default function Prueba() {
       },
     ],
   };
-  if (factura) {
+
+  //Llama a una sociedad
+  useEffect(
+    function () {
+      function callSociety() {
+        if (factura) {
+          let xhttp = new XMLHttpRequest();
+          //console.log(society);
+          let data = { id_sociedad: factura.id_sociedad };
+          xhttp.onreadystatechange = function () {
+            if (this.readyState === 4 && this.status === 200) {
+              setN(n + 1);
+              setSociedad(JSON.parse(this.responseText));
+            }
+          };
+
+          xhttp.open("POST", "http://localhost:8080/selectsociety", true);
+          xhttp.setRequestHeader("Content-Type", "application/json");
+          xhttp.send(JSON.stringify(data));
+        }
+      }
+      callSociety();
+    },
+    [factura],
+  );
+
+  if (factura && sociedad) {
     if (factura.forma_pago === "tarjeta") {
       factura.numero_tarjeta =
         factura.numero_tarjeta.slice(0, 4) +
@@ -128,6 +157,12 @@ export default function Prueba() {
       forma_pago: factura.forma_pago,
       numero_tarjeta: factura.numero_tarjeta,
       cif: factura.cif,
+      nombre_sociedad: sociedad[0].nombre_sociedad,
+      direccion_sociedad: sociedad[0].direccion_sociedad,
+      cif_sociedad: sociedad[0].cif,
+      telefono_sociedad: sociedad[0].telefono_sociedad,
+      email_sociedad: sociedad[0].email_sociedad,
+      codigo_pais_sociedad: sociedad[0].codigo_pais,
     };
   }
 
@@ -139,7 +174,7 @@ export default function Prueba() {
     );
   }
   return (
-    <div>
+    <div className="my-5">
       <Fragment>
         <PDFViewer width="1000" height="600" className="app">
           <Invoice invoice={invoice} />

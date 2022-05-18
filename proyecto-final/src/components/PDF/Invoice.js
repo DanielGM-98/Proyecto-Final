@@ -57,10 +57,13 @@ export default function Invoice({ invoice }) {
           />
 
           <div style={styles.society}>
-            <Text>hola</Text>
-            <Text>hola</Text>
-            <Text>hola</Text>
-            <Text>hola</Text>
+            <Text>{invoice.nombre_sociedad}</Text>
+            <Text>{invoice.direccion_sociedad}</Text>
+            <Text>{invoice.cif_sociedad}</Text>
+            <Text>
+              +{invoice.codigo_pais_sociedad} {invoice.telefono_sociedad}
+            </Text>
+            <Text>{invoice.email_sociedad}</Text>
           </div>
         </View>
         <InvoiceNo invoice={invoice} />

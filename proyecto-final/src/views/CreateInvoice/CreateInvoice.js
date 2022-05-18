@@ -81,7 +81,6 @@ export default function CreateInvoice() {
     company.logo = sociedad[0].logo;
     company.nombre_sociedad = sociedad[0].nombre_sociedad;
     company.id_sociedad = sociedad[0].id_sociedad;
-    company.cif = sociedad[0].cif;
 
     Swal.fire({
       title: "Factura creada!",
@@ -278,7 +277,17 @@ export default function CreateInvoice() {
               value={company.direccion_empresa}
               required
             />
-
+            <label htmlFor="cif">Código de Identificación Fiscal:</label>
+            <input
+              type="text"
+              id="cif"
+              name="cif"
+              autoComplete="off"
+              onChange={handleInputs}
+              value={company.cif}
+              pattern="[A-B]+[-]+[0-9]{8}"
+              required
+            />
             <label htmlFor="email">Correo electrónico:</label>
             <input
               type="text"
@@ -307,16 +316,6 @@ export default function CreateInvoice() {
               name="telefono_company"
               onChange={handleInputs}
               value={company.telefono_company}
-              required
-            />
-
-            <label htmlFor="date">Fecha de la operación:</label>
-            <input
-              type="date"
-              id="date"
-              name="date"
-              onChange={handleInputs}
-              value={company.date}
               required
             />
 
@@ -436,7 +435,17 @@ export default function CreateInvoice() {
                 />
               </>
             )}
+            <h3 className="my-4">Fecha de la operación: </h3>
+            <input
+              type="date"
+              id="date"
+              name="date"
+              onChange={handleInputs}
+              value={company.date}
+              required
+            />
           </form>
+
           <button className="btn btn-primary mt-3" onClick={() => next3()}>
             Siguiente
           </button>

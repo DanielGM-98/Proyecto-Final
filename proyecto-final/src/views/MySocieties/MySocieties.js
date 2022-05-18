@@ -102,7 +102,7 @@ export default function MySocieties() {
     );
   }
   return (
-    <div className="p-md-5">
+    <div className="px-5 my-5">
       <h1>Mis Sociedades</h1>
       <div className="container mt-5 ">
         <table className="table text-light">

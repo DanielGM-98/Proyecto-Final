@@ -353,7 +353,6 @@ app.post("/insertinvoice", function (req, res) {
 //Subir una factura
 app.post("/uploadinvoice", function (req, res) {
   let connection = conectar();
-  console.log(req.body);
   let nombre_factura = req.body.factura;
   let id_sociedad = req.body.id_sociedad;
 
@@ -399,7 +398,7 @@ app.post("/deleteinvoice", function (req, res) {
 
 app.post("/selectuploadedinvoices", function (req, res) {
   let connection = conectar();
-  console.log(req.body);
+
   let id_sociedad = Number(req.body.id_sociedad);
   connection.query(
     "select * from facturas_subidas where id_sociedad=? order by fecha desc",

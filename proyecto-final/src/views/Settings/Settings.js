@@ -16,8 +16,8 @@ export default function Settings() {
   const { auth } = useAuthContext();
   return (
     <div className="">
-      <h1 className="my-4 text-light">Panel de Control</h1>
-      <div className="rounded-lg d-block d-sm-flex">
+      <h1 className="my-5 text-light">Panel de Control</h1>
+      <div className="rounded-lg d-block d-sm-flex py-5">
         <div className="container bg-op settings-menu scroll-part rounded">
           <div className="row">
             <div className="d-flex align-items-start">

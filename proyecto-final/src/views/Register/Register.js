@@ -29,7 +29,7 @@ export default function Register() {
     console.log(errorRegister);
   }
   return (
-    <div className="signin container settings-menu scroll-part rounded my-4 py-5">
+    <div className="signin container settings-menu rounded my-4 py-5">
       <section>
         <p
           className={errorRegister ? "errmsg" : "offscreen"}

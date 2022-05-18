@@ -14,7 +14,7 @@ const styles = StyleSheet.create({
 
 const BillTo = ({ invoice }) => (
   <View style={styles.headerContainer}>
-    <Text style={styles.billTo}>Cliente:</Text>
+    <Text style={styles.billTo}>CLIENTE:</Text>
     <Text>Nombre: {invoice.company}</Text>
     <Text>Dirección: {invoice.address}</Text>
     <Text>Teléfono: {invoice.phone}</Text>
