@@ -105,7 +105,7 @@ export default function MySocieties() {
     <div className="px-5 my-5">
       <h1>Mis Sociedades</h1>
       <div className="container mt-5 ">
-        <table className="table text-light">
+        <table className="table">
           <thead className="thead-dark">
             <tr>
               <th scope="col">Nombre Sociedad</th>

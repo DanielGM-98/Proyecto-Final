@@ -133,13 +133,7 @@ export default function Prueba() {
   if (factura && sociedad) {
     if (factura.forma_pago === "tarjeta") {
       factura.numero_tarjeta =
-        factura.numero_tarjeta.slice(0, 4) +
-        "-" +
-        factura.numero_tarjeta.slice(4);
-      factura.numero_tarjeta =
-        factura.numero_tarjeta.slice(0, 9) +
-        "-" +
-        factura.numero_tarjeta.slice(9);
+        "XXXX-XXXX-XXXX-" + factura.numero_tarjeta.slice(13, 16);
     }
     invoice = {
       id_factura: factura.id_factura,

@@ -6,7 +6,7 @@ export default function UserData() {
   return (
     <div className="my-5">
       <h1>Datos del usuario</h1>
-      <div className="signin text-light">
+      <div className="signin">
         <section>
           <form>
             <label htmlFor="nombre">Nombre:</label>

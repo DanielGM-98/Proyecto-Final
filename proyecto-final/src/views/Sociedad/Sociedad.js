@@ -35,7 +35,7 @@ export default function Sociedad() {
 
   return (
     <div>
-      <h1>Datos de la sociedad</h1>
+      <h1 className="text-light my-5">Datos de la sociedad</h1>
       <div className="signin container my-4 py-5 bg-op settings-menu scroll-part rounded p-md-5">
         <section>
           {sociedad[0].logo !== null && (
